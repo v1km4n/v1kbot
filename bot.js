@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-client.login("process.env.BOT_TOKEN");
+client.login(process.env.BOT_TOKEN);
 client.on("message", (message) => { 
 	if(message.content == "!webmub_kogda_vidos"){ 
 	message.reply("<:webmube_king:378905849864912896>");
