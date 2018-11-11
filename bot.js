@@ -12,3 +12,6 @@ client.on("message", (message) => {
 	message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
 	}
 });
+client.on("ready", ()=>{
+	client.channels.get("511298295985864714").send("I'm online!");
+}
