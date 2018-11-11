@@ -14,4 +14,4 @@ client.on("message", (message) => {
 });
 client.on("ready", ()=>{
 	client.channels.get("511298295985864714").send("I'm online!");
-}
+});
