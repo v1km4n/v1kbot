@@ -11,11 +11,14 @@ client.on("message", (message) => {
 	 "vika: хотел как анимешная девочка чихнуть, а получилась какая-то хуйня",]; //Массив с возможными ответами
 	message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
 	}
-	if(message.content == "!derzhi"){
-
+	if(message.content == "!non"){
 	message.member.addRole("511657769233809408");
-	message.channel.send("success");
+	message.reply("теперь ты занесён в список поддерживаемых в курсе. Чтобы отписаться напиши команду !noff");
 	}
+	if(message.content == "!noff"){
+	message.member.removeRole("511657769233809408");
+	message.reply("ты удалён из списка поддерживаемых в курсе. Чтобы подписаться обратно напиши команду !non");
+	}	
 });
 client.on("ready", ()=>{
 	client.channels.get("511298295985864714").send("I'm online!");
