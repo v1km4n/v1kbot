@@ -12,11 +12,12 @@ client.on("message", (message) => {
 	message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
 	}
 	if(message.content == "!derzhi"){
-	let role = message.guild.roles.find(r => r.name === "Держите в курсе");
+	let role = message.guild.roles.find(r => r.name === "derzhite");
 	
 	let member = message.mentions.members.first();
 	
 	member.addRole(role).catch(console.error);
+	message.channel.send("success");
 	}
 });
 client.on("ready", ()=>{
