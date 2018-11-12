@@ -11,7 +11,7 @@ client.on("message", (message) => {
 	 "vika: хотел как анимешная девочка чихнуть, а получилась какая-то хуйня",]; //Массив с возможными ответами
 	message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
 	}
-	if(message.content == "!wise"{
+	if(message.content == "!wise"){
 	message.channel.send("http://puu.sh/C0KWv/752fdc8f1a.PNG");
 	}
 	if(message.content == "!non"){
