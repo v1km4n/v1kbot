@@ -12,10 +12,7 @@ client.on("message", (message) => {
 	message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
 	}
 	if(message.content == "!derzhi"){
-	let role = message.guild.roles.find(r => r.name === "derzhite");
-	
-	let member = message.mentions.members.first();
-	
+
 	message.member.addRole("511657769233809408");
 	message.channel.send("success");
 	}
