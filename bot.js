@@ -16,7 +16,7 @@ client.on("message", (message) => {
 	
 	let member = message.mentions.members.first();
 	
-	member.addRole(role).catch(console.error);
+	message.member.addRole(<@&511657769233809408>);
 	message.channel.send("success");
 	}
 });
