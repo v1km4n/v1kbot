@@ -25,13 +25,10 @@ client.on("message", (message) => {
 	}	
 	if(message.content == "!stream"){
 	const embed = new Discord.RichEmbed()
-	.setTitle("Векмон подрубил стрим :thinking:")
-	.setAuthor("v1km4n", "http://puu.sh/C1FAH/bd1d3574c5.png")
+	.setAuthor("Векмон подрубил стрим :thinking:", "http://puu.sh/C1FAH/bd1d3574c5.png")
 	.setColor(0x00AE86)
-	.setThumbnail("http://i.imgur.com/p2qNFag.png")
+	.setThumbnail("http://puu.sh/C1G6R/ea227f5f40.png")
 	.setTimestamp()
-	.addField("This is a field title, it can hold 256 characters",
-	    "This is a field value, it can hold 1024 characters.")
 	.addField("YouTube", "http://youtube.com/c/V1KM4N/live", true)
 	.addBlankField(true)
 	.addField("Twitch", "https://www.twitch.tv/v1km4n", true)
