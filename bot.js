@@ -33,6 +33,7 @@ client.on("message", (message) => {
 	.addBlankField(true)
 	.addField("Twitch", "https://www.twitch.tv/v1km4n", true)
 	.addBlankField(true)
+	.setImage("https://i.imgur.com/dKco51Q.jpg")
          message.channel.send({embed});
 	}
 });
