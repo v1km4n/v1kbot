@@ -12,7 +12,8 @@ client.on("message", (message) => {
 	message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
 	}
 	if(message.content == "!wise"){
-	message.channel.send("http://puu.sh/C0KWv/752fdc8f1a.PNG");
+	const attachment = new Attachment('http://puu.sh/C0KWv/752fdc8f1a.PNG');
+        message.channel.send(attachment);
 	}
 	if(message.content == "!non"){
 	message.member.addRole("511657769233809408");
@@ -22,7 +23,23 @@ client.on("message", (message) => {
 	message.member.removeRole("511657769233809408");
 	message.reply("ты удалён из списка поддерживаемых в курсе. Чтобы подписаться обратно напиши команду !non");
 	}	
+	if(message.content == "!stream"){
+	const embed = new Discord.RichEmbed()
+	.setTitle("Векмон подрубил стрим :thinking:")
+	.setAuthor("v1km4n", "http://puu.sh/C1FAH/bd1d3574c5.png")
+	.setColor(0x00AE86)
+	.setThumbnail("http://i.imgur.com/p2qNFag.png")
+	.setTimestamp()
+	.addField("This is a field title, it can hold 256 characters",
+	    "This is a field value, it can hold 1024 characters.")
+	.addField("YouTube", "http://youtube.com/c/V1KM4N/live", true)
+	.addBlankField(true)
+	.addField("Twitch", "https://www.twitch.tv/v1km4n", true)
+	.addBlankField(true)
+         message.channel.send({embed});
+	}
 });
+
 client.on("ready", ()=>{
 	client.channels.get("511298295985864714").send("I'm online!");
 });
