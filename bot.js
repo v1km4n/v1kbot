@@ -20,8 +20,10 @@ client.on("message", (message) => {
 	}
 	if(message.content == "!wise"){
 
-		const attachment = new MessageAttachment('http://puu.sh/C0KWv/752fdc8f1a.PNG');
+		const attachment = new MessageAttachment('ну и в пизду, я хуй его знает, как эти аттачменты ебаные делать');
+		//http://puu.sh/C0KWv/752fdc8f1a.PNG
 		message.channel.send(attachment);
+		
 	}
 	if(message.content == "!non"){
 		message.member.addRole("511657769233809408");
