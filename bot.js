@@ -42,7 +42,7 @@ client.on("message", (message) => {
 		"у тебя не найдётся сотки на верёвку и мыло? Кошко-девочек ещё не изобрели", 
 		"некопара поселила в тебя ложную надежду, которая никогда не оправдается. Живи с этим.",
 		];
-	message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
+	message.reply(answer[Math.floor(Math.random() * answer.length)]);
 	}
 	if(message.content == "!stream"){
 		const embed = new Discord.RichEmbed()
