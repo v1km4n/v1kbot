@@ -14,7 +14,8 @@ client.on("message", (message) => {
 		"magistr: бля, я компот пролил, дайте паузу",
 		"*DEAD* Badja : vika i really hope you do breathe'nt tonight",
 		"DarkMetall: харе жрать, го мге",
-		"MrRicardo: Ребята , давайте ютуберу найдём цитаты",
+		"Tykveg: Неужто новая цитата?",		  
+
 		];
 	message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
 	}
