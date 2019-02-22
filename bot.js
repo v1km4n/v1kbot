@@ -30,7 +30,10 @@ client.on("message", (message) => {
 	if(message.content == "!noff"){
 		message.member.removeRole("511657769233809408");
 		message.reply("ты удалён из списка поддерживаемых в курсе. Чтобы подписаться обратно напиши команду !non");
-	}	
+	}
+	if(message.content == "!catgirl"){
+		message.reply("Кошко-девочек ещё не изобрели ;_;");
+	}
 	if(message.content == "!stream"){
 		const embed = new Discord.RichEmbed()
 		.setAuthor("Векмон подрубил стрим :thinking:", "http://puu.sh/C1FAH/bd1d3574c5.png")
