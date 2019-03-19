@@ -16,6 +16,7 @@ client.on("message", (message) => {
 		"DarkMetall: харе жрать, го мге",
 		"Tykveg: Неужто новая цитата?",	
 		"grozer: Я этот хуй в пейнте два часа рисовал",	
+		"groz: мне один раз приснилось что я победил на конкурсе по громкости пердежа ебать я тогда охуел",
 
 		];
 	message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
