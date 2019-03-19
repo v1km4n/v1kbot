@@ -21,11 +21,6 @@ client.on("message", (message) => {
 		];
 	message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
 	}
-	if(message.content == "!wise"){
-		const attachment = new Attachment('http://puu.sh/C0KWv/752fdc8f1a.PNG');
-       		message.channel.send(attachment);
-		
-	}
 	if(message.content == "!non"){
 		message.member.addRole("511657769233809408");
 		message.reply("теперь ты занесён в список поддерживаемых в курсе. Чтобы отписаться напиши команду !noff");
