@@ -60,6 +60,8 @@ client.on("message", (message) => {
 	if (message.content == '!wise1') {
         const attachment = new Discord.Attachment('https://puu.sh/D2eiL.png');
         message.channel.send(attachment);
+	if (message.content == '!w2g') {
+	message.channel.send("https://www.watch2gether.com/rooms/pizzaroom-j1ayx7w6iq1sjgu0);
     }
 });
 
