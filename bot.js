@@ -60,7 +60,7 @@ client.on("message", (message) => {
 		 message.channel.send({embed});
 	}
 	if (message.content == '!wise') {
-        const attachment = new Attachment('https://i.imgur.com/w3duR07.png');
+        const attachment = new Discord.Attachment('https://i.imgur.com/w3duR07.png');
         message.channel.send(attachment);
     }
 });
