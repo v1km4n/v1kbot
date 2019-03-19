@@ -57,6 +57,9 @@ client.on("message", (message) => {
 	if (message.content == '!wise') {
         const attachment = new Discord.Attachment('https://puu.sh/CV4mz.jpg');
         message.channel.send(attachment);
+	if (message.content == '!wise1') {
+        const attachment = new Discord.Attachment('https://puu.sh/D2eiL.png');
+        message.channel.send(attachment);
     }
 });
 
