@@ -59,7 +59,7 @@ client.on("message", (message) => {
 		.addBlankField(true)
 		 message.channel.send({embed});
 	}
-	if (message.content === '!wise') {
+	if (message.content == '!wise') {
         const attachment = new Attachment('https://i.imgur.com/w3duR07.png');
         message.channel.send(attachment);
     }
