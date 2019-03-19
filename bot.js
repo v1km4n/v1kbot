@@ -63,7 +63,7 @@ client.on("message", (message) => {
         message.channel.send(attachment);
 	}	
 	if (message.content == '!w2g') {
-	message.channel.send("https://www.watch2gether.com/rooms/pizzaroom-j1ayx7w6iq1sjgu0);
+	message.channel.send("https://www.watch2gether.com/rooms/pizzaroom-j1ayx7w6iq1sjgu0");
     	}
 });
 
