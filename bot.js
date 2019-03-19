@@ -16,7 +16,7 @@ client.on("message", (message) => {
 		"DarkMetall: харе жрать, го мге",
 		"Tykveg: Неужто новая цитата?",	
 		"grozer: Я этот хуй в пейнте два часа рисовал",	
-		"groz: мне один раз приснилось что я победил на конкурсе по громкости пердежа ебать я тогда охуел",
+		"groz: мне один раз приснилось что я победил на конкурсе по громкости пердежа. Ебать я тогда охуел",
 
 		];
 	message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
@@ -55,7 +55,7 @@ client.on("message", (message) => {
 		 message.channel.send({embed});
 	}
 	if (message.content == '!wise') {
-        const attachment = new Discord.Attachment('https://i.imgur.com/w3duR07.png');
+        const attachment = new Discord.Attachment('https://puu.sh/CV4mz.jpg');
         message.channel.send(attachment);
     }
 });
