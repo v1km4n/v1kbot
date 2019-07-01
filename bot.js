@@ -66,8 +66,13 @@ client.on("message", (message) => {
 	if (message.content == '!w2g') {
 	message.channel.send('https://www.watch2gether.com/rooms/pizzaroom-j1ayx7w6iq1sjgu0');
     	}
-	if (message.deleted == 1) {
-	message.channel.send("Кто-то удалил сообщение");
+	if (message.content == '!roll') {
+	author = message.author;
+    	}
+	if (message.author = author) {
+	i = message.content;
+	i1 = message.content;
+	message.reply(getRandomInt(i1-i) + i);
 	}
 	
 });
