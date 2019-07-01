@@ -72,7 +72,7 @@ client.on("message", (message) => {
 	if (message.author = author) {
 	i = message.content;
 	i1 = message.content;
-	message.reply(getRandomInt(i1-i) + i);
+	message.reply(Math.floor(Math.random() * i1 + i));
 	}
 	
 });
