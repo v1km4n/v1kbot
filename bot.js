@@ -70,7 +70,7 @@ client.on("message", (message) => {
 	author = message.author;
     	}
 	if (message.content == '!chaninfo') {
-	message.channel.send(channel.createdAt);
+	message.channel.send(message.channel.createdAt);
     	}
 	if (message.author = author) {
 	i = message.content;
