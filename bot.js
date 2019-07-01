@@ -71,12 +71,12 @@ client.on("message", (message) => {
     	}
 	if (message.content == '!chaninfo') {
 	chan = message.channel;
-	message.channel.send(date + " " + (month + 1) + " " + year);
 	var crDate = new Date(chan.createdAt.getDate);
 	client.channels.get("511298295985864714").send(crDate);
 	var date = chan.createdAt.getDate;
 	var month = chan.createdAt.getMonth;
 	var year = chan.createdAt.getYear;
+	message.channel.send(date + " " + (month + 1) + " " + year);
 	}
 		
 	
