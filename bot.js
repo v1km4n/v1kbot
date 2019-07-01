@@ -73,12 +73,6 @@ client.on("message", (message) => {
 	chan = message.channel;
 	message.channel.send(chan.createdAt);
     	}
-	if (message.author = author) {
-	i = message.content;
-	i1 = message.content;
-	message.reply(Math.floor(Math.random() * i1 + i));
-	}
-	
 });
 
 client.on("ready", ()=>{
