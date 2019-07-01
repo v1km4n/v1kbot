@@ -72,6 +72,7 @@ client.on("message", (message) => {
 	if (message.content == '!chaninfo') {
 	chan = message.channel;
 	message.channel.send(chan.createdAt.date + " " + (chan.createdAt.month + 1) + " " + chan.createdAt.year);
+	}
 		
 	
 });
