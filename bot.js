@@ -71,6 +71,7 @@ client.on("message", (message) => {
     	}
 	if (message.content == '!chaninfo') {
 	chan = message.channel;
+		client.channels.get("511298295985864714").send(chan.toString());
 	message.channel.send(chan.createdAt);
     	}
 });
