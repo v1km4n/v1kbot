@@ -72,8 +72,8 @@ client.on("message", (message) => {
 	if (message.content == '!chaninfo') {
 	chan = message.channel;
 	message.channel.send(date + " " + (month + 1) + " " + year);
-	var Date = new Date(chan.createdAt.getDate);
-	client.channels.get(Date.toString());
+	var crDate = new Date(chan.createdAt.getDate);
+	client.channels.get(crDate.toString());
 	var date = chan.createdAt.getDate;
 	var month = chan.createdAt.getMonth;
 	var year = chan.createdAt.getYear;
