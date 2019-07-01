@@ -69,6 +69,9 @@ client.on("message", (message) => {
 	if (message.content == '!roll') {
 	author = message.author;
     	}
+	if (message.content == '!chaninfo') {
+	message.channel.send(channel.createdAt);
+    	}
 	if (message.author = author) {
 	i = message.content;
 	i1 = message.content;
