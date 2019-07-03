@@ -1,37 +1,40 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const prefix = '!';
+
 client.login(process.env.BOT_TOKEN);
 client.on("message", (message) => { 
-	if(message.content == "!citata"){
-	answer = ["витя красавчик: превед англечане",
+	if (message.content.toLowerCase().startsWith(prefix + 'citata'))
+	{
+		answer = ["витя красавчик: превед англечане",
 		"sobaque: ЗАТЫКАЛ - kill В КОНСОЛЬ", 
 		"Zush: Обожаю сидеть и пердеть",
 		"Kworker: ну это палка на двух концах",
 		"summer: йообаный чернослив, пацаны",
 		"Ritz: А мы тут дегротом балуемся :smirk:",
-		"vika: хотел как анимешная девочка чихнуть, а получилась какая-то хуйня",
 		"WiseGenie: Здарова, мужики", 
 		"magistr: бля, я компот пролил, дайте паузу",
 		"*DEAD* Badja : vika i really hope you do breathe'nt tonight",
 		"DarkMetall: харе жрать, го мге",
-		"Tykveg: Неужто новая цитата?",	
 		"grozer: Я этот хуй в пейнте два часа рисовал",	
 		"groz: мне один раз приснилось что я победил на конкурсе по громкости пердежа. Ебать я тогда охуел",
 		"BlackBorada: защьб пошел нахуй",
-
 		];
-	message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
+		message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
 	}
-	if(message.content == "!non"){
+	if (message.content.toLowerCase().startsWith(prefix + 'non'))
+	{
 		message.member.addRole("511657769233809408");
 		message.reply("теперь ты занесён в список поддерживаемых в курсе. Чтобы отписаться напиши команду !noff");
 	}
-	if(message.content == "!noff"){
+	if (message.content.toLowerCase().startsWith(prefix + 'noff'))
+	{
 		message.member.removeRole("511657769233809408");
 		message.reply("ты удалён из списка поддерживаемых в курсе. Чтобы подписаться обратно напиши команду !non");
 	}
-	if(message.content == "!catgirl"){
-	answer = ["кошко-девочек ещё не изобрели ;_;",
+	if (message.content.toLowerCase().startsWith(prefix + 'catgirl'))
+	{
+		answer = ["кошко-девочек ещё не изобрели ;_;",
 		"в этом мире всё ещё нет смысла жить - кошко-девочек не существует", 
 		"кошко-девочек пока нет, придётся перепроходить некопару",
 		"кошко-девочек нет, но вы держитесь",
@@ -41,9 +44,10 @@ client.on("message", (message) => {
 		"у тебя не найдётся сотки на верёвку и мыло? Кошко-девочек ещё не изобрели", 
 		"некопара поселила в тебя ложную надежду, которая никогда не оправдается. Живи с этим.",
 		];
-	message.reply(answer[Math.floor(Math.random() * answer.length)]);
+		message.reply(answer[Math.floor(Math.random() * answer.length)]);
 	}
-	if(message.content == "!stream"){
+	if(message.content == "!stream")
+	{
 		const embed = new Discord.RichEmbed()
 		.setAuthor("Векмон подрубил стрим :thinking:", "http://puu.sh/C1FAH/bd1d3574c5.png")
 		.setColor(0x00AE86)
@@ -55,20 +59,36 @@ client.on("message", (message) => {
 		.addBlankField(true)
 		 message.channel.send({embed});
 	}
-	if (message.content == '!wise') {
+	if (message.content.toLowerCase().startsWith(prefix + 'wise')) 
+	{
         const attachment = new Discord.Attachment('https://puu.sh/CV4mz.jpg');
         message.channel.send(attachment);
 	}
-	if (message.content == '!wise1') {
+	if (message.content.toLowerCase().startsWith(prefix + 'wise1')) 
+	{
         const attachment = new Discord.Attachment('https://puu.sh/D2eiL.png');
         message.channel.send(attachment);
 	}	
-	if (message.content == '!w2g') {
+	if (message.content.toLowerCase().startsWith(prefix + 'w2g')) 
+	{
 	message.channel.send('https://www.watch2gether.com/rooms/pizzaroom-j1ayx7w6iq1sjgu0');
     	}
-	if (message.content == '!roll') {
+	if (message.content == '!roll')
+	{
 	author = message.author;
-    	}		
+    	}	
+	if (message.content.toLowerCase().startsWith(prefix + 'chaninfo'))
+ 	{
+		chan = message.channel;
+		datecr = chan.createdAt;
+		var date = datecr.getDate();
+		var month = datecr.getMonth()+1;
+		var year = datecr.getYear()+1900;
+		var hours = datecr.getHours();
+		var minutes = datecr.getMinutes();
+		var ddmmyyyy = "This channel was created on " + date + "/" + month + "/" + year + " at " + hours + ":" + minutes;
+		message.channel.send(ddmmyyyy);
+	}
 });
 
 client.on("ready", ()=>{
