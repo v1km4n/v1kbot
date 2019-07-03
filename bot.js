@@ -68,20 +68,7 @@ client.on("message", (message) => {
     	}
 	if (message.content == '!roll') {
 	author = message.author;
-    	}
-	if (message.content == '!chaninfo') {
-	chan = message.channel;
-	datecr = chan.createdAt
-	var date = datecr.getDate;
-	var month = datecr.getMonth;
-	var year = datecr.getYear;
-	var ddmmyyyy = pad(date) + "/" + pad(month + 1) + "/" + year;
-	client.channels.get("511298295985864714").send(ddmmyyyy);
-	client.channels.get("511298295985864714").send(crDate);
-	
-	}
-		
-	
+    	}		
 });
 
 client.on("ready", ()=>{
