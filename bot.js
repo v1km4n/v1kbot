@@ -19,6 +19,7 @@ client.on("message", (message) => {
 		"grozer: Я этот хуй в пейнте два часа рисовал",	
 		"groz: мне один раз приснилось что я победил на конкурсе по громкости пердежа. Ебать я тогда охуел",
 		"BlackBorada: защьб пошел нахуй",
+		"gilga: say gg please",
 		];
 		message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
 	}
