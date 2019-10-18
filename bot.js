@@ -92,7 +92,7 @@ client.on("message", (message) => {
 	}
 	if (message.content.toLowerCase().startsWith(prefix + 'match'))
 	{
-	    	if (message.author.id = "181485162486431745")
+	    	if (message.author.id == "181485162486431745")
 		{
 		let match_message = message.toString();
 		var Data = [];
