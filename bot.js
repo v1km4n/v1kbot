@@ -108,6 +108,9 @@ client.on("message", (message) => {
 				current_data_number++;
 			}			
 		}
+		message.channel.send(Data[1]);
+		message.channel.send(Data[2]);
+		message.channel.send(Data[3]);
 	}
 						     
 });
