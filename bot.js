@@ -90,6 +90,12 @@ client.on("message", (message) => {
 		var ddmmyyyy = "This channel was created on " + date + "/" + month + "/" + year + " at " + hours + ":" + minutes;
 		message.channel.send(ddmmyyyy);
 	}
+	if (message.content.toLowerCase().startsWith(prefix + 'scrim"))
+	{
+		let scrim_message = message.toString();
+	    	message.channel.send(scrim_message);
+	}
+						     
 });
 
 client.on("ready", ()=>{
