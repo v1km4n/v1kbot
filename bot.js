@@ -94,7 +94,7 @@ client.on("message", (message) => {
 	{
 		let scrim_message = message.toString();
 	    	//message.channel.send(scrim_message);
-		var Data(3);
+		var Data[];
 		var current_data_number = 1;
 		let current_data_scring;
 		for (var i = 1; i <= scrim_message.length; i++)
