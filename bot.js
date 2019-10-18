@@ -95,9 +95,10 @@ client.on("message", (message) => {
 		let scrim_message = message.toString();
 	    	//message.channel.send(scrim_message);
 		var Data = [];
-		var current_data_number = 1;
+		var current_data_number = 0;
 		let current_data_string = '';
-		for (var i = 1; i <= scrim_message.length; i++)
+		scrim_message = scrim_message.substring(7)
+		for (var i = 0; i < scrim_message.length; i++)
 		{
 			if (scrim_message[i] != " ")
 			{
@@ -112,9 +113,9 @@ client.on("message", (message) => {
 				Data[current_data_number] = current_data_string;
 			}
 		}
+		message.channel.send(Data[0]);
 		message.channel.send(Data[1]);
 		message.channel.send(Data[2]);
-		message.channel.send(Data[3]);
 	}
 						     
 });
