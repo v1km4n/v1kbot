@@ -93,7 +93,21 @@ client.on("message", (message) => {
 	if (message.content.toLowerCase().startsWith(prefix + 'scrim') && message.author.id != "418819481461063680")
 	{
 		let scrim_message = message.toString();
-	    	message.channel.send(scrim_message);
+	    	//message.channel.send(scrim_message);
+		new Data(3);
+		var current_data_number = 1;
+		let current_data_scring;
+		for (var i = 1; i <= scrim_message.length; i++)
+		{
+			if (scrim_message[i] != " ")
+			{
+				current_data_string = current_data_string + scrim_message[i]);
+			} else {
+				Data[current_data_number] = current_data_string;
+				current_data_string = '';
+				current_data_number++;
+			}			
+		}
 	}
 						     
 });
