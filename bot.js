@@ -109,7 +109,7 @@ client.on("message", (message) => {
 				current_data_string = '';
 				current_data_number++;
 			}
-			if (i == scrim_message.length)
+			if (i == scrim_message.length-1)
 			{
 				Data[current_data_number] = current_data_string;
 			}
