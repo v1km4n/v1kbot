@@ -121,7 +121,7 @@ client.on("message", (message) => {
 				Data[current_data_number] = current_data_string;
 			}
 		}
-		message.channel.send("<@&614444316814737418>, " + Data[0] + " " + Data[1] + " в " + Data[2] + " МСК, карты: " + Data[3]);
+		client.channels.get("614445357698514975").send("<@&614444316814737418>, " + Data[0] + " " + Data[1] + " в " + Data[2] + " МСК, карты: " + Data[3]);
 		}
 		else message.reply("Ты чо, это может делать только <@181485162486431745>");
 		}
