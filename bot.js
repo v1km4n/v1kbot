@@ -120,9 +120,7 @@ client.on("message", (message) => {
 				Data[current_data_number] = current_data_string;
 			}
 		}
-		message.channel.send(Data[0]);
-		message.channel.send(Data[1]);
-		message.channel.send(Data[2]);
+		message.channel.send("Скрим " + Data[0] + " в " + Data[1] + " МСК, карты: " + Data[2]);
 	}
 						     
 });
