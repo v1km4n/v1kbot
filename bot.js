@@ -78,7 +78,7 @@ client.on("message", (message) => {
 	{
 	let Rooole = message.server.roles.get('id', '419514193209982988');
 	message.channel.send("${Rooole}");
-	message.channel.send("@&181485162486431745");
+	message.channel.send("<@&181485162486431745>");
     	}
 	if (message.content == '!roll')
 	{
