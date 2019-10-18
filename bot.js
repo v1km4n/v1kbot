@@ -101,7 +101,7 @@ client.on("message", (message) => {
 		{
 			if (scrim_message[i] != " ")
 			{
-				current_data_string = current_data_string + scrim_message[i]);
+				current_data_string = current_data_string + scrim_message[i];
 			} else {
 				Data[current_data_number] = current_data_string;
 				current_data_string = '';
