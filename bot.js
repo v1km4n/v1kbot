@@ -74,10 +74,6 @@ client.on("message", (message) => {
 	{
 	message.channel.send('https://www.watch2gether.com/rooms/pizzaroom-j1ayx7w6iq1sjgu0');
     	}
-	if (message.content.toLowerCase().startsWith(prefix + 'pingg')) 
-	{
-	message.channel.send("<@181485162486431745> есть <@&347768622988656641>");
-    	}
 	if (message.content == '!roll')
 	{
 	author = message.author;
@@ -94,8 +90,10 @@ client.on("message", (message) => {
 		var ddmmyyyy = "This channel was created on " + date + "/" + month + "/" + year + " at " + hours + ":" + minutes;
 		message.channel.send(ddmmyyyy);
 	}
-	if (message.content.toLowerCase().startsWith(prefix + 'match') && message.author.id != "418819481461063680")
+	if (message.content.toLowerCase().startsWith(prefix + 'match') && )
 	{
+	    	if (message.author.id = "181485162486431745")
+		{
 		let match_message = message.toString();
 		var Data = [];
 		var current_data_number = 0;
@@ -123,8 +121,10 @@ client.on("message", (message) => {
 				Data[current_data_number] = current_data_string;
 			}
 		}
-		message.channel.send(Data[0] + " " + Data[1] + " в " + Data[2] + " МСК, карты: " + Data[3]);
-	}
+		message.channel.send("<@&614444316814737418>," Data[0] + " " + Data[1] + " в " + Data[2] + " МСК, карты: " + Data[3]);
+		}
+		else message.reply("Ты чо, это может делать только <@181485162486431745>
+		}
 						     
 });
 
