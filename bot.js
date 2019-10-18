@@ -74,6 +74,10 @@ client.on("message", (message) => {
 	{
 	message.channel.send('https://www.watch2gether.com/rooms/pizzaroom-j1ayx7w6iq1sjgu0');
     	}
+	if (message.content.toLowerCase().startsWith(prefix + 'pingg')) 
+	{
+	message.channel.send("@419514193209982988");
+    	}
 	if (message.content == '!roll')
 	{
 	author = message.author;
