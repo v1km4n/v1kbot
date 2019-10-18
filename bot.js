@@ -90,23 +90,22 @@ client.on("message", (message) => {
 		var ddmmyyyy = "This channel was created on " + date + "/" + month + "/" + year + " at " + hours + ":" + minutes;
 		message.channel.send(ddmmyyyy);
 	}
-	if (message.content.toLowerCase().startsWith(prefix + 'scrim') && message.author.id != "418819481461063680")
+	if (message.content.toLowerCase().startsWith(prefix + 'match') && message.author.id != "418819481461063680")
 	{
-		let scrim_message = message.toString();
-	    	//message.channel.send(scrim_message);
+		let match_message = message.toString();
 		var Data = [];
 		var current_data_number = 0;
 		let current_data_string = '';
-		scrim_message = scrim_message.substring(7);
-		for (var i = 0; i < scrim_message.length; i++)
+		match_message = match_message.substring(7);
+		for (var i = 0; i < match_message.length; i++)
 		{
-			if (scrim_message[i] != " " && scrim_message[i] == "_")
+			if (match_message[i] != " " && match_message[i] == "_")
 			{
 				current_data_string = current_data_string + " ";
 			} 
-			else if (scrim_message[i] != " " && scrim_message[i] != "_")
+			else if (match_message[i] != " " && match_message[i] != "_")
 			{
-				current_data_string = current_data_string + scrim_message[i];
+				current_data_string = current_data_string + match_message[i];
 			}
 			else if (current_data_string != '')
 			{
@@ -115,12 +114,12 @@ client.on("message", (message) => {
 				current_data_number++;
 			}
 			
-			if (i == scrim_message.length-1)
+			if (i == match_message.length-1)
 			{
 				Data[current_data_number] = current_data_string;
 			}
 		}
-		message.channel.send("Скрим " + Data[0] + " в " + Data[1] + " МСК, карты: " + Data[2]);
+		message.channel.send(Data[0] + " " + Data[1] + " в " + Data[2] + " МСК, карты: " + Data[3]);
 	}
 						     
 });
