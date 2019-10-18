@@ -76,8 +76,7 @@ client.on("message", (message) => {
     	}
 	if (message.content.toLowerCase().startsWith(prefix + 'pingg')) 
 	{
-	message.channel.send("<@419514193209982988>");
-	message.channel.send("<@181485162486431745>");
+	message.channel.send("<@181485162486431745> есть <@&347768622988656641>");
     	}
 	if (message.content == '!roll')
 	{
