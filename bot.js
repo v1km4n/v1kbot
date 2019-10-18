@@ -90,7 +90,7 @@ client.on("message", (message) => {
 		var ddmmyyyy = "This channel was created on " + date + "/" + month + "/" + year + " at " + hours + ":" + minutes;
 		message.channel.send(ddmmyyyy);
 	}
-	if (message.content.toLowerCase().startsWith(prefix + 'scrim') && message.author != "418819481461063680")
+	if (message.content.toLowerCase().startsWith(prefix + 'scrim') && message.author.id != "418819481461063680")
 	{
 		let scrim_message = message.toString();
 	    	message.channel.send(scrim_message);
