@@ -123,7 +123,7 @@ client.on("message", (message) => {
 		}
 		message.channel.send("<@&614444316814737418>, " + Data[0] + " " + Data[1] + " в " + Data[2] + " МСК, карты: " + Data[3]);
 		}
-		else message.reply("Ты чо, это может делать только <@181485162486431745>
+		else message.reply("Ты чо, это может делать только <@181485162486431745>");
 		}
 						     
 });
