@@ -90,7 +90,7 @@ client.on("message", (message) => {
 		var ddmmyyyy = "This channel was created on " + date + "/" + month + "/" + year + " at " + hours + ":" + minutes;
 		message.channel.send(ddmmyyyy);
 	}
-	if (message.content.toLowerCase().startsWith(prefix + 'match') && )
+	if (message.content.toLowerCase().startsWith(prefix + 'match'))
 	{
 	    	if (message.author.id = "181485162486431745")
 		{
