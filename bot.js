@@ -100,15 +100,21 @@ client.on("message", (message) => {
 		scrim_message = scrim_message.substring(7);
 		for (var i = 0; i < scrim_message.length; i++)
 		{
-			if (scrim_message[i] != " ")
+			if (scrim_message[i] != " " && scrim_message[i] == "_")
+			{
+				current_data_string = current_data_string + " ";
+			} 
+			else if (scrim_message[i] != " " && scrim_message[i] != "_")
 			{
 				current_data_string = current_data_string + scrim_message[i];
-			} else if (current_data_string != '')
+			}
+			else if (current_data_string != '')
 			{
 				Data[current_data_number] = current_data_string;
 				current_data_string = '';
 				current_data_number++;
 			}
+			
 			if (i == scrim_message.length-1)
 			{
 				Data[current_data_number] = current_data_string;
