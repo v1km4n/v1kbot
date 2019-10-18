@@ -96,7 +96,7 @@ client.on("message", (message) => {
 	    	//message.channel.send(scrim_message);
 		var Data = [];
 		var current_data_number = 1;
-		let current_data_scring;
+		let current_data_string;
 		for (var i = 1; i <= scrim_message.length; i++)
 		{
 			if (scrim_message[i] != " ")
