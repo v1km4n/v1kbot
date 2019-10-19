@@ -2,21 +2,21 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const prefix = '!';
 
-client.login(process.env.BOT_TOKEN);
-client.on("message", (message) => { 
+client.login(NTk2MDUzNDI3OTk0MjMwODQ1.Xathyw.xsIo0XIZKK6Ymuz1Jb8ZEufRTJY);
+client.on("message", (message) => {
 	if (message.content.toLowerCase().startsWith(prefix + 'citata'))
 	{
 		answer = ["витя красавчик: превед англечане",
-		"sobaque: ЗАТЫКАЛ - kill В КОНСОЛЬ", 
+		"sobaque: ЗАТЫКАЛ - kill В КОНСОЛЬ",
 		"Zush: Обожаю сидеть и пердеть",
 		"Kworker: ну это палка на двух концах",
 		"summer: йообаный чернослив, пацаны",
 		"Ritz: А мы тут дегротом балуемся :smirk:",
-		"WiseGenie: Здарова, мужики", 
+		"WiseGenie: Здарова, мужики",
 		"magistr: бля, я компот пролил, дайте паузу",
 		"*DEAD* Badja : vika i really hope you do breathe'nt tonight",
 		"DarkMetall: харе жрать, го мге",
-		"grozer: Я этот хуй в пейнте два часа рисовал",	
+		"grozer: Я этот хуй в пейнте два часа рисовал",
 		"groz: мне один раз приснилось что я победил на конкурсе по громкости пердежа. Ебать я тогда охуел",
 		"BlackBorada: защьб пошел нахуй",
 		"gilga: say gg please",
@@ -36,13 +36,13 @@ client.on("message", (message) => {
 	if (message.content.toLowerCase().startsWith(prefix + 'catgirl'))
 	{
 		answer = ["кошко-девочек ещё не изобрели ;_;",
-		"в этом мире всё ещё нет смысла жить - кошко-девочек не существует", 
+		"в этом мире всё ещё нет смысла жить - кошко-девочек не существует",
 		"кошко-девочек пока нет, придётся перепроходить некопару",
 		"кошко-девочек нет, но вы держитесь",
 		"кошко-девочек ещё не изобрели, но пытаться заставить реальную девушку отыгрывать кошко-девочку незаконно",
 		"нет, всё ещё не изобрели. На, не грусти: https://bit.ly/2BMGpNn",
 		"не-а, нету кошко-девочек. Да и вообще, как ты себе это представляешь?",
-		"у тебя не найдётся сотки на верёвку и мыло? Кошко-девочек ещё не изобрели", 
+		"у тебя не найдётся сотки на верёвку и мыло? Кошко-девочек ещё не изобрели",
 		"некопара поселила в тебя ложную надежду, которая никогда не оправдается. Живи с этим.",
 		];
 		message.reply(answer[Math.floor(Math.random() * answer.length)]);
@@ -60,24 +60,20 @@ client.on("message", (message) => {
 		.addBlankField(true)
 		 message.channel.send({embed});
 	}
-	if (message.content.toLowerCase().startsWith(prefix + 'wise')) 
+	if (message.content.toLowerCase().startsWith(prefix + 'wise'))
 	{
-        const attachment = new Discord.Attachment('https://puu.sh/CV4mz.jpg');
-        message.channel.send(attachment);
+  	const attachment = new Discord.Attachment('https://puu.sh/CV4mz.jpg');
+  	message.channel.send(attachment);
 	}
-	if (message.content.toLowerCase().startsWith(prefix + 'wise1')) 
+	if (message.content.toLowerCase().startsWith(prefix + 'wise1'))
 	{
-        const attachment = new Discord.Attachment('https://puu.sh/D2eiL.png');
-        message.channel.send(attachment);
-	}	
-	if (message.content.toLowerCase().startsWith(prefix + 'w2g')) 
+  	const attachment = new Discord.Attachment('https://puu.sh/D2eiL.png');
+  	message.channel.send(attachment);
+	}
+	if (message.content.toLowerCase().startsWith(prefix + 'w2g'))
 	{
-	message.channel.send('https://www.watch2gether.com/rooms/pizzaroom-j1ayx7w6iq1sjgu0');
-    	}
-	if (message.content == '!roll')
-	{
-	author = message.author;
-    	}	
+		message.channel.send('https://www.watch2gether.com/rooms/pizzaroom-j1ayx7w6iq1sjgu0');
+  }
 	if (message.content.toLowerCase().startsWith(prefix + 'chaninfo'))
  	{
 		chan = message.channel;
@@ -92,44 +88,43 @@ client.on("message", (message) => {
 	}
 	if (message.content.toLowerCase().startsWith(prefix + 'match'))
 	{
-	    	if (message.author.id == "181485162486431745")
+	  if (message.author.id == "181485162486431745")
 		{
-		let match_message = message.toString();
-		var Data = [];
-		var current_data_number = 0;
-		let current_data_string = '';
-		match_message = match_message.substring(7);
-		for (var i = 0; i < match_message.length; i++)
-		{
-			if (match_message[i] != " " && match_message[i] == "_")
+			let match_message = message.toString();
+			var Data = [];
+			var current_data_number = 0;
+			let current_data_string = '';
+			match_message = match_message.substring(7);
+			for (var i = 0; i < match_message.length; i++)
 			{
-				current_data_string = current_data_string + " ";
-			} 
-			else if (match_message[i] != " " && match_message[i] != "_")
-			{
-				current_data_string = current_data_string + match_message[i];
+				if (match_message[i] != " " && match_message[i] == "_")
+				{
+					current_data_string = current_data_string + " ";
+				}
+				else if (match_message[i] != " " && match_message[i] != "_")
+				{
+					current_data_string = current_data_string + match_message[i];
+				}
+				else if (current_data_string != '')
+				{
+					Data[current_data_number] = current_data_string;
+					current_data_string = '';
+					current_data_number++;
+				}
+				
+				if (i == match_message.length-1)
+				{
+					Data[current_data_number] = current_data_string;
+				}
 			}
-			else if (current_data_string != '')
+			if (Data[4] == '')
 			{
-				Data[current_data_number] = current_data_string;
-				current_data_string = '';
-				current_data_number++;
+				client.channels.get("614445357698514975").send("<@&614444316814737418>, " + Data[0] + " " + Data[1] + " в " + Data[2] + " МСК, карта: " + Data[3]);
+			} else {
+				client.channels.get("614445357698514975").send("<@&614444316814737418>, " + Data[0] + " " + Data[1] + " в " + Data[2] + " МСК, карты: " + Data[3] + " + " + Data[4]);
 			}
-			
-			if (i == match_message.length-1)
-			{
-				Data[current_data_number] = current_data_string;
-			}
-		}
-		if Data[4] == '' 
-		{
-			client.channels.get("614445357698514975").send("<@&614444316814737418>, " + Data[0] + " " + Data[1] + " в " + Data[2] + " МСК, карта: " + Data[3]);
-		} else {
-			client.channels.get("614445357698514975").send("<@&614444316814737418>, " + Data[0] + " " + Data[1] + " в " + Data[2] + " МСК, карты: " + Data[3] + " + " + Data[4]);
-		}
-		else message.reply("Ты чо, это может делать только <@181485162486431745>");
-		}
-						     
+		} else message.reply("Ты чо, это может делать только <@181485162486431745>");
+	};
 });
 
 client.on("ready", ()=>{
