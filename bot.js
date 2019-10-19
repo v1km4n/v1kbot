@@ -121,7 +121,11 @@ client.on("message", (message) => {
 				Data[current_data_number] = current_data_string;
 			}
 		}
-		client.channels.get("614445357698514975").send("<@&614444316814737418>, " + Data[0] + " " + Data[1] + " в " + Data[2] + " МСК, карты: " + Data[3]);
+		if Data[4] == '' 
+		{
+			client.channels.get("614445357698514975").send("<@&614444316814737418>, " + Data[0] + " " + Data[1] + " в " + Data[2] + " МСК, карта: " + Data[3]);
+		} else {
+			client.channels.get("614445357698514975").send("<@&614444316814737418>, " + Data[0] + " " + Data[1] + " в " + Data[2] + " МСК, карты: " + Data[3] + " + " + Data[4]);
 		}
 		else message.reply("Ты чо, это может делать только <@181485162486431745>");
 		}
