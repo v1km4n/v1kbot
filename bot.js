@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const prefix = '!';
 
-client.login(NTk2MDUzNDI3OTk0MjMwODQ1.Xathyw.xsIo0XIZKK6Ymuz1Jb8ZEufRTJY);
+client.login(process.env.BOT_TOKEN);
 client.on("message", (message) => {
 	if (message.content.toLowerCase().startsWith(prefix + 'citata'))
 	{
