@@ -130,10 +130,10 @@ client.on("message", (message) => {
 		pics = ["https://cdn.discordapp.com/attachments/613703369009135632/636620272451190794/P5txqHSTr1A.jpg",
 		       "https://cdn.discordapp.com/attachments/613703369009135632/636618259759628288/oSdOPRKypSc.jpg",]
 		const pic = new Discord.Attachment(pics[Math.floor(Math.random() * pics.length)]);
-		setTimeout(message.channel.send(pic), 1000);
-		setTimeout(message.channel.send("Cock and ball torture (CBT) is a sexual activity involving application of pain or constriction to the male genitals. This may involve directly painful activities, such as wax play, genital spanking, squeezing, ball-busting, genital flogging, urethral play, tickle torture, erotic electrostimulation or even kicking."), 1000);
+		message.channel.send(pic);
+		message.channel.send("Cock and ball torture (CBT) is a sexual activity involving application of pain or constriction to the male genitals. This may involve directly painful activities, such as wax play, genital spanking, squeezing, ball-busting, genital flogging, urethral play, tickle torture, erotic electrostimulation or even kicking.");
 		const audio = new Discord.Attachment('https://upload.wikimedia.org/wikipedia/commons/4/41/CocknBallTorture.ogg');
-		setTimeout(message.channel.send(audio), 1000);
+		message.channel.send(audio);
 	}
 	
 });
