@@ -127,7 +127,11 @@ client.on("message", (message) => {
 	};
 		if (message.content.toLowerCase().startsWith(prefix + 'cbt'))
 	{
+		const pic = new Discord.Attachment('https://cdn.discordapp.com/attachments/613703369009135632/636618259759628288/oSdOPRKypSc.jpg');
+  		message.channel.send(pic);
 		message.channel.send("Cock and ball torture (CBT) is a sexual activity involving application of pain or constriction to the male genitals. This may involve directly painful activities, such as wax play, genital spanking, squeezing, ball-busting, genital flogging, urethral play, tickle torture, erotic electrostimulation or even kicking.");
+		const audio = new Discord.Attachment('https://upload.wikimedia.org/wikipedia/commons/4/41/CocknBallTorture.ogg');
+  		message.channel.send(audio);
 	}
 	
 });
