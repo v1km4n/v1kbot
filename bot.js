@@ -3,8 +3,16 @@ const client = new Discord.Client();
 const prefix = '!';
 
 client.login(process.env.BOT_TOKEN);
-client.on("message", (message) => {
-	if (message.content.toLowerCase().startsWith(prefix + 'citata'))
+
+client.on('message', message => {
+	if (!message.content.startsWith(prefix)) return;
+
+	const withoutPrefix = message.content.slice(prefix.length);
+	const split = withoutPrefix.split(/ +/);
+	const command = split[0].toLowerCase();
+	const args = split.slice(1);
+
+	if (command === 'citata')
 	{
 		answer = ["витя красавчик: превед англечане",
 		"sobaque: ЗАТЫКАЛ - kill В КОНСОЛЬ",
@@ -23,17 +31,20 @@ client.on("message", (message) => {
 		];
 		message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
 	}
-	if (message.content.toLowerCase().startsWith(prefix + 'non'))
+
+	if (command === 'non')
 	{
 		message.member.addRole("511657769233809408");
 		message.reply("теперь ты занесён в список поддерживаемых в курсе. Чтобы отписаться напиши команду !noff");
 	}
-	if (message.content.toLowerCase().startsWith(prefix + 'noff'))
+
+	if (command === 'noff')
 	{
 		message.member.removeRole("511657769233809408");
 		message.reply("ты удалён из списка поддерживаемых в курсе. Чтобы подписаться обратно напиши команду !non");
 	}
-	if (message.content.toLowerCase().startsWith(prefix + 'catgirl'))
+
+	if (command === 'catgirl')
 	{
 		answer = ["кошко-девочек ещё не изобрели ;_;",
 		"в этом мире всё ещё нет смысла жить - кошко-девочек не существует",
@@ -47,34 +58,25 @@ client.on("message", (message) => {
 		];
 		message.reply(answer[Math.floor(Math.random() * answer.length)]);
 	}
-	if(message.content == "!stream")
+
+	if (command === 'wise')
 	{
-		const embed = new Discord.RichEmbed()
-		.setAuthor("Векмон подрубил стрим :thinking:", "http://puu.sh/C1FAH/bd1d3574c5.png")
-		.setColor(0x00AE86)
-		.setThumbnail("http://puu.sh/C1G6R/ea227f5f40.png")
-		.setTimestamp()
-		.addField("YouTube", "http://youtube.com/c/V1KM4N/live", true)
-		.addBlankField(true)
-		.addField("Twitch", "https://www.twitch.tv/v1km4n", true)
-		.addBlankField(true)
-		 message.channel.send({embed});
+		const attachment = new Discord.Attachment('https://puu.sh/CV4mz.jpg');
+		message.channel.send(attachment);
 	}
-	if (message.content.toLowerCase().startsWith(prefix + 'wise'))
-	{
-  	const attachment = new Discord.Attachment('https://puu.sh/CV4mz.jpg');
-  	message.channel.send(attachment);
-	}
-	if (message.content.toLowerCase().startsWith(prefix + 'wise1'))
+
+	if (command === 'wise1')
 	{
   	const attachment = new Discord.Attachment('https://puu.sh/D2eiL.png');
   	message.channel.send(attachment);
 	}
-	if (message.content.toLowerCase().startsWith(prefix + 'w2g'))
+
+	if (command === 'w2g')
 	{
 		message.channel.send('https://www.watch2gether.com/rooms/pizzaroom-j1ayx7w6iq1sjgu0');
   }
-	if (message.content.toLowerCase().startsWith(prefix + 'chaninfo'))
+
+	if (command === 'chaninfo')
  	{
 		chan = message.channel;
 		datecr = chan.createdAt;
@@ -86,9 +88,10 @@ client.on("message", (message) => {
 		var ddmmyyyy = "This channel was created on " + date + "/" + month + "/" + year + " at " + hours + ":" + minutes;
 		message.channel.send(ddmmyyyy);
 	}
-	if (message.content.toLowerCase().startsWith(prefix + 'match'))
+
+	if (command === 'match')
 	{
-	  if (message.author.id == "181485162486431745")
+		if (message.author.id == "181485162486431745")
 		{
 			let match_message = message.toString();
 			var Data = [];
@@ -111,7 +114,7 @@ client.on("message", (message) => {
 					current_data_string = '';
 					current_data_number++;
 				}
-				
+
 				if (i == match_message.length-1)
 				{
 					Data[current_data_number] = current_data_string;
@@ -125,17 +128,17 @@ client.on("message", (message) => {
 			}
 		} else message.reply("Ты чо, это может делать только <@181485162486431745>");
 	};
-		if (message.content.toLowerCase().startsWith(prefix + 'cbt'))
+
+	if (message.content.toLowerCase().startsWith(prefix + 'cbt'))
 	{
 		pics = ["https://cdn.discordapp.com/attachments/613703369009135632/636620272451190794/P5txqHSTr1A.jpg",
-		       "https://cdn.discordapp.com/attachments/613703369009135632/636618259759628288/oSdOPRKypSc.jpg",]
-		const pic = new Discord.Attachment(pics[Math.floor(Math.random() * pics.length)]);
-		message.channel.send(pic);
-		message.channel.send("Cock and ball torture (CBT) is a sexual activity involving application of pain or constriction to the male genitals. This may involve directly painful activities, such as wax play, genital spanking, squeezing, ball-busting, genital flogging, urethral play, tickle torture, erotic electrostimulation or even kicking.");
+					 "https://cdn.discordapp.com/attachments/613703369009135632/636618259759628288/oSdOPRKypSc.jpg",]
 		const audio = new Discord.Attachment('https://upload.wikimedia.org/wikipedia/commons/4/41/CocknBallTorture.ogg');
-		message.channel.send(audio);
+		const pic = new Discord.Attachment(pics[Math.floor(Math.random() * pics.length)]);
+		message.channel.send(pic)
+				.then(() => message.channel.send("Cock and ball torture (CBT) is a sexual activity involving application of pain or constriction to the male genitals. This may involve directly painful activities, such as wax play, genital spanking, squeezing, ball-busting, genital flogging, urethral play, tickle torture, erotic electrostimulation or even kicking."))
+				.then(() => message.channel.send(audio));
 	}
-	
 });
 
 client.on("ready", ()=>{
