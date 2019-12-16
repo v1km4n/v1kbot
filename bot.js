@@ -24,7 +24,7 @@ client.on('message', message => {
 	const args = split.slice(1);
 
 	if (command === 'helpv'){
-		message.author.send("`!citata - рандомная цитата\n!non/!noff - уведомления на сервере\n!catgirl - :(\n!chaninfo - дата создания канала (хз зачем я это сделал)\n!cbt - кокенболторчер\n!wise, !wise1 - локальные мемы`");
+		message.author.send("`!citata - рандомная цитата\n!non/!noff - уведомления на сервере\n!catgirl - :(\n!chaninfo - дата создания канала (хз зачем я это сделал)\n!cbt - кокенболторчер\n!wise - локальные мемы`");
 	}
 	
 	if (command === 'citata')
@@ -76,14 +76,8 @@ client.on('message', message => {
 
 	if (command === 'wise')
 	{
-		const attachment = new Discord.Attachment('https://puu.sh/CV4mz.jpg');
+		const attachment = new Discord.Attachment('https://i.imgur.com/pLRMvCr.jpg');
 		message.channel.send(attachment);
-	}
-
-	if (command === 'wise1')
-	{
-  	const attachment = new Discord.Attachment('https://puu.sh/D2eiL.png');
-  	message.channel.send(attachment);
 	}
 
 	if (command === 'w2g')
