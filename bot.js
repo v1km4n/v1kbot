@@ -4,6 +4,17 @@ const prefix = '!';
 
 client.login(process.env.BOT_TOKEN);
 
+client.on('ready', () => {
+		client.user.setStatus('available')
+    client.user.setPresence({
+        game: {
+            name: '!helpv',
+            type: "STREAMING",
+            url: "https://www.twitch.tv/v1km4n"
+        }
+    });
+})
+
 client.on('message', message => {
 	if (!message.content.startsWith(prefix)) return;
 
@@ -12,6 +23,10 @@ client.on('message', message => {
 	const command = split[0].toLowerCase();
 	const args = split.slice(1);
 
+	if (command === 'helpv'){
+		message.author.send("`!citata - рандомная цитата\n!non/!noff - уведомления на сервере\n!catgirl - :(\n!chaninfo - дата создания канала (хз зачем я это сделал)\n!cbt - кокенболторчер\n!wise, !wise1 - локальные мемы`");
+	}
+	
 	if (command === 'citata')
 	{
 		answer = ["витя красавчик: превед англечане",
