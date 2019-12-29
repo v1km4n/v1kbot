@@ -79,6 +79,12 @@ client.on('message', message => {
 		const attachment = new Discord.Attachment('https://i.imgur.com/pLRMvCr.jpg');
 		message.channel.send(attachment);
 	}
+	
+	if (command === 'cool')
+	{
+		const attachment = new Discord.Attachment('https://sun9-43.userapi.com/c853424/v853424577/156461/0_Ji8-YET7M.jpg');
+		message.channel.send(attachment);
+	}
 
 	if (command === 'w2g')
 	{
