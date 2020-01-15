@@ -16,6 +16,10 @@ client.on('ready', () => {
 })
 
 client.on('message', message => {
+	if (!message.content.startsWith(prefix) && (message.content.toLowerCase.includes("блины") || message.content.toLowerCase.includes("blini")) && message.author.id != "418819481461063680"){
+		message.channel.send(https://i.imgur.com/L4QqeEF.jpg);
+		message.channel.send("KTO-TO SKAZAL BLINI?");
+	}
 	if (!message.content.startsWith(prefix)) return;
 
 	const withoutPrefix = message.content.slice(prefix.length);
@@ -143,6 +147,8 @@ client.on('message', message => {
 			}
 		} else message.reply("Ты чо, это может делать только <@181485162486431745>");
 	};
+	
+	
 
 	if (message.content.toLowerCase().startsWith(prefix + 'cbt'))
 	{
