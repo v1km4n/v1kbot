@@ -19,7 +19,7 @@ client.on('message', message => {
 	if (!message.content.startsWith(prefix) && (message.content.toLowerCase().includes("блины") || message.content.toLowerCase().includes("blini")) && message.author.id != "418819481461063680"){
 		const kot = new Discord.Attachment("https://i.imgur.com/L4QqeEF.jpg");
 		message.channel.send(kot)
-		message.channel.send("KTO-TO SKAZAL BLINI?");
+			.then(() => message.channel.send("KTO-TO SKAZAL BLINI?"));
 	}
 	if (!message.content.startsWith(prefix)) return;
 
