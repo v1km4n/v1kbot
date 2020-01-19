@@ -1,11 +1,13 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const prefix = '!';
+const SteamAPI = require('steamapi');
 
+const steam = new SteamAPI(process.env.STEAM_TOKEN);
 client.login(process.env.BOT_TOKEN);
 
 client.on('ready', () => {
-		client.user.setStatus('available')
+client.user.setStatus('available')
     client.user.setPresence({
         game: {
             name: '!helpv',
@@ -30,6 +32,15 @@ client.on('message', message => {
 
 	if (command === 'helpv'){
 		message.author.send("`!citata - рандомная цитата\n!non/!noff - уведомления на сервере\n!catgirl - :(\n!chaninfo - дата создания канала (хз зачем я это сделал)\n!cbt - кокенболторчер\n!wise - локальные мемы`");
+	}
+	
+	if (command === 'etf2l'){
+		console.log(args);
+		for (let counter = 0; counter < args.length; counter++){	
+			steam.resolve(args[counter]).then(id => {
+				message.channel.send('http://etf2l.org/search/' + id);
+			});
+		}
 	}
 	
 	if (command === 'citata')
