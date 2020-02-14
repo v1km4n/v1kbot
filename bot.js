@@ -96,6 +96,12 @@ client.on('message', message => {
 		message.channel.send(attachment);
 	}
 	
+	if (command === 'damn')
+	{
+		const attachment = new Discord.Attachment('https://cdn.discordapp.com/attachments/347767925241020426/677908852233994250/0_Ji8-YET7M.png');
+		message.channel.send(attachment);
+	}
+	
 	if (command === 'cool')
 	{
 		const attachment = new Discord.Attachment('https://sun9-43.userapi.com/c853424/v853424577/156461/0_Ji8-YET7M.jpg');
