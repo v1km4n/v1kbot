@@ -177,16 +177,16 @@ client.on('message', async message => {
 			var i = args[0].indexOf("=") + 1;
 		}
 		const playlist_id = args[0].substring(i);
-		ytpl(playlist_id, function(err, playlist) {
-			if (err) throw err;
-			globalPlaylist = playlist;
-			playlist.items.forEach(x => {
-				playlist_urls.push(x.url_simple);
+		ytpl(playlist_id, function (err, playlist) {
+				if (err) throw err;
+			    globalPlaylist = playlist;
+				playlist.items.forEach(x => {
+					playlist_urls.push(x.url_simple);
+				});
+				message.channel.send("PARSED " + playlist_urls.length + " VIDEOS");
+				//const connection = message.member.voice.channel.join(); 
+				//connection.play(ytdl(playlist_urls[0]));
 			});
-			message.channel.send("PARSED " + playlist_urls.length + " VIDEOS");	
-			//const connection = message.member.voice.channel.join(); 
-			//connection.play(ytdl(playlist_urls[0]));
-		});
 
 		
 		console.log(globalPlaylist);
@@ -216,6 +216,13 @@ client.on('message', async message => {
 		player.pause();
 		message.channel.send("Resumed!");
 	}*/
+});
+
+client.on('messageDelete', message => {
+	adminId = '181485162486431745';
+	adminId.send(message.author.username+message.author.discriminator + " только что удалил сообщение\n")
+	.then(() => adminId.send("Сервер: " + message.guild.name + "; Канал: " + message.channel.name))
+	.then(() => adminId.send(message.content));
 });
 
 client.on("ready", ()=>{
