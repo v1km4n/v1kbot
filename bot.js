@@ -7,8 +7,9 @@ const steam = new SteamAPI(process.env.STEAM_TOKEN);
 const ytdl = require('ytdl-core');
 const ytpl = require('ytpl');
 
+var playlist_urls = [];
 let player_volume = 1;
-
+var globalPlaylist = null;
 
 client.login(process.env.BOT_TOKEN);
 
@@ -171,8 +172,6 @@ client.on('message', async message => {
 		message.channel.send('Volume is now ' + args[0] + '%');
 	}*/
 
-	var playlist_urls = [];
-
 	if (command === 'playlist') {
 		if (args[0].includes("playlist")) {
 			var i = args[0].indexOf("=") + 1;
@@ -180,14 +179,19 @@ client.on('message', async message => {
 		const playlist_id = args[0].substring(i);
 		ytpl(playlist_id, function(err, playlist) {
 			if (err) throw err;
+			globalPlaylist = playlist;
 			playlist.items.forEach(x => {
 				playlist_urls.push(x.url_simple);
 			});
-			console.log(playlist_urls[0]);
 			message.channel.send("PARSED " + playlist_urls.length + " VIDEOS");	
-			const connection = message.member.voice.channel.join(); 
-			connection.play(ytdl(playlist_urls[0]));
+			//const connection = message.member.voice.channel.join(); 
+			//connection.play(ytdl(playlist_urls[0]));
 		});
+
+		
+		console.log(globalPlaylist);
+		console.log(playlist_urls);
+
 		//const dispatcher = connection.play(stream);
 		/*
 		connection.play(ytdl(playlist_player['items'][0][url_simple]));
