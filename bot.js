@@ -66,6 +66,7 @@ client.on('message', message => {
 		message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
 	}
 
+
 	if ((command === 'non') && (!message.member.roles.has(notificationsRoleID)))
 	{
 		message.member.roles.add(notificationsRoleID);
