@@ -77,6 +77,7 @@ client.on('message', message => {
 	}
 
 	if ((command === 'noff') && (member.roles.has(notificationsRoleID)))
+
 	{
 		message.member.roles.remove("511657769233809408");
 		message.reply("ты удалён из списка поддерживаемых в курсе. Чтобы подписаться обратно напиши команду !non");
