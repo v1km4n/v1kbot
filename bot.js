@@ -5,6 +5,7 @@ const SteamAPI = require('steamapi');
 const notificationsRoleID = '511657769233809408';
 const steam = new SteamAPI(process.env.STEAM_TOKEN);
 const ytdl = require('ytdl-core');
+const ytpl = require('ytpl');
 
 let player_volume = 1;
 
@@ -168,6 +169,14 @@ client.on('message', async message => {
 	if (command === 'volume') {
 		player_volume = args[0] / 100;
 		message.channel.send('Volume is now ' + args[0] + '%');
+	}
+
+	if (command === 'playlist') {
+		const yt_pl_url = args[0];
+		const connection = await message.member.voice.channel.join(); 
+		connection.play(ytpl(yt_pl_url));
+		const player = connection.dispatcher;
+		player.setVolume(player_volume);
 	}
 
 	if (command === 'play') {
