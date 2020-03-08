@@ -175,9 +175,7 @@ client.on('message', async message => {
 		const connection = await message.member.voice.channel.join(); 
 		connection.play(ytdl(yt_url));
 		const player = connection.dispatcher;
-		player.setVolume(player_volume);
-		player.pause();
-		player.resume();
+		//player.setVolume(player_volume);
 	}
 
 });
