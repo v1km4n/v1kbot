@@ -176,6 +176,7 @@ client.on('message', async message => {
 		connection.play(ytdl(yt_url));
 		const player = connection.dispatcher;
 		//player.setVolume(player_volume);
+
 	}
 
 });
