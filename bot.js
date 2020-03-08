@@ -180,8 +180,9 @@ client.on('message', async message => {
 		const playlist_id = args[0].substring(i);
 		ytpl(playlist_id, function(err, playlist) {
 			if (err) throw err;
-			playlist.items.forEach(item => {
-				playlist_urls.push(item.url_simple);
+			playlist.items.forEach(x => {
+				playlist_urls.push(x.url_simple);
+				console.log(x.url_simple);
 			});
 			console.log(playlist);
 		});
