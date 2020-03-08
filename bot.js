@@ -5,7 +5,9 @@ const SteamAPI = require('steamapi');
 const notificationsRoleID = '511657769233809408';
 const steam = new SteamAPI(process.env.STEAM_TOKEN);
 const ytdl = require('ytdl-core');
+
 let player_volume;
+
 
 client.login(process.env.BOT_TOKEN);
 
@@ -173,6 +175,7 @@ client.on('message', async message => {
 		const connection = await message.member.voice.channel.join(); 
 		const player = connection.play(ytdl(yt_url));
 		player.setVolume(player_volume);
+
 	}
 
 });
