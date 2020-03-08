@@ -4,6 +4,9 @@ const prefix = '!';
 const SteamAPI = require('steamapi');
 const notificationsRoleID = '511657769233809408';
 const steam = new SteamAPI(process.env.STEAM_TOKEN);
+const ytdl = require('ytdl-core');
+const fs = require('fs');
+
 client.login(process.env.BOT_TOKEN);
 
 client.on('ready', () => {
@@ -159,6 +162,13 @@ client.on('message', message => {
 				.then(() => message.channel.send("Cock and ball torture (CBT) is a sexual activity involving application of pain or constriction to the male genitals. This may involve directly painful activities, such as wax play, genital spanking, squeezing, ball-busting, genital flogging, urethral play, tickle torture, erotic electrostimulation or even kicking."))
 				.then(() => message.channel.send(audio));
 	}
+
+	if (command === 'play') {
+		const yt_url = args[0];
+		const connection = await message.member.voice.channel.join(); 
+		connection.play(ytdl(yt_url));
+	}
+
 });
 
 client.on("ready", ()=>{
