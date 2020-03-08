@@ -68,8 +68,8 @@ client.on('message', message => {
 
 	if ((command === 'non') && (!message.member.roles.cache.some(role => role.id === notificationsRoleID)))
 	{
-		message.member.roles.add(notificationsRoleID);
-		message.reply("теперь ты занесён в список поддерживаемых в курсе. Чтобы отписаться напиши команду !noff");
+		message.member.roles.add(notificationsRoleID)
+							.then(() => message.reply("теперь ты занесён в список поддерживаемых в курсе. Чтобы отписаться напиши команду !noff"));
 	} 
 		else if (message.member.roles.cache.some(role => role.id === notificationsRoleID))
 	{
@@ -78,8 +78,8 @@ client.on('message', message => {
 
 	if ((command === 'noff') && (message.member.roles.cache.some(role => role.id === notificationsRoleID)))
 	{
-		message.member.roles.remove(notificationsRoleID);
-		message.reply("ты удалён из списка поддерживаемых в курсе. Чтобы подписаться обратно напиши команду !non");
+		message.member.roles.remove(notificationsRoleID)
+							.then(() => message.reply("ты удалён из списка поддерживаемых в курсе. Чтобы подписаться обратно напиши команду !non"));
 	} 
 		else if (!message.member.roles.cache.some(role => role.id === notificationsRoleID))
 	{
