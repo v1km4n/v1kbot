@@ -5,7 +5,9 @@ const SteamAPI = require('steamapi');
 const notificationsRoleID = '511657769233809408';
 const steam = new SteamAPI(process.env.STEAM_TOKEN);
 const ytdl = require('ytdl-core');
-const fs = require('fs');
+
+let player_volume;
+
 
 client.login(process.env.BOT_TOKEN);
 
@@ -163,10 +165,17 @@ client.on('message', async message => {
 				.then(() => message.channel.send(audio));
 	}
 
+	if (command === 'volume') {
+		player_volume = args[0]*10;
+		message.channel.send('Volume is now: ${player_volume}')
+	}
+
 	if (command === 'play') {
 		const yt_url = args[0];
 		const connection = await message.member.voice.channel.join(); 
-		connection.play(ytdl(yt_url));
+		const player = connection.play(ytdl(yt_url));
+		player.setVolume(player_volume);
+
 	}
 
 });
