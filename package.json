@@ -1,16 +1,32 @@
 {
-  "name": "dsbotjs",
-  "version": "1.0.0",
-  "description": "",
-  "main": "bot.js",
-  "dependencies": {
-    "discord.js": "^11.4.2",
-    "steamapi": "^2.0.7"
+  "name": "discordjs",
+  "version": "0.0.1",
+  "engines": {
+    "node": "8.x",
+    "npm": "*"
   },
-  "devDependencies": {},
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "v1km4n",
+  "license": "MIT",
+  "dependencies": {
+    "@discordjs/opus": "^0.1.0",
+    "bufferutil": "^4.0.1",
+    "cors": "^2.8.5",
+    "discord.js": "github:discordjs/discord.js",
+    "express": "^4.17.1",
+    "ffmpeg": "0.0.4",
+    "ffmpeg-static": "^4.0.1",
+    "fs": "0.0.1-security",
+    "jquery": "^3.4.1",
+    "moment": "2.20.1",
+    "steamapi": "^2.0.7",
+    "twitch": "^4.0.5",
+    "ytdl-core": "^1.0.7",
+    "ytdl-core-discord": "^1.1.0"
+  },
+  "description": ""
 }

@@ -17,12 +17,16 @@ client.user.setStatus('available')
     });
 })
 
+// FIX STATUS RICH PRESENCE
+
 client.on('message', message => {
-	if (!message.content.startsWith(prefix) && (message.content.toLowerCase().includes("блины") || message.content.toLowerCase().includes("blini")) && message.author.id != "418819481461063680"){
-		const kot = new Discord.Attachment("https://i.imgur.com/L4QqeEF.jpg");
+	
+	if (!message.content.startsWith(prefix) && (message.content.toLowerCase().includes("блины") || message.content.toLowerCase().includes("blini")) && message.author.bot == false){
+		const kot = new Discord.MessageAttachment("https://i.imgur.com/L4QqeEF.jpg");
 		message.channel.send(kot)
 			.then(() => message.channel.send("KTO-TO SKAZAL BLINI?"));
 	}
+
 	if (!message.content.startsWith(prefix)) return;
 
 	const withoutPrefix = message.content.slice(prefix.length);
@@ -35,7 +39,6 @@ client.on('message', message => {
 	}
 	
 	if (command === 'etf2l'){
-		console.log(args);
 		for (let counter = 0; counter < args.length; counter++){	
 			steam.resolve(args[counter]).then(id => {
 				message.channel.send('http://etf2l.org/search/' + id);
@@ -65,13 +68,13 @@ client.on('message', message => {
 
 	if (command === 'non')
 	{
-		message.member.addRole("511657769233809408");
+		message.member.roles.add("511657769233809408");
 		message.reply("теперь ты занесён в список поддерживаемых в курсе. Чтобы отписаться напиши команду !noff");
 	}
 
 	if (command === 'noff')
 	{
-		message.member.removeRole("511657769233809408");
+		message.member.roles.remove("511657769233809408");
 		message.reply("ты удалён из списка поддерживаемых в курсе. Чтобы подписаться обратно напиши команду !non");
 	}
 
@@ -92,26 +95,20 @@ client.on('message', message => {
 
 	if (command === 'wise')
 	{
-		const attachment = new Discord.Attachment('https://i.imgur.com/pLRMvCr.jpg');
+		const attachment = new Discord.MessageAttachment('https://i.imgur.com/pLRMvCr.jpg');
 		message.channel.send(attachment);
 	}
 	
 	if (command === 'damn')
 	{
-		const attachment = new Discord.Attachment('https://cdn.discordapp.com/attachments/347767925241020426/677908852233994250/0_Ji8-YET7M.png');
-		message.channel.send(attachment);
-	}
-	
-	if (command === 'cool')
-	{
-		const attachment = new Discord.Attachment('https://sun9-43.userapi.com/c853424/v853424577/156461/0_Ji8-YET7M.jpg');
+		const attachment = new Discord.MessageAttachment('https://cdn.discordapp.com/attachments/347767925241020426/677908852233994250/0_Ji8-YET7M.png');
 		message.channel.send(attachment);
 	}
 
 	if (command === 'w2g')
 	{
 		message.channel.send('https://www.watch2gether.com/rooms/pizzaroom-j1ayx7w6iq1sjgu0');
-  }
+    }
 
 	if (command === 'chaninfo')
  	{
@@ -165,15 +162,14 @@ client.on('message', message => {
 			}
 		} else message.reply("Ты чо, это может делать только <@181485162486431745>");
 	};
-	
-	
 
-	if (message.content.toLowerCase().startsWith(prefix + 'cbt'))
+
+	if (command === 'cbt')
 	{
 		pics = ["https://cdn.discordapp.com/attachments/613703369009135632/636620272451190794/P5txqHSTr1A.jpg",
 					 "https://cdn.discordapp.com/attachments/613703369009135632/636618259759628288/oSdOPRKypSc.jpg",]
-		const audio = new Discord.Attachment('https://upload.wikimedia.org/wikipedia/commons/4/41/CocknBallTorture.ogg');
-		const pic = new Discord.Attachment(pics[Math.floor(Math.random() * pics.length)]);
+		const audio = new Discord.MessageAttachment('https://upload.wikimedia.org/wikipedia/commons/4/41/CocknBallTorture.ogg');
+		const pic = new Discord.MessageAttachment(pics[Math.floor(Math.random() * pics.length)]);
 		message.channel.send(pic)
 				.then(() => message.channel.send("Cock and ball torture (CBT) is a sexual activity involving application of pain or constriction to the male genitals. This may involve directly painful activities, such as wax play, genital spanking, squeezing, ball-busting, genital flogging, urethral play, tickle torture, erotic electrostimulation or even kicking."))
 				.then(() => message.channel.send(audio));
@@ -181,5 +177,5 @@ client.on('message', message => {
 });
 
 client.on("ready", ()=>{
-	client.channels.get("511298295985864714").send("I'm online!");
+	client.channels.cache.get("511298295985864714").send("I'm online!");
 });
