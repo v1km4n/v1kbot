@@ -74,7 +74,7 @@ client.on('message', message => {
 	if ((command === 'noff') && (message.member.roles.cache.some(role => role.id === notificationsRoleID))) {
 		message.member.roles.remove(notificationsRoleID);
 		message.reply("ты удалён из списка поддерживаемых в курсе. Чтобы подписаться обратно напиши команду !non");
-	} else if ((command === 'non') && (!message.member.roles.cache.some(role => role.id === notificationsRoleID))) {
+	} else if ((command === 'noff') && (!message.member.roles.cache.some(role => role.id === notificationsRoleID))) {
 		message.reply("у тебя и нет никакой роли");
 	}
 
