@@ -166,8 +166,8 @@ client.on('message', async message => {
 	}
 
 	if (command === 'volume') {
-		player_volume = args[0] / 10;
-		message.channel.send('Volume is now: ${args[0]}%');
+		player_volume = args[0] / 100;
+		message.channel.send('Volume is now ' + args[0] + '%');
 	}
 
 	if (command === 'play') {
@@ -175,7 +175,8 @@ client.on('message', async message => {
 		const connection = await message.member.voice.channel.join(); 
 		const player = connection.play(ytdl(yt_url));
 		player.setVolume(player_volume);
-
+		player.pause();
+		player.resume();
 	}
 
 });
