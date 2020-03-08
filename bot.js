@@ -184,7 +184,7 @@ client.on('message', async message => {
 				playlist_urls.push(x.url_simple);
 				console.log(x.url_simple);
 			});
-			console.log(playlist);
+			console.log(playlist.items.getElementById[0].url_simple);
 		});
 		message.channel.send("PARSED " + playlist_urls.length + " VIDEOS")
 		message.channel.send(playlist_urls[0]);
