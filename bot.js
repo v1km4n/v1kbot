@@ -173,7 +173,8 @@ client.on('message', async message => {
 	if (command === 'play') {
 		const yt_url = args[0];
 		const connection = await message.member.voice.channel.join(); 
-		const player = connection.play(ytdl(yt_url));
+		connection.play(ytdl(yt_url));
+		const player = connection.dispatcher;
 		player.setVolume(player_volume);
 		player.pause();
 		player.resume();
