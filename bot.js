@@ -72,7 +72,7 @@ client.on('message', message => {
 		message.member.roles.add(notificationsRoleID);
 		message.reply("теперь ты занесён в список поддерживаемых в курсе. Чтобы отписаться напиши команду !noff");
 	} 
-		else if (message.author.roles.has(notificationsRoleID))
+	  else if (message.author.roles.has(notificationsRoleID))
 	{
 		message.reply("у тебя уже есть роль");
 	}
