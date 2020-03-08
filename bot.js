@@ -171,7 +171,7 @@ client.on('message', async message => {
 		message.channel.send('Volume is now ' + args[0] + '%');
 	}*/
 
-	let playlist_urls;
+	var playlist_urls[];
 
 	if (command === 'playlist') {
 		const yt_pl_url = args[0];
