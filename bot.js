@@ -174,7 +174,12 @@ client.on('message', async message => {
 	if (command === 'playlist') {
 		const yt_pl_url = args[0];
 		const connection = await message.member.voice.channel.join(); 
-		console.log(ytpl(yt_pl_url));
+		const playlist = ytpl(yt_pl_url, { limit:0 });
+		message.channel.send('ytpl output: ' + playlist);
+		message.channel.send('ejection attempt 1 ' + playlist['items'][0][url_simple]);
+		message.channel.send('ejection attempt 2 ' + playlist.items.getElementById(0).url_simple);
+		//(await playlist).items.url_simple;
+		//const dispatcher = connection.play(stream);
 		/*
 		connection.play(ytdl(playlist_player['items'][0][url_simple]));
 		const player = connection.dispatcher;
