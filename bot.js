@@ -174,7 +174,8 @@ client.on('message', async message => {
 	if (command === 'playlist') {
 		const yt_pl_url = args[0];
 		const connection = await message.member.voice.channel.join(); 
-		connection.play(ytpl(yt_pl_url));
+		const playlist_player = ytpl(yt_pl_url);
+		connection.play(ytdl(playlist_player.items[1].url_simple));
 		const player = connection.dispatcher;
 		player.setVolume(player_volume);
 	}
