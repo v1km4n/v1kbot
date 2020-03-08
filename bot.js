@@ -66,7 +66,8 @@ client.on('message', message => {
 		message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
 	}
 
-	if ((command === 'non') && (!message.author.roles.has(notificationsRoleID)))
+
+	if ((command === 'non') && (!message.member.roles.has(notificationsRoleID)))
 	{
 		message.member.roles.add(notificationsRoleID);
 		message.reply("теперь ты занесён в список поддерживаемых в курсе. Чтобы отписаться напиши команду !noff");
