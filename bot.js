@@ -184,8 +184,10 @@ client.on('message', async message => {
 			playlist.items.forEach(item => {
 				playlist_urls.push(item.url_simple);
 			});
-			
 		});
+		message.channel.send("PARSED " + playlist_urls.length + " VIDEOS")
+		message.channel.send(playlist_urls[0]);
+
 		connection.play(ytdl(playlist_urls[0]));
 		//const dispatcher = connection.play(stream);
 		/*
