@@ -66,24 +66,25 @@ client.on('message', message => {
 		message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
 	}
 
-	if (command === 'non' && !member.roles.has(notificationsRoleID))
+	if ((command === 'non') && (!member.roles.has(notificationsRoleID)))
 	{
 		message.member.roles.add(notificationsRoleID);
 		message.reply("теперь ты занесён в список поддерживаемых в курсе. Чтобы отписаться напиши команду !noff");
 	} 
 		else if (member.roles.has(notificationsRoleID))
 	{
-		message.reply("у тебя уже есть роль")
+		message.reply("у тебя уже есть роль");
 	}
 
-	if (command === 'noff' && member.roles.has(notificationsRoleID))
+	if ((command === 'noff') && (member.roles.has(notificationsRoleID)))
+
 	{
 		message.member.roles.remove("511657769233809408");
 		message.reply("ты удалён из списка поддерживаемых в курсе. Чтобы подписаться обратно напиши команду !non");
 	} 
 		else if (!member.roles.has(notificationsRoleID))
 	{
-		message.reply("у тебя и нет никакой роли")
+		message.reply("у тебя и нет никакой роли");
 	}
 
 	if (command === 'catgirl')
