@@ -179,7 +179,7 @@ client.on('message', async message => {
 		const playlist_id = args[0].substring(i);
 		ytpl(playlist_id, function (err, playlist) {
 				if (err) throw err;
-			    globalPlaylist = playlist;
+			    parser(playlist_urls, playlist);
 				playlist.items.forEach(x => {
 					playlist_urls.push(x.url_simple);
 				});
@@ -188,7 +188,11 @@ client.on('message', async message => {
 				//connection.play(ytdl(playlist_urls[0]));
 			});
 
-		
+		function parser(...playlist_urls, playlist) {
+			playlist.items.forEach(x => {
+				playlist_urls.push(x.url_simple);
+			});
+		}
 		console.log(globalPlaylist);
 		console.log(playlist_urls);
 
@@ -218,12 +222,12 @@ client.on('message', async message => {
 	}*/
 });
 
-client.on('messageDelete', message => {
+/*client.on('messageDelete', message => {
 	adminId = '181485162486431745';
-	client.users.cache.get(adminId).send(message.author.username+message.author.discriminator + " только что удалил сообщение\n")
-	.then(() => client.users.cache.get(adminId).send("Сервер: " + message.guild.name + "; Канал: " + message.channel.name))
-	.then(() => client.users.cache.get(adminId).send(message.content));
-});
+	client.users.cache.get(adminId).send(message.author.username + "#" + message.author.discriminator + ' только что удалил сообщение\n')
+	.then(() => client.users.cache.get(adminId).send('Сервер: ' + message.guild.name + '; Канал: ' + message.channel.name))
+	.then(() => client.users.cache.get(adminId).send('`' + message.content + '`'));
+});*/
 
 client.on("ready", ()=>{
 	client.channels.cache.get("511298295985864714").send("I'm online!");
