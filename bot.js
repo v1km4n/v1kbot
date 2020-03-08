@@ -184,11 +184,10 @@ client.on('message', async message => {
 				playlist_urls.push(x.url_simple);
 			});
 			console.log(playlist_urls[0]);
+			message.channel.send("PARSED " + playlist_urls.length + " VIDEOS");	
+			const connection = await message.member.voice.channel.join(); 
+			connection.play(ytdl(playlist_urls[0]));
 		});
-		message.channel.send("PARSED " + playlist_urls.length + " VIDEOS")
-		message.channel.send(playlist_urls[0]);
-		//const connection = await message.member.voice.channel.join(); 
-		//connection.play(ytdl(playlist_urls[0]));
 		//const dispatcher = connection.play(stream);
 		/*
 		connection.play(ytdl(playlist_player['items'][0][url_simple]));
