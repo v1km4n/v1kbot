@@ -19,9 +19,8 @@ client.user.setStatus('available')
 
 // FIX STATUS RICH PRESENCE
 
-client.on('message', message => {
-	
-	if (!message.content.startsWith(prefix) && (message.content.toLowerCase().includes("блины") || message.content.toLowerCase().includes("blini")) && message.author.bot == false){
+client.on('message', message => {	
+	if (!message.content.startsWith(prefix) && (message.content.toLowerCase().includes("блины") || message.content.toLowerCase().includes("blini")) && message.author.bot == false) {
 		const kot = new Discord.MessageAttachment("https://i.imgur.com/L4QqeEF.jpg");
 		message.channel.send(kot)
 			.then(() => message.channel.send("KTO-TO SKAZAL BLINI?"));
@@ -34,11 +33,11 @@ client.on('message', message => {
 	const command = split[0].toLowerCase();
 	const args = split.slice(1);
 
-	if (command === 'helpv'){
+	if (command === 'helpv') {
 		message.author.send("`!citata - рандомная цитата\n!non/!noff - уведомления на сервере\n!catgirl - :(\n!chaninfo - дата создания канала (хз зачем я это сделал)\n!cbt - кокенболторчер\n!wise - локальные мемы`");
 	}
 	
-	if (command === 'etf2l'){
+	if (command === 'etf2l') {
 		for (let counter = 0; counter < args.length; counter++){	
 			steam.resolve(args[counter]).then(id => {
 				message.channel.send('http://etf2l.org/search/' + id);
@@ -46,8 +45,7 @@ client.on('message', message => {
 		}
 	}
 	
-	if (command === 'citata')
-	{
+	if (command === 'citata') {
 		answer = ["витя красавчик: превед англечане",
 		"sobaque: ЗАТЫКАЛ - kill В КОНСОЛЬ",
 		"Zush: Обожаю сидеть и пердеть",
@@ -66,28 +64,21 @@ client.on('message', message => {
 		message.channel.send(answer[Math.floor(Math.random() * answer.length)]);
 	}
 
-	if ((command === 'non') && (!message.member.roles.cache.some(role => role.id === notificationsRoleID)))
-	{
-		message.member.roles.add(notificationsRoleID)
-							.then(() => message.reply("теперь ты занесён в список поддерживаемых в курсе. Чтобы отписаться напиши команду !noff"));
-	} 
-		else if (message.member.roles.cache.some(role => role.id === notificationsRoleID))
-	{
+	if ((command === 'non') && (!message.member.roles.cache.some(role => role.id === notificationsRoleID))) {
+		message.member.roles.add(notificationsRoleID);
+		message.reply("теперь ты занесён в список поддерживаемых в курсе. Чтобы отписаться напиши команду !noff");
+	} else if ((command === 'non') && (message.member.roles.cache.some(role => role.id === notificationsRoleID))) {
 		message.reply("у тебя уже есть роль");
 	}
 
-	if ((command === 'noff') && (message.member.roles.cache.some(role => role.id === notificationsRoleID)))
-	{
-		message.member.roles.remove(notificationsRoleID)
-							.then(() => message.reply("ты удалён из списка поддерживаемых в курсе. Чтобы подписаться обратно напиши команду !non"));
-	} 
-		else if (!message.member.roles.cache.some(role => role.id === notificationsRoleID))
-	{
+	if ((command === 'noff') && (message.member.roles.cache.some(role => role.id === notificationsRoleID))) {
+		message.member.roles.remove(notificationsRoleID);
+		message.reply("ты удалён из списка поддерживаемых в курсе. Чтобы подписаться обратно напиши команду !non");
+	} else if ((command === 'non') && (!message.member.roles.cache.some(role => role.id === notificationsRoleID))) {
 		message.reply("у тебя и нет никакой роли");
 	}
 
-	if (command === 'catgirl')
-	{
+	if (command === 'catgirl') {
 		answer = ["кошко-девочек ещё не изобрели ;_;",
 		"в этом мире всё ещё нет смысла жить - кошко-девочек не существует",
 		"кошко-девочек пока нет, придётся перепроходить некопару",
@@ -101,25 +92,21 @@ client.on('message', message => {
 		message.reply(answer[Math.floor(Math.random() * answer.length)]);
 	}
 
-	if (command === 'wise')
-	{
+	if (command === 'wise') {
 		const attachment = new Discord.MessageAttachment('https://i.imgur.com/pLRMvCr.jpg');
 		message.channel.send(attachment);
 	}
 	
-	if (command === 'damn')
-	{
+	if (command === 'damn') {
 		const attachment = new Discord.MessageAttachment('https://cdn.discordapp.com/attachments/347767925241020426/677908852233994250/0_Ji8-YET7M.png');
 		message.channel.send(attachment);
 	}
 
-	if (command === 'w2g')
-	{
+	if (command === 'w2g') {
 		message.channel.send('https://www.watch2gether.com/rooms/pizzaroom-j1ayx7w6iq1sjgu0');
     }
 
-	if (command === 'chaninfo')
- 	{
+	if (command === 'chaninfo') {
 		chan = message.channel;
 		datecr = chan.createdAt;
 		var date = datecr.getDate();
@@ -131,39 +118,30 @@ client.on('message', message => {
 		message.channel.send(ddmmyyyy);
 	}
 
-	if (command === 'match')
-	{
-		if (message.author.id == "181485162486431745")
-		{
+	if (command === 'match') {
+		if (message.author.id == "181485162486431745") {
 			let match_message = message.toString();
 			var Data = [];
 			var current_data_number = 0;
 			let current_data_string = '';
 			match_message = match_message.substring(7);
-			for (var i = 0; i < match_message.length; i++)
-			{
-				if (match_message[i] != " " && match_message[i] == "_")
-				{
+			for (var i = 0; i < match_message.length; i++) {
+				if (match_message[i] != " " && match_message[i] == "_") {
 					current_data_string = current_data_string + " ";
 				}
-				else if (match_message[i] != " " && match_message[i] != "_")
-				{
+				else if (match_message[i] != " " && match_message[i] != "_") {
 					current_data_string = current_data_string + match_message[i];
 				}
-				else if (current_data_string != '')
-				{
+				else if (current_data_string != '') {
 					Data[current_data_number] = current_data_string;
 					current_data_string = '';
 					current_data_number++;
 				}
-
-				if (i == match_message.length-1)
-				{
+				if (i == match_message.length-1) {
 					Data[current_data_number] = current_data_string;
 				}
 			}
-			if (Data[4] == '')
-			{
+			if (Data[4] == '') {
 				client.channels.get("614445357698514975").send("<@&614444316814737418>, " + Data[0] + " " + Data[1] + " в " + Data[2] + " МСК, карта: " + Data[3]);
 			} else {
 				client.channels.get("614445357698514975").send("<@&614444316814737418>, " + Data[0] + " " + Data[1] + " в " + Data[2] + " МСК, карты: " + Data[3] + " + " + Data[4]);
@@ -172,8 +150,7 @@ client.on('message', message => {
 	};
 
 
-	if (command === 'cbt')
-	{
+	if (command === 'cbt') {
 		pics = ["https://cdn.discordapp.com/attachments/613703369009135632/636620272451190794/P5txqHSTr1A.jpg",
 					 "https://cdn.discordapp.com/attachments/613703369009135632/636618259759628288/oSdOPRKypSc.jpg",]
 		const audio = new Discord.MessageAttachment('https://upload.wikimedia.org/wikipedia/commons/4/41/CocknBallTorture.ogg');
