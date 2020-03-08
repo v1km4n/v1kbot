@@ -178,17 +178,16 @@ client.on('message', async message => {
 			var i = args[0].indexOf("=") + 1;
 		}
 		const playlist_id = args[0].substring(i);
-		const connection = await message.member.voice.channel.join(); 
 		ytpl(playlist_id, function(err, playlist) {
 			if (err) throw err;
 			playlist.items.forEach(item => {
 				playlist_urls.push(item.url_simple);
 			});
-			
+			console.log(playlist);
 		});
 		message.channel.send("PARSED " + playlist_urls.length + " VIDEOS")
 		message.channel.send(playlist_urls[0]);
-
+		const connection = await message.member.voice.channel.join(); 
 		connection.play(ytdl(playlist_urls[0]));
 		//const dispatcher = connection.play(stream);
 		/*
