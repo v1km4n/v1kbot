@@ -185,7 +185,7 @@ client.on('message', async message => {
 			});
 			console.log(playlist_urls[0]);
 			message.channel.send("PARSED " + playlist_urls.length + " VIDEOS");	
-			const connection = await message.member.voice.channel.join(); 
+			const connection = message.member.voice.channel.join(); 
 			connection.play(ytdl(playlist_urls[0]));
 		});
 		//const dispatcher = connection.play(stream);
