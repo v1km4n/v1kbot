@@ -164,8 +164,8 @@ client.on('message', async message => {
 	}
 
 	if (command === 'volume') {
-		player_volume = args[0]*10;
-		message.channel.send('Volume is now: ${player_volume}')
+		player_volume = args[0] / 10;
+		message.channel.send('Volume is now: ${args[0]}%');
 	}
 
 	if (command === 'play') {
