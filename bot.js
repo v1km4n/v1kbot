@@ -174,10 +174,9 @@ client.on('message', async message => {
 	if (command === 'playlist') {
 		await ytlist(args[0], 'url').then(res => {
 			playlist_urls = res.data.playlist;
-			console.log(playlist_urls);
 		})
-		/*message.channel.send('parsed ' + playlist_urls.length + ' outside');
-		const connection = await message.member.voice.channel.join(); 
+		message.channel.send('parsed ' + playlist_urls.length + ' outside');
+		/*const connection = await message.member.voice.channel.join(); 
 		connection.play(ytdl(playlist_urls[0]));*/
 
 		//const dispatcher = connection.play(stream);
