@@ -9,7 +9,6 @@ const ytlist = require('youtube-playlist');
 
 var playlist_urls = [];
 let player_volume = 1;
-var globalPlaylist = null;
 
 client.login(process.env.BOT_TOKEN);
 

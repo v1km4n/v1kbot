@@ -13,6 +13,7 @@
     "steamapi": "^2.0.7",
     "twitch": "^4.0.5",
     "twitch-api-v5": "^2.0.4",
+    "youtube-playlist": "^1.0.2",
     "ytdl-core": "^1.0.7",
     "ytdl-core-discord": "^1.1.0",
     "ytpl": "^0.1.20"
