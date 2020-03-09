@@ -26,7 +26,7 @@ client.user.setStatus('available')
 
 // FIX STATUS RICH PRESENCE
 
-client.on('message', message => {	
+client.on('message', async message => {	
 	if (!message.content.startsWith(prefix) && (message.content.toLowerCase().includes("блины") || message.content.toLowerCase().includes("blini")) && message.author.bot == false) {
 		const kot = new Discord.MessageAttachment("https://i.imgur.com/L4QqeEF.jpg");
 		message.channel.send(kot)
