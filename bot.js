@@ -12,7 +12,7 @@ let player_volume = 1;
 
 client.login(process.env.BOT_TOKEN);
 
-client.on('ready', () => {
+client.once('ready', () => {
 client.user.setStatus('available')
     client.user.setPresence({
         game: {
@@ -213,6 +213,6 @@ client.on('message', async message => {
 	.then(() => client.users.cache.get(adminId).send('`' + message.content + '`'));
 });*/
 
-client.on("ready", ()=>{
+client.once("ready", ()=>{
 	client.channels.cache.get("511298295985864714").send("I'm online!");
 });
