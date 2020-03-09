@@ -5,7 +5,7 @@ const SteamAPI = require('steamapi');
 const notificationsRoleID = '511657769233809408';
 const steam = new SteamAPI(process.env.STEAM_TOKEN);
 const ytdl = require('ytdl-core');
-const ytpl = require('ytpl');
+const ytlist = require('youtube-playlist');
 
 var playlist_urls = [];
 let player_volume = 1;
@@ -26,7 +26,7 @@ client.user.setStatus('available')
 
 // FIX STATUS RICH PRESENCE
 
-client.on('message', async message => {	
+client.on('message', message => {	
 	if (!message.content.startsWith(prefix) && (message.content.toLowerCase().includes("блины") || message.content.toLowerCase().includes("blini")) && message.author.bot == false) {
 		const kot = new Discord.MessageAttachment("https://i.imgur.com/L4QqeEF.jpg");
 		message.channel.send(kot)
@@ -177,21 +177,9 @@ client.on('message', async message => {
 			var i = args[0].indexOf("=") + 1;
 		}
 		const playlist_id = args[0].substring(i);
-		ytpl(playlist_id, function (err, playlist) {
-				if (err) throw err;
-			    parser(playlist, playlist_urls);
-				playlist.items.forEach(x => {
-					playlist_urls.push(x.url_simple);
-				});
-				message.channel.send("Parsed " + playlist_urls.length + " videos inside the ytpl function");
-			});
-		function parser(playlist, ...playlist_urls) {
-			playlist.items.forEach(x => {
-				playlist_urls.push(x.url_simple);
-			});
-			message.channel.send("Parsed " + playlist_urls.length + " videos outside the ytpl function");
-		}
-		message.channel.send(playlist_urls);
+		await ytlist(args[0], 'url').then(res => {
+			playlist_urls = res.data.playlist;
+		})
 		const connection = message.member.voice.channel.join(); 
 		connection.play(ytdl(playlist_urls[0]));
 
