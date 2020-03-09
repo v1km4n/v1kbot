@@ -176,7 +176,7 @@ client.on('message', async message => {
 			playlist_urls = res.data.playlist;
 		});
 		message.channel.send('parsed ' + playlist_urls.length + ' outside');
-		const connection = await message.member.voice.channel.join(); 
+		const connection = await message.author.voice.channel.join(); 
 		connection.play(ytdl(playlist_urls[0]));
 
 		//const dispatcher = connection.play(stream);
@@ -188,10 +188,10 @@ client.on('message', async message => {
 
 	if (command === 'play') {
 		const yt_url = args[0];
-		const connection = await message.member.voice.channel.join(); 
+		const connection = await message.author.voice.channel.join(); 
 		connection.play(ytdl(yt_url));
-		const player = connection.dispatcher;
-		player.setVolume(player_volume);
+		//const player = connection.dispatcher;
+		//player.setVolume(player_volume);
 	}
 
 	/*if (command === "pause") {
