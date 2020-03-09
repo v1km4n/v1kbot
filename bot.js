@@ -191,6 +191,7 @@ client.on('message', async message => {
 			});
 			message.channel.send("Parsed " + playlist_urls.length + " videos outside the ytpl function");
 		}
+		message.channel.send(playlist_urls);
 		const connection = message.member.voice.channel.join(); 
 		connection.play(ytdl(playlist_urls[0]));
 
