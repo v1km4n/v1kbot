@@ -176,7 +176,7 @@ client.on('message', async message => {
 			playlist_urls = res.data.playlist;
 		});
 		message.channel.send('parsed ' + playlist_urls.length + ' outside');
-		const connection = await message.author.voice.channel.join(); 
+		const connection = await message.author.voice.channel.join();
 		connection.play(ytdl(playlist_urls[0]));
 
 		//const dispatcher = connection.play(stream);
