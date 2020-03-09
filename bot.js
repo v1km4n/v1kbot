@@ -12,7 +12,7 @@ let player_volume = 1;
 
 client.login(process.env.BOT_TOKEN);
 
-client.once('ready', () => {
+client.on('ready', () => {
 client.user.setStatus('available')
     client.user.setPresence({
         game: {
@@ -25,7 +25,7 @@ client.user.setStatus('available')
 
 // FIX STATUS RICH PRESENCE
 
-client.once('message', async message => {	
+client.on('message', async message => {	
 	if (!message.content.startsWith(prefix) && (message.content.toLowerCase().includes("блины") || message.content.toLowerCase().includes("blini")) && message.author.bot == false) {
 		const kot = new Discord.MessageAttachment("https://i.imgur.com/L4QqeEF.jpg");
 		message.channel.send(kot)
@@ -176,9 +176,9 @@ client.once('message', async message => {
 			playlist_urls = res.data.playlist;
 			console.log(playlist_urls);
 		})
-		message.channel.send('parsed ' + playlist_urls.length + ' outside');
+		/*message.channel.send('parsed ' + playlist_urls.length + ' outside');
 		const connection = await message.member.voice.channel.join(); 
-		connection.play(ytdl(playlist_urls[0]));
+		connection.play(ytdl(playlist_urls[0]));*/
 
 		//const dispatcher = connection.play(stream);
 		/*
@@ -213,6 +213,6 @@ client.once('message', async message => {
 	.then(() => client.users.cache.get(adminId).send('`' + message.content + '`'));
 });*/
 
-client.once("ready", ()=>{
+client.on("ready", ()=>{
 	client.channels.cache.get("511298295985864714").send("I'm online!");
 });
