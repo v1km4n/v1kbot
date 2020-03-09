@@ -183,17 +183,16 @@ client.on('message', async message => {
 				playlist.items.forEach(x => {
 					playlist_urls.push(x.url_simple);
 				});
-				message.channel.send("PARSED " + playlist_urls.length + " VIDEOS");
+				message.channel.send("Parsed " + playlist_urls.length + " videos inside the ytpl function");
 			});
 		function parser(playlist, ...playlist_urls) {
 			playlist.items.forEach(x => {
 				playlist_urls.push(x.url_simple);
 			});
+			message.channel.send("Parsed " + playlist_urls.length + " videos outside the ytpl function");
 		}
 		const connection = message.member.voice.channel.join(); 
 		connection.play(ytdl(playlist_urls[0]));
-		console.log(globalPlaylist);
-		console.log(playlist_urls);
 
 		//const dispatcher = connection.play(stream);
 		/*
