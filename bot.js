@@ -172,10 +172,11 @@ client.on('message', async message => {
 	}*/
 
 	if (command === 'playlist') {
+		let user_calling = message.author;
 		await ytlist(args[0], 'url').then(res => {
 			playlist_urls = res.data.playlist;
 		});
-		const connection = await message.author.voice.channel.join(); 
+		const connection = await user_calling.voice.channel.join(); 
 		connection.play(ytdl(playlist_urls[0]));
 
 		//const dispatcher = connection.play(stream);
