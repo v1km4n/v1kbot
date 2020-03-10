@@ -193,13 +193,11 @@ client.on('message', async message => {
 
 		function play(url) {
 			connection.play(ytdl(url, { quality: 'highestaudio' }));
+			message.channel.send('Now playing ' + player_queue[current_track]);
+			console.log('Now playing ' + player_queue[current_track]);
 		}
 
 		for (var current_track = old_amount; current_track < player_queue.length; ++current_track) {
-			dispatcher.on('start', () => {
-				message.channel.send('Now playing ' + player_queue[current_track]);
-			});
-
 			dispatcher.on('finish', () => {
 				play(player_queue[current_track]);
 			});
