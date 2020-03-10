@@ -174,6 +174,8 @@ client.on('message', async message => {
 	}*/
 
 	if (command === 'play') {
+		functio
+
 		var old_amount = player_queue.length;
 
 		if (args[0].includes('playlist')) {
@@ -188,10 +190,22 @@ client.on('message', async message => {
 
 		let user_calling = message.member;
 		const connection = await user_calling.voice.channel.join(); 
-    
+		const dispatcher = connection.play();
+		
+		connection.play(ytdl(player_queue[old_amount + 1], { quality: 'highestaudio' }));
+
+		function play(url) {
+			connection.play(ytdl(url, { quality: 'highestaudio' }));
+		}
+
 		for (var current_track = old_amount; current_track < player_queue.length; ++current_track) {
-			connection.play(ytdl(player_queue[current_track], { quality: 'highestaudio' }));
-			message.channel.send('Playing ' + player_queue[current_track]);
+			dispatcher.on('start', () => {
+				message.channel.send('Now playing ' + player_queue[current_track]);
+			});
+
+			dispatcher.on('finish', () => {
+				play(player_queue[current_track]);
+			});
 		}
 		//const player = connection.dispatcher;
 		//player.setVolume(player_volume);
