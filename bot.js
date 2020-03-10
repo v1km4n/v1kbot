@@ -179,6 +179,7 @@ client.on('message', async message => {
 		if (args[0].includes('playlist')) {
 			await ytlist(args[0], 'url').then(res => {
 				player_queue = player_queue.concat(res.data.playlist);
+				console.log(player_queue);
 			});
 		}
 
@@ -189,6 +190,7 @@ client.on('message', async message => {
 		let user_calling = message.member;
 		const connection = await user_calling.voice.channel.join(); 
 		const dispatcher = connection.play(ytdl(player_queue[old_amount + 1], { quality: 'highestaudio' }));
+
 
 		function play(url) {
 			connection.play(ytdl(url, { quality: 'highestaudio' }));
