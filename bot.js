@@ -10,6 +10,8 @@ const ytlist = require('youtube-playlist');
 var playlist_urls = [];
 let player_volume = 1;
 
+var player_queue = [];
+var current_track = 0;
 client.login(process.env.BOT_TOKEN);
 
 client.once('ready', () => {
@@ -21,7 +23,7 @@ client.user.setStatus('available')
             url: "https://www.twitch.tv/v1km4n"
         }
     });
-})
+});
 
 // FIX STATUS RICH PRESENCE
 
@@ -171,25 +173,26 @@ client.on('message', async message => {
 		message.channel.send('Volume is now ' + args[0] + '%');
 	}*/
 
-	if (command === 'playlist') {
-		let user_calling = message.author;
-		await ytlist(args[0], 'url').then(res => {
-			playlist_urls = res.data.playlist;
-		});
-		const connection = await user_calling.voice.channel.join(); 
-		connection.play(ytdl(playlist_urls[0]));
-
-		//const dispatcher = connection.play(stream);
-		/*
-		connection.play(ytdl(playlist_player['items'][0][url_simple]));
-		const player = connection.dispatcher;
-		player.setVolume(player_volume);*/
-	}
-
 	if (command === 'play') {
-		const yt_url = args[0];
-		const connection = await message.author.voice.channel.join(); 
-		connection.play(ytdl(yt_url));
+		var old_amount = player_queue.length;
+
+		if (args[0].includes('playlist')) {
+			await ytlist(args[0], 'url').then(res => {
+				player_queue.push(res.data.playlist);
+			});
+		}
+
+		if (args[0].includes('watch')) {
+			player_queue.push(args[0]);
+		}
+
+		let user_calling = message.author;
+		const connection = await user_calling.voice.channel.join(); 
+
+		for (var current_track = old_amount; current_track < player_queue.length; ++current_track) {
+			connection.play(ytdl(player_queue[current_track], { quality: 'highestaudio' }));
+			message.channel.send('Playing ' + player_queue[current_track]);
+		}
 		//const player = connection.dispatcher;
 		//player.setVolume(player_volume);
 	}
