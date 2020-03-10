@@ -173,21 +173,6 @@ client.on('message', async message => {
 		message.channel.send('Volume is now ' + args[0] + '%');
 	}*/
 
-	if (command === 'playlist') {
-		
-		const connection = await user_calling.voice.channel.join(); 
-		for (var a = 0; a < playlist_urls.length; ++a) {
-			connection.play(ytdl(playlist_urls[a], { quality: 'highestaudio' }));
-			message.channel.send('Playing ' + playlist_urls[i]);
-			client.once()
-		}
-		//const dispatcher = connection.play(stream);
-		/*
-		connection.play(ytdl(playlist_player['items'][0][url_simple]));
-		const player = connection.dispatcher;
-		player.setVolume(player_volume);*/
-	}
-
 	if (command === 'play') {
 		var old_amount = player_queue.length;
 
@@ -196,7 +181,7 @@ client.on('message', async message => {
 				player_queue.push(res.data.playlist);
 			});
 		}
-		
+
 		if (args[0].includes('watch')) {
 			player_queue.push(args[0]);
 		}
