@@ -178,7 +178,7 @@ client.on('message', async message => {
 
 		if (args[0].includes('playlist')) {
 			await ytlist(args[0], 'url').then(res => {
-				player_queue.push(res.data.playlist);
+				player_queue = player_queue.concat(res.data.playlist);
 			});
 		}
 
