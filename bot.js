@@ -174,7 +174,6 @@ client.on('message', async message => {
 	}*/
 
 	if (command === 'play') {
-
 		var old_amount = player_queue.length;
 
 		if (args[0].includes('playlist')) {
