@@ -186,7 +186,7 @@ client.on('message', async message => {
 			player_queue.push(args[0]);
 		}
 
-		let user_calling = message.author;
+		let user_calling = message.member;
 		const connection = await user_calling.voice.channel.join(); 
 
 		for (var current_track = old_amount; current_track < player_queue.length; ++current_track) {
