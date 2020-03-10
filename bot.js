@@ -188,7 +188,7 @@ client.on('message', async message => {
 
 		let user_calling = message.member;
 		const connection = await user_calling.voice.channel.join(); 
-		const dispatcher = connection.play(ytdl(player_queue[old_amount + 1], { quality: 'highestaudio' }));
+		const dispatcher = connection.play(ytdl(player_queue[old_amount], { quality: 'highestaudio' }));
 
 		function play(url) {
 			connection.play(ytdl(url, { quality: 'highestaudio' }));
