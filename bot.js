@@ -174,7 +174,6 @@ client.on('message', async message => {
 	}*/
 
 	if (command === 'play') {
-		functio
 
 		var old_amount = player_queue.length;
 
