@@ -187,6 +187,7 @@ client.on('message', async message => {
 			for (let a = old_amount; a < new_amount; ++a) {
 				await ytdl.getBasicInfo(player_queue[a]).then(function (info) {
 					player_queue_names.push(info.name);
+				});
 			}
 		}
 
