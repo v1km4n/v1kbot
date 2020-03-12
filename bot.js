@@ -10,6 +10,7 @@ const ytlist = require('youtube-playlist');
 var playlist_urls = [];
 let player_volume = 1;
 
+var player_queue_names = [];
 var player_queue = [];
 var current_track = 0;
 client.login(process.env.BOT_TOKEN);
@@ -177,30 +178,41 @@ client.on('message', async message => {
 		var old_amount = player_queue.length;
 
 		if (args[0].includes('playlist')) {
+			let new_amount;
 			await ytlist(args[0], 'url').then(res => {
 				player_queue = player_queue.concat(res.data.playlist);
-				console.log(player_queue);
+				new_amount = res.data.playlist.length;
 			});
+					
+			for (let a = old_amount; a < new_amount; ++a) {
+				await ytdl.getBasicInfo(player_queue[a]).then(function (info) {
+					player_queue_names.push(info.name);
+				});
+			}
 		}
 
 		if (args[0].includes('watch')) {
 			player_queue.push(args[0]);
+			await ytdl.getBasicInfo(args[0]).then(function (info) {
+				player_queue_names.push(info.name);
+			});
 		}
 
 		let user_calling = message.member;
 		const connection = await user_calling.voice.channel.join(); 
 		const dispatcher = connection.play(ytdl(player_queue[old_amount], { quality: 'highestaudio' }));
+		message.channel.send('Now playing ' + player_queue_names[old_amount]);
 
-		function play(url) {
+		function play(url, name) {
 			connection.play(ytdl(url, { quality: 'highestaudio' }));
-			message.channel.send('Now playing ' + url);
+			message.channel.send('Now playing ' + name);
 		}
 
 		//for (var current_track = old_amount; current_track < player_queue.length; ++current_track) {
 		dispatcher.on('finish', () => {
 			current_track++;
 			console.log('now gotta play ' + player_queue[current_track]);
-			play(player_queue[current_track]);
+			play(player_queue[current_track], player_queue_names[current_track]);
 		});
 		//}
 		//const player = connection.dispatcher;
