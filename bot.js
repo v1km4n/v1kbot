@@ -210,7 +210,6 @@ client.on('message', async message => {
 
 
 		//for (var current_track = old_amount; current_track < player_queue.length; ++current_track) {
-
 		//}
 		//const player = connection.dispatcher;
 		//player.setVolume(player_volume);
