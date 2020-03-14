@@ -213,7 +213,6 @@ client.on('message', async message => {
 			play(player_queue[current_track], player_queue_names[current_track]);
 		});
 
-		
 		function play(url, name) {
 			connection.play(ytdl(url, { quality: 'highestaudio' }));
 			message.channel.send('Now playing ' + name);
