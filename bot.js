@@ -202,6 +202,7 @@ client.on('message', async message => {
 			await ytdl.getBasicInfo(args[0]).then(function (info) {
 				player_queue_names.push(info.name);
 			});
+			console.log(player_queue_names);
 			message.channel.send("parsed name " + player_queue_names[player_queue.length - 1]);
 		}
 
