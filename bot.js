@@ -216,12 +216,8 @@ client.on('message', async message => {
 			play(player_queue[current_track], player_queue_names[current_track]);
 		});
 
-		function play(url) {
-			connection.play(ytdl(url, { quality: 'highestaudio' }));
-			await ytdl.getBasicInfo(url).then(function (info) {
-				console.log('parsed name ' + info.name + ' ' + a);
-				message.channel.send('Now playing ' + info.name);
-			});			
+		function play(url, name) {
+			connection.play(ytdl(url, { quality: 'highestaudio' }));	
 		}
 
 		//for (var current_track = old_amount; current_track < player_queue.length; ++current_track) {
