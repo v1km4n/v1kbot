@@ -245,8 +245,3 @@ client.on('message', async message => {
 client.once("ready", ()=>{
 	client.channels.cache.get("511298295985864714").send("I'm online!");
 });
-
-function play(url, name) {
-	connection.play(ytdl(url, { quality: 'highestaudio' }));
-	message.channel.send('Now playing ' + name);
-}
