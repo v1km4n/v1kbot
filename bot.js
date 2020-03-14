@@ -238,12 +238,13 @@ client.on('message', async message => {
 	.then(() => client.users.cache.get(adminId).send('Сервер: ' + message.guild.name + '; Канал: ' + message.channel.name))
 	.then(() => client.users.cache.get(adminId).send('`' + message.content + '`'));
 });*/
-
-dispatcher.on('finish', () => {
-	current_track++;
-	console.log('now gotta play ' + player_queue[current_track] + ' with the name of ' + player_queue_names[current_track]);
-	play(player_queue[current_track], player_queue_names[current_track]);
-});
+if (dispatcher != null) {
+	dispatcher.on('finish', () => {
+		current_track++;
+		console.log('now gotta play ' + player_queue[current_track] + ' with the name of ' + player_queue_names[current_track]);
+		play(player_queue[current_track], player_queue_names[current_track]);
+	});
+}
 
 client.once("ready", ()=>{
 	client.channels.cache.get("511298295985864714").send("I'm online!");
