@@ -10,6 +10,9 @@ const ytlist = require('youtube-playlist');
 var playlist_urls = [];
 let player_volume = 1;
 
+var connection = null;
+var dispatcher = null;
+
 var player_queue_names = [];
 var player_queue = [];
 var current_track = 0;
@@ -187,6 +190,7 @@ client.on('message', async message => {
 			for (let a = old_amount; a < new_amount; ++a) {
 				await ytdl.getBasicInfo(player_queue[a]).then(function (info) {
 					player_queue_names.push(info.name);
+					console.log('parsed name ' + info.name);
 				});
 			}
 		}
@@ -199,35 +203,32 @@ client.on('message', async message => {
 		}
 
 		let user_calling = message.member;
-		const connection = await user_calling.voice.channel.join(); 
-		const dispatcher = connection.play(ytdl(player_queue[old_amount], { quality: 'highestaudio' }));
+		connection = await user_calling.voice.channel.join(); 
+		dispatcher = connection.play(ytdl(player_queue[old_amount], { quality: 'highestaudio' }));
 		message.channel.send('Now playing ' + player_queue_names[old_amount]);
 
-		function play(url, name) {
-			connection.play(ytdl(url, { quality: 'highestaudio' }));
-			message.channel.send('Now playing ' + name);
-		}
+
 
 		//for (var current_track = old_amount; current_track < player_queue.length; ++current_track) {
-		dispatcher.on('finish', () => {
-			current_track++;
-			console.log('now gotta play ' + player_queue[current_track]);
-			play(player_queue[current_track], player_queue_names[current_track]);
-		});
 		//}
 		//const player = connection.dispatcher;
 		//player.setVolume(player_volume);
 	}
 
-	/*if (command === "pause") {
-		player.pause();
-		message.channel.send("Paused!");
+	if (command === "leave") {
+		let user_calling = message.member;
+		connection = await user_calling.voice.channel.leave(); 
+	}
+
+	if (command === "pause") {
+		dispatcher.pause();
+		message.channel.send("Paused");
 	}
 
 	if (command === "resume") {
-		player.pause();
-		message.channel.send("Resumed!");
-	}*/
+		dispatcher.resume();
+		message.channel.send("Resumed");
+	}
 });
 
 /*client.on('messageDelete', message => {
@@ -237,6 +238,17 @@ client.on('message', async message => {
 	.then(() => client.users.cache.get(adminId).send('`' + message.content + '`'));
 });*/
 
+dispatcher.on('finish', () => {
+	current_track++;
+	console.log('now gotta play ' + player_queue[current_track] + ' with the name of ' + player_queue_names[current_track]);
+	play(player_queue[current_track], player_queue_names[current_track]);
+});
+
 client.once("ready", ()=>{
 	client.channels.cache.get("511298295985864714").send("I'm online!");
 });
+
+function play(url, name) {
+	connection.play(ytdl(url, { quality: 'highestaudio' }));
+	message.channel.send('Now playing ' + name);
+}
