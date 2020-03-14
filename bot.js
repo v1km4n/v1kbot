@@ -193,7 +193,7 @@ client.on('message', async message => {
 					player_queue_names.push(info.name);
 					message.channel.send('parsed name ' + info.name + ' ' + a);
 				});
-			}*/
+			}
 		}
 
 		if (args[0].includes('watch')) {
