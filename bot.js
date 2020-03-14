@@ -181,31 +181,34 @@ client.on('message', async message => {
 		var old_amount = player_queue.length;
 
 		if (args[0].includes('playlist')) {
+			message.channel.send("recognised playlist; old player_queue.length = " + old_amount);
 			let new_amount;
 			await ytlist(args[0], 'url').then(res => {
 				player_queue = player_queue.concat(res.data.playlist);
 				new_amount = res.data.playlist.length;
 			});
-					
-			/*for (let a = old_amount; a < new_amount; ++a) {
+			message.channel.send("new player_queue.length = " + new_amount + "; trying to parse names");
+			for (let a = old_amount; a < new_amount; ++a) {
 				await ytdl.getBasicInfo(player_queue[a]).then(function (info) {
 					player_queue_names.push(info.name);
-					console.log('parsed name ' + info.name + ' ' + a);
+					message.channel.send('parsed name ' + info.name + ' ' + a);
 				});
-			}*/
+			}
 		}
 
 		if (args[0].includes('watch')) {
+			message.channel.send("recognised video; old player_queue.length = " + player_queue.length);
 			player_queue.push(args[0]);
 			await ytdl.getBasicInfo(args[0]).then(function (info) {
 				player_queue_names.push(info.name);
 			});
+			message.channel.send("parsed name " + player_queue_names[player_queue.length - 1]);
 		}
 
 		let user_calling = message.member;
 		connection = await user_calling.voice.channel.join(); 
 		dispatcher = connection.play(ytdl(player_queue[old_amount], { quality: 'highestaudio' }));
-		message.channel.send('Now playing ' + player_queue_names[old_amount]);
+		//message.channel.send('Now playing ' + player_queue_names[old_amount]);
 
 		dispatcher.on('finish', () => {
 			current_track++;
