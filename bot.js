@@ -200,7 +200,7 @@ client.on('message', async message => {
 			message.channel.send("recognised video; old player_queue.length = " + player_queue.length);
 			player_queue.push(args[0]);
 			await ytdl.getBasicInfo(args[0]).then(function (info) {
-				player_queue_names.push(info.name);
+				player_queue_names.push(info.related_videos.name);
 			});
 			console.log(player_queue_names);
 			message.channel.send("parsed name " + player_queue_names[player_queue.length - 1]);
