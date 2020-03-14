@@ -187,12 +187,12 @@ client.on('message', async message => {
 				new_amount = res.data.playlist.length;
 			});
 					
-			for (let a = old_amount; a < new_amount; ++a) {
+			/*for (let a = old_amount; a < new_amount; ++a) {
 				await ytdl.getBasicInfo(player_queue[a]).then(function (info) {
 					player_queue_names.push(info.name);
-					console.log('parsed name ' + info.name + ' ' + old_amount);
+					console.log('parsed name ' + info.name + ' ' + a);
 				});
-			}
+			}*/
 		}
 
 		if (args[0].includes('watch')) {
@@ -213,11 +213,14 @@ client.on('message', async message => {
 			play(player_queue[current_track], player_queue_names[current_track]);
 		});
 
-		function play(url, name) {
+		function play(url) {
 			connection.play(ytdl(url, { quality: 'highestaudio' }));
-			message.channel.send('Now playing ' + name);
+			await ytdl.getBasicInfo(url).then(function (info) {
+				console.log('parsed name ' + info.name + ' ' + a);
+				message.channel.send('Now playing ' + info.name);
+			});			
 		}
-		
+
 		//for (var current_track = old_amount; current_track < player_queue.length; ++current_track) {
 		//}
 		//const player = connection.dispatcher;
