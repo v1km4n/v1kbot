@@ -163,18 +163,19 @@ client.on('message', async message => {
 				.then(() => message.channel.send(audio));
 	}
 
+	var queue = [];
+
 	if (command === 'play') {
-		if (args[0].includes('playlist')) {
+		/*if (args[0].includes('playlist')) {
 			await ytlist(args[0], 'url').then(res => {
 				player_queue = player_queue.concat(res.data.playlist);
 			});
-		}
+		}*/
 
 		if (args[0].includes('watch')) {
 			var info = ytdl.getInfo(args[0]);
 		}
 
-		if (!queue) queue = [];
 		var guildID = message.guild.id;
 
 		queue.push({
