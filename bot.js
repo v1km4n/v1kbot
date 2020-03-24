@@ -7,15 +7,6 @@ const steam = new SteamAPI(process.env.STEAM_TOKEN);
 const ytdl = require('ytdl-core');
 const ytlist = require('youtube-playlist');
 
-var playlist_urls = [];
-let player_volume = 1;
-
-var connection = null;
-var dispatcher = null;
-
-var player_queue_names = [];
-var player_queue = [];
-var current_track = 0;
 client.login(process.env.BOT_TOKEN);
 
 client.once('ready', () => {
@@ -172,74 +163,66 @@ client.on('message', async message => {
 				.then(() => message.channel.send(audio));
 	}
 
-	/*if (command === 'volume') {
-		player_volume = args[0] / 100;
-		message.channel.send('Volume is now ' + args[0] + '%');
-	}*/
+	var player_queue;
 
 	if (command === 'play') {
-		var old_amount = player_queue.length;
-
 		if (args[0].includes('playlist')) {
-			message.channel.send("recognised playlist; old player_queue.length = " + old_amount);
-			let new_amount;
 			await ytlist(args[0], 'url').then(res => {
 				player_queue = player_queue.concat(res.data.playlist);
-				new_amount = res.data.playlist.length;
 			});
-			message.channel.send("new player_queue.length = " + new_amount + "; trying to parse names");
-			for (let a = old_amount; a < new_amount; ++a) {
-				await ytdl.getBasicInfo(player_queue[a]).then(function (info) {
-					player_queue_names.push(info.name);
-					message.channel.send('parsed name ' + info.name + ' ' + a);
-				});
-			}
 		}
 
 		if (args[0].includes('watch')) {
-			message.channel.send("recognised video; old player_queue.length = " + player_queue.length);
 			player_queue.push(args[0]);
-			await ytdl.getBasicInfo(args[0]).then(function (info) {
-				player_queue_names.push(info.related_videos.name);
-			});
-			console.log(player_queue_names);
-			message.channel.send("parsed name " + player_queue_names[player_queue.length - 1]);
+			var info = ytdl.getInfo(args[0]);
 		}
 
-		let user_calling = message.member;
-		connection = await user_calling.voice.channel.join(); 
-		dispatcher = connection.play(ytdl(player_queue[old_amount], { quality: 'highestaudio' }));
-		//message.channel.send('Now playing ' + player_queue_names[old_amount]);
+		if (!queue) queue = [];
+		var guildID = message.guild.id;
 
-		dispatcher.on('finish', () => {
-			current_track++;
-			console.log('now gotta play ' + player_queue[current_track] + ' with the name of ' + player_queue_names[current_track]);
-			play(player_queue[current_track], player_queue_names[current_track]);
+		queue.push({
+			songName: info.title,
+			requester: message.author.tag,
+			url: args[0],
+			channel: message.channel.id
 		});
 
-		function play(url, name) {
-			connection.play(ytdl(url, { quality: 'highestaudio' }));	
+		let user_calling = message.member;
+		if (!connection) connection = await user_calling.voice.channel.join(); 
+		if (!dispatcher) play(client, connection, queue, guildID)
+		else {
+			message.channel.send(`Added "${info.title}" to the Queue | Requested by: ${message.author.tag}`);
 		}
 
-		//for (var current_track = old_amount; current_track < player_queue.length; ++current_track) {
-		//}
-		//const player = connection.dispatcher;
-		//player.setVolume(player_volume);
+		async function play(client, connection, queue, guildID) {
+			client.channels.cache.get(queue[0].channel).send(`Now playing ${queue[0].songName} | Requested by: ${queue[0].requester}`);
+			dispatcher = await connection.play(ytdl(queue[0].url, { filter: 'audioonly' }));
+			dispatcher.guildID = guildID;
+
+			dispatcher.once('finish', function() {
+				finish(client, queue, guildID);
+			})
+		}
+
+		function finish(client, queue, guildID) {
+			queue.shift();
+
+			if (queue.length > 0) {
+				play(queue);
+			} else {
+				let voice_channel = client.guilds.cache.get(guildID).me.voice.channel;
+				if (voice_channel) voice_channel.leave();
+    		    message.channel.send('No More Tracks in Queue. Leaving');
+			}
+		}
 	}
 
 	if (command === "leave") {
-		let user_calling = message.member;
-		connection = await user_calling.voice.channel.leave(); 
-	}
+		if (!message.member.voice.channel) message.channel.send('You are not in a Voice Channel');
+		if (!message.guild.me.voice.channel) message.channel.send('The bot in not in a Voice Channel');
+		if (message.member.voice.channel != message.guild.me.voice.channel) message.channel.send('The bot in in the another Voice Channel');
 
-	if (command === "pause") {
-		dispatcher.pause();
-		message.channel.send("Paused");
-	}
-
-	if (command === "resume") {
-		dispatcher.resume();
-		message.channel.send("Resumed");
+		message.member.voice.channel.leave(); 
 	}
 });
 
