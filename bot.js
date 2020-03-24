@@ -163,8 +163,6 @@ client.on('message', async message => {
 				.then(() => message.channel.send(audio));
 	}
 
-	var player_queue;
-
 	if (command === 'play') {
 		if (args[0].includes('playlist')) {
 			await ytlist(args[0], 'url').then(res => {
@@ -173,7 +171,6 @@ client.on('message', async message => {
 		}
 
 		if (args[0].includes('watch')) {
-			player_queue.push(args[0]);
 			var info = ytdl.getInfo(args[0]);
 		}
 
