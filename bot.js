@@ -7,6 +7,8 @@ const steam = new SteamAPI(process.env.STEAM_TOKEN);
 const ytdl = require('ytdl-core');
 const ytlist = require('youtube-playlist');
 
+var connection = null;
+
 client.login(process.env.BOT_TOKEN);
 
 client.once('ready', () => {
