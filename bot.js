@@ -176,7 +176,7 @@ client.on('message', async message => {
 		}*/
 
 		if (args[0].includes('watch')) {
-			var info = ytdl.getInfo(args[0]);
+			var info = await ytdl.getInfo(args[0]);
 		}
 
 		var guildID = message.guild.id;
