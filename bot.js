@@ -8,6 +8,7 @@ const ytdl = require('ytdl-core');
 const ytlist = require('youtube-playlist');
 
 var connection = null;
+var dispatcher = null; 
 
 client.login(process.env.BOT_TOKEN);
 
