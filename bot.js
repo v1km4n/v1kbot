@@ -193,30 +193,6 @@ client.on('message', async message => {
 		else {
 			message.channel.send(`Added "${info.title}" to the Queue | Requested by: ${message.author.tag}`);
 		}
-
-		async function play(client, connection, queue, guildID) {
-			client.channels.cache.get(queue[0].channel).send(`Now playing "${queue[0].songName}" | Requested by: ${queue[0].requester}`);
-			dispatcher = await connection.play(ytdl(queue[0].url, { filter: 'audioonly' }));
-			dispatcher.guildID = guildID;
-
-			dispatcher.once('finish', function() {
-				finish(client, queue, guildID);
-			})
-		}
-
-		function finish(client, queue, guildID) {
-			queue.shift();
-
-			if (queue.length > 0) {
-				play(client, connection, queue, guildID);
-			} else {
-				let voice_channel = client.guilds.cache.get(guildID).me.voice.channel;
-				if (voice_channel) voice_channel.leave();
-				connection = null;
-				dispatcher = null;
-    		    message.channel.send('No More Tracks in Queue. Leaving');
-			}
-		}
 	}
 
 	if (command === 'queue') {
@@ -231,12 +207,41 @@ client.on('message', async message => {
 		}
 	}
 
+	if (command === 'skip') {
+		var guildID = message.guild.id;
+		finish(client, queue, guildID);
+	}
+
 	if (command === "leave") {
 		if (!message.member.voice.channel) message.channel.send('You are not in a Voice Channel');
 		if (!message.guild.me.voice.channel) message.channel.send('The bot in not in a Voice Channel');
 		if (message.member.voice.channel != message.guild.me.voice.channel) message.channel.send('The bot in in the another Voice Channel');
 
 		message.member.voice.channel.leave(); 
+	}
+
+	async function play(client, connection, queue, guildID) {
+		client.channels.cache.get(queue[0].channel).send(`Now playing "${queue[0].songName}" | Requested by: ${queue[0].requester}`);
+		dispatcher = await connection.play(ytdl(queue[0].url, { filter: 'audioonly' }));
+		dispatcher.guildID = guildID;
+
+		dispatcher.once('finish', function() {
+			finish(client, queue, guildID);
+		})
+	}
+
+	function finish(client, queue, guildID) {
+		queue.shift();
+
+		if (queue.length > 0) {
+			play(client, connection, queue, guildID);
+		} else {
+			let voice_channel = client.guilds.cache.get(guildID).me.voice.channel;
+			if (voice_channel) voice_channel.leave();
+			connection = null;
+			dispatcher = null;
+			message.channel.send('No More Tracks in Queue. Leaving');
+		}
 	}
 });
 
