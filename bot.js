@@ -186,7 +186,7 @@ client.on('message', async message => {
 			url_handler(args[0], client, connection, queue);
 		}
 		
-		function url_handler(url, client, connection, queue) {
+		async function url_handler(url, client, connection, queue) {
 			var info = await ytdl.getInfo(url);
 			var guildID = message.guild.id;
 
