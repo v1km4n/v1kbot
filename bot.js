@@ -219,7 +219,7 @@ client.on('message', async message => {
 		if (!message.member.voice.channel) message.channel.send('You are not in a Voice Channel');
 		if (!message.guild.me.voice.channel) message.channel.send('The bot in not in a Voice Channel');
 		if (message.member.voice.channel != message.guild.me.voice.channel) message.channel.send('The bot in in the another Voice Channel');
-
+		if (queue) queue = [];
 		message.member.voice.channel.leave(); 
 	}
 
