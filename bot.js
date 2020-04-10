@@ -188,6 +188,8 @@ client.on('message', async message => {
 			channel: message.channel.id
 		});
 
+		console.log(queue);
+
 		let user_calling = message.member;
 		if (!connection) connection = await user_calling.voice.channel.join(); 
 		if (!dispatcher) play(client, connection, queue, guildID)
