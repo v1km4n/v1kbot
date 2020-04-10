@@ -208,11 +208,7 @@ client.on('message', async message => {
 	}
 
 	if (command === 'skip') {
-		var shift_amount;
-		if (args[0] = null) shift_amount = 1
-		else {
-			shift_amount = args[0];
-		}
+		var shift_amount = args[0];
 		message.channel.send(`Skipping ${shift_amount} Tracks`);
 		var guildID = message.guild.id;
 		finish(client, queue, guildID, shift_amount);
