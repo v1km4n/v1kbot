@@ -208,6 +208,7 @@ client.on('message', async message => {
 	}
 
 	if (command === 'skip') {
+		var shift_amount;
 		if (args[0] = null) shift_amount = 1
 		else {
 			shift_amount = args[0];
