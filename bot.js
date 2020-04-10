@@ -178,7 +178,7 @@ client.on('message', async message => {
 				player_queue = res.data.playlist;
 			});
 			for (var i = 0; i < player_queue.length; ++i) {
-				url_handler(player_queue.length[i], client, connection, queue);
+				url_handler(player_queue[i], client, connection, queue);
 			}
 		}
 
