@@ -168,36 +168,35 @@ client.on('message', async message => {
 	}
 
 	if (command === 'play') {
-		/*if (args[0].includes('playlist')) {
-			await ytlist(args[0], 'url').then(res => {
+		if (args[0].includes('playlist')) {
+			message.channel.send('Playlist support is not implemented yet (and probably won\'t be any time soon :<)\nAlso this will probably now hang the whole bot :)\nTag v1km4n#0001 if it really did and the bot needs to be reloaded');
+			/*await ytlist(args[0], 'url').then(res => {
 				player_queue = player_queue.concat(res.data.playlist);
-			});
-		}*/
+			});*/
+		}
 
 		if (args[0].includes('watch')) {
 			var info = await ytdl.getInfo(args[0]);
+			var guildID = message.guild.id;
+			queue.push({
+				songName: info.title,
+				requester: message.author.tag,
+				url: args[0],
+				channel: message.channel.id
+			});
 		}
-
-		var guildID = message.guild.id;
-
-		queue.push({
-			songName: info.title,
-			requester: message.author.tag,
-			url: args[0],
-			channel: message.channel.id
-		});
 
 		let user_calling = message.member;
 		if (!connection) connection = await user_calling.voice.channel.join(); 
 		if (!dispatcher) play(client, connection, queue, guildID)
 		else {
-			message.channel.send(`Added "${info.title}" to the Queue | Requested by: ${message.author.tag}`);
+			message.channel.send(`Added \`${info.title}\` to the Queue | Requested by \`${message.author.tag}\``);
 		}
 	}
 
 	if (command === 'queue') {
 		if (queue != [] ) {
-			let queue_message = `Queue: \n\n`;
+			let queue_message = `Queue:\n`;
 			for (var i = 0; i < queue.length; ++i) {
 				queue_message = queue_message + `${(i+1)}) ${queue[i].songName} | Requested by: ${queue[i].requester}\n`;
 			}
@@ -221,7 +220,7 @@ client.on('message', async message => {
 	}
 
 	async function play(client, connection, queue, guildID) {
-		client.channels.cache.get(queue[0].channel).send(`Now playing: ${queue[0].songName} | Requested by: ${queue[0].requester}`);
+		client.channels.cache.get(queue[0].channel).send(`Now playing \`${queue[0].songName}\` | Requested by \`${queue[0].requester}\``);
 		dispatcher = await connection.play(ytdl(queue[0].url, { filter: 'audioonly' }));
 		dispatcher.guildID = guildID;
 
