@@ -125,7 +125,7 @@ client.on('message', async message => {
 		var year = datecr.getYear()+1900;
 		var hours = datecr.getHours();
 		var minutes = datecr.getMinutes();
-		var ddmmyyyy = "This channel was created on " + date + "/" + month + "/" + year + " at " + hours + ":" + minutes;
+		var ddmmyyyy = `This channel was created on ${date}/${month}/${year} at ${hours}:${minutes}`;
 		message.channel.send(ddmmyyyy);
 	}
 
@@ -174,9 +174,9 @@ client.on('message', async message => {
 	if (command === 'play') {
 		if (args[0].includes('playlist')) {
 			message.channel.send('Playlist support is not implemented yet (and probably won\'t be any time soon :<)\nAlso this will probably now hang the whole bot :)\nTag v1km4n#0001 if it really did and the bot needs to be reloaded');
-			/*await ytlist(args[0], 'url').then(res => {
-				player_queue = player_queue.concat(res.data.playlist);
-			});*/
+			await ytlist(args[0], 'url').then(res => {
+				player_queue = res.data.playlist;
+			});
 		}
 
 		if (args[0].includes('watch')) {
