@@ -173,7 +173,7 @@ client.on('message', async message => {
 
 	if (command === 'play') {
 		if (args[0].includes('playlist')) {
-			message.channel.send('Playlist support is not implemented yet (and probably won\'t be any time soon :<)\nAlso this will probably now hang the whole bot :)\nTag v1km4n#0001 if it really did and the bot needs to be reloaded');
+			//message.channel.send('Playlist support is not implemented yet (and probably won\'t be any time soon :<)\nAlso this will probably now hang the whole bot :)\nTag v1km4n#0001 if it really did and the bot needs to be reloaded');
 			await ytlist(args[0], 'url').then(res => {
 				player_queue = res.data.playlist;
 			});
