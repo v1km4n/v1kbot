@@ -221,9 +221,11 @@ client.on('message', async message => {
 
 	if (command === 'queue') {
 		if (queue != [] ) {
-			let queue_message;
-			for (var i = 0; i < queue.length; ++i) {
-				queue_message = queue_message + `${i}) ${queue[i].songName} | Requested by: ${queue[i].requester}\n`;
+			let queue_message = `${1}) ${queue[0].songName} | Requested by: ${queue[0].requester}\n`;
+			if (queue.length > 1) {
+				for (var i = 1; i < queue.length; ++i) {
+					queue_message = queue_message + `${(i+1)}) ${queue[i].songName} | Requested by: ${queue[i].requester}\n`;
+				}
 			}
 			message.channel.send(`\`${queue_message}\``);
 		}
