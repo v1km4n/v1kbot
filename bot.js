@@ -197,11 +197,9 @@ client.on('message', async message => {
 
 	if (command === 'queue') {
 		if (queue != [] ) {
-			let queue_message = `${1}) ${queue[0].songName} | Requested by: ${queue[0].requester}\n`;
-			if (queue.length > 1) {
-				for (var i = 1; i < queue.length; ++i) {
-					queue_message = queue_message + `${(i+1)}) ${queue[i].songName} | Requested by: ${queue[i].requester}\n`;
-				}
+			let queue_message = `Queue: \n\n`;
+			for (var i = 0; i < queue.length; ++i) {
+				queue_message = queue_message + `${(i+1)}) ${queue[i].songName} | Requested by: ${queue[i].requester}\n`;
 			}
 			message.channel.send(`\`${queue_message}\``);
 		}
@@ -209,7 +207,7 @@ client.on('message', async message => {
 
 	if (command === 'skip') {
 		var shift_amount = args[0];
-		message.channel.send(`Skipping ${shift_amount} Tracks`);
+		if (shift_amount === undefined) shift_amount = 1;
 		var guildID = message.guild.id;
 		finish(client, queue, guildID, shift_amount);
 	}
@@ -223,7 +221,7 @@ client.on('message', async message => {
 	}
 
 	async function play(client, connection, queue, guildID) {
-		client.channels.cache.get(queue[0].channel).send(`Now playing "${queue[0].songName}" | Requested by: ${queue[0].requester}`);
+		client.channels.cache.get(queue[0].channel).send(`Now playing: ${queue[0].songName} | Requested by: ${queue[0].requester}`);
 		dispatcher = await connection.play(ytdl(queue[0].url, { filter: 'audioonly' }));
 		dispatcher.guildID = guildID;
 
