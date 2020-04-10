@@ -177,25 +177,32 @@ client.on('message', async message => {
 			await ytlist(args[0], 'url').then(res => {
 				player_queue = res.data.playlist;
 			});
-			console.log(player_queue);
+			for (var i = 0; i < player_queue.length; ++i) {
+				url_handler(player_queue.length[i], client, connection, queue);
+			}
 		}
 
 		if (args[0].includes('watch')) {
-			var info = await ytdl.getInfo(args[0]);
+			url_handler(args[0], client, connection, queue);
+		}
+		
+		function url_handler(url, client, connection, queue) {
+			var info = await ytdl.getInfo(url);
 			var guildID = message.guild.id;
+
 			queue.push({
 				songName: info.title,
 				requester: message.author.tag,
 				url: args[0],
 				channel: message.channel.id
 			});
-		}
 
-		let user_calling = message.member;
-		if (!connection) connection = await user_calling.voice.channel.join(); 
-		if (!dispatcher) play(client, connection, queue, guildID)
-		else {
-			message.channel.send(`Added \`${info.title}\` to the Queue | Requested by \`${message.author.tag}\``);
+			let user_calling = message.member;
+			if (!connection) connection = await user_calling.voice.channel.join(); 
+			if (!dispatcher) play(client, connection, queue, guildID)
+			else {
+				message.channel.send(`Added \`${info.title}\` to the Queue | Requested by \`${message.author.tag}\``);
+			}
 		}
 	}
 
