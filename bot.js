@@ -9,6 +9,7 @@ const ytlist = require('youtube-playlist');
 
 var connection = null;
 var dispatcher = null; 
+var queue = [];
 
 client.login(process.env.BOT_TOKEN);
 
@@ -165,8 +166,6 @@ client.on('message', async message => {
 				.then(() => message.channel.send("Cock and ball torture (CBT) is a sexual activity involving application of pain or constriction to the male genitals. This may involve directly painful activities, such as wax play, genital spanking, squeezing, ball-busting, genital flogging, urethral play, tickle torture, erotic electrostimulation or even kicking."))
 				.then(() => message.channel.send(audio));
 	}
-
-	var queue = [];
 
 	if (command === 'play') {
 		/*if (args[0].includes('playlist')) {
