@@ -188,6 +188,7 @@ client.on('message', async message => {
 		
 		async function url_handler(url, client, connection, queue) {
 			var info = await ytdl.getInfo(url);
+			console.log('got this ' + info.title);
 			var guildID = message.guild.id;
 
 			queue.push({
