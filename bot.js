@@ -204,7 +204,7 @@ client.on('message', async message => {
 			for (var i = 0; i < queue.length; ++i) {
 				queue_message = queue_message + `${(i+1)}) ${queue[i].songName} | Requested by: ${queue[i].requester}\n`;
 			}
-			message.channel.send(`\`${queue_message}\``);
+			message.channel.send(`\`\`\`${queue_message}\`\`\``);
 		}
 	}
 
