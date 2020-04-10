@@ -208,8 +208,12 @@ client.on('message', async message => {
 	}
 
 	if (command === 'skip') {
+		if (args[0] = null) shift_amount = 1
+		else {
+			shift_amount = args[0];
+		}
 		var guildID = message.guild.id;
-		finish(client, queue, guildID);
+		finish(client, queue, guildID, shift_amount);
 	}
 
 	if (command === "leave") {
@@ -226,12 +230,14 @@ client.on('message', async message => {
 		dispatcher.guildID = guildID;
 
 		dispatcher.once('finish', function() {
-			finish(client, queue, guildID);
+			finish(client, queue, guildID, 1);
 		})
 	}
 
-	function finish(client, queue, guildID) {
-		queue.shift();
+	function finish(client, queue, guildID, shift_amount) {
+		for (var i = 0; i < shift_amount; ++i){
+			queue.shift();
+		}
 
 		if (queue.length > 0) {
 			play(client, connection, queue, guildID);
