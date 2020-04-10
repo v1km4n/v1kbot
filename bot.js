@@ -41,7 +41,11 @@ client.on('message', async message => {
 	const args = split.slice(1);
 
 	if (command === 'helpv') {
-		message.author.send("`!citata - рандомная цитата\n!non/!noff - уведомления на сервере\n!catgirl - :(\n!chaninfo - дата создания канала (хз зачем я это сделал)\n!cbt - кокенболторчер\n!wise - локальные мемы`");
+		message.author.send("`!citata - рандомная цитата\n!non/!noff - уведомления на сервере\n!catgirl - :(\n!chaninfo - дата создания канала (хз зачем я это сделал)\n!cbt - кокенболторчер\n!wise - локальные мемы\n!helpm - команды музыкального бота`");
+	}
+
+	if (command === 'helpm') {
+		message.author.send("`!play [youtube_url] - проигрывание музла с YT (можно формировать очередь)\n!queue - непосредственно очередь\n!skip [x] - пропустить x треков (просто !skip пропустит 1)\n!leave - выгнать бота из войса (или он выйдет сам, когда кончится очередь)`");
 	}
 	
 	if (command === 'etf2l') {
