@@ -232,7 +232,7 @@ client.on('message', async message => {
 		if (args[0] === undefined) {
 			message.channel.send("Usage - !aliasgen [endline] [aliasname]\n[endline] is the line which you will enter to stop");
 		} else {
-			message.channel.send(`Send lines one by one, ${agrs[0]} to stop.`);
+			message.channel.send(`Send lines one by one, ${args[0]} to stop.`);
 			trigger = true;
 			trigger_user = message.author;
 			trigger_message = args[0];
