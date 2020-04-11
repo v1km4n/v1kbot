@@ -177,9 +177,9 @@ client.on('message', async message => {
 			await ytlist(args[0], 'url').then(res => {
 				player_queue = res.data.playlist;
 			});
-			for (var i = 0; i < player_queue.length; ++i) {
-				url_handler(player_queue[i], client, connection, queue);
-			}
+			//for (var i = 0; i < player_queue.length; ++i) {
+				url_handler(player_queue[0], client, connection, queue);
+			//}
 		}
 
 		if (args[0].includes('watch')) {
