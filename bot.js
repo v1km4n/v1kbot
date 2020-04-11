@@ -234,8 +234,6 @@ client.on('message', async message => {
 			trigger = true;
 			trigger_user = message.author;
 			trigger_message = args[0];
-
-			alias_maker(args[0], args[1], message.author, message.channel);
 			message.channel.send(`Send lines one by one, ${args[0]} to stop.`);
 		}
 	}
