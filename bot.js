@@ -227,30 +227,33 @@ client.on('message', async message => {
 		message.channel.send("The Player Queue was emptied!");
 	}
 
-	/*if (command === 'aliasgen') {
-		let i = 0;
+	if (command === 'aliasgen') {
 		if (args[0] === undefined) {
 			message.channel.send("Usage - !aliasgen [endline] [aliasname]\n[endline] is the line which you will enter to stop");
 		} else {
+			alias_maker(args[0], args[1], message.author, message.channel);
 			message.channel.send(`Send lines one by one, ${args[0]} to stop.`);
 		}
 	}
 
-	if ((trigger == true) && (message.author == trigger_user)) {
+	function alias_maker(stop_phrase, alias_name, author, channel) {
 		let strings = [];
-		while (1) {
-			strings[i] = message.content;
-			if (strings[i] == trigger_message) {
-				strings.pop();
-				break;
+		let i = 0;
+		client.on('message', async message => {	
+			if ((message.channel == channel) && (message.author == author) && (message.content != stop_phrase)) {
+				strings[i] = message.content;
+				i++;
+			} else if ((message.channel == channel) && (message.author == author) && (message.content == stop_phrase)) {
+				message.channel.send("Got it. Gonna compile now.");
 			}
-			i++;
-		}
+		});
+
 		let big_string = 'Full Text:\n';
 		for (let i = 0; i < strings.length; ++i) {
 			big_string = (`${big_string}${strings[i]}\n`);
 		}
 		message.channel.send(`\`\`\`${big_string}\`\`\``);
+
 		let string = "";
 		for (var a = 0; a < i-1; a++) {
 			string = `${string}alias ${alias_name}${a} "say ${strings[a]}; alias ${alias_name} ${alias_name}${a+1}"\n`;
@@ -260,13 +263,7 @@ client.on('message', async message => {
 
 		message.channel.send("And your alias is: ");
 		message.channel.send(`\`\`\`string\`\`\``);
-		
-		trigger = false;
-		trigger_user = null;
-		trigger_message = null;
-		alias_name = null;
-		
-	}*/
+	}
 
 	async function url_handler(url, client, connection, queue) {
 		var info = await ytdl.getInfo(url);
