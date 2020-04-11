@@ -178,12 +178,12 @@ client.on('message', async message => {
 				player_queue = res.data.playlist;
 			});
 			for (var i = 0; i < player_queue.length; ++i) {
-				url_handler(player_queue[i], client, connection, queue);
+				await url_handler(player_queue[i], client, connection, queue);
 			}
 		}
 
 		if (args[0].includes('watch')) {
-			url_handler(args[0], client, connection, queue);
+			await url_handler(args[0], client, connection, queue);
 		}
 		
 		async function url_handler(url, client, connection, queue) {
