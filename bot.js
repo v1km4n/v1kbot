@@ -263,7 +263,7 @@ client.on('message', async message => {
 			string = `${string}alias ${alias_name}${(strings.length-1)} "say ${strings[(strings.length-1)]}; alias ${alias_name} ${alias_name}0"\n`;
 			string = `${string}alias ${alias_name} ${alias_name}0`;
 
-			message.channel.send("And your alias is: \n\`\`\`${string}\`\`\`");
+			message.channel.send(`And your alias is: \n\`\`\`${string}\`\`\``);
 
 			trigger = false;
 			trigger_message = null;
