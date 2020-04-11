@@ -15,6 +15,8 @@ var trigger = false;
 var trigger_user = null;
 var trigger_message = null;
 var alias_name = null;
+var strings = [];
+var i = 0;
 
 client.login(process.env.BOT_TOKEN);
 
@@ -239,8 +241,6 @@ client.on('message', async message => {
 	}
 
 	if ((trigger == true) && (trigger_user == message.author) && (!message.content.startsWith(prefix))) {
-		let strings = [];
-		let i = 0;
 		console.log(trigger_user + ' ' + trigger_message);
 		if (message.content != trigger_message) {
 			console.log('not trigger ' + message.content);
@@ -252,8 +252,8 @@ client.on('message', async message => {
 			message.channel.send("Got it. Gonna compile now.");
 
 			let big_string = 'Full Text:\n';
-			for (let i = 0; i < strings.length; ++i) {
-				big_string = (`${big_string}${strings[i]}\n`);
+			for (let a = 0; a < strings.length; ++a) {
+				big_string = (`${big_string}${strings[a]}\n`);
 			}
 			message.channel.send(`\`\`\`${big_string}\`\`\``);
 
@@ -271,6 +271,8 @@ client.on('message', async message => {
 			trigger_message = null;
 			trigger_user = null;
 			alias_name = null;
+			strings = []
+			i = 0;
 		}
 	}
 
