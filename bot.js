@@ -248,7 +248,7 @@ client.on('message', async message => {
 		}
 
 		if (queue.length > 0) {
-			play(client, connection, queue, guildID);
+			await play(client, connection, queue, guildID);
 		} else {
 			let voice_channel = client.guilds.cache.get(guildID).me.voice.channel;
 			if (voice_channel) voice_channel.leave();
