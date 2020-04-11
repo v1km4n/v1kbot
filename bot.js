@@ -243,11 +243,13 @@ client.on('message', async message => {
 		let i = 0;
 		console.log(trigger_user + ' ' + trigger_message);
 		if (message.content != trigger_message) {
+			console.log('not trigger ' + message.content);
 			strings[i] = message.content;
 			++i;
 
 		}
 		if (message.content == trigger_message) {
+			console.log('trigger ' + message.content);
 			message.channel.send("Got it. Gonna compile now.");
 
 			let big_string = 'Full Text:\n';
