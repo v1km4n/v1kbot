@@ -240,7 +240,7 @@ client.on('message', async message => {
 		}
 	}
 
-	if ((triggered == true) && (message.author == trigger_user)) {
+	if ((trigger == true) && (message.author == trigger_user)) {
 		let strings = [];
 		while (1) {
 			strings[i] = message.content;
