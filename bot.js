@@ -189,20 +189,20 @@ client.on('message', async message => {
 		if (args[0].includes('watch')) {
 			await url_handler(args[0], client, connection, queue);
 		}
+
+		message.delete();
 	}
 
 	if (command === 'queue') {
 		if (queue != [] ) {
-			var local_queue = 1;
 			let queue_message = `Queue:\n`;
 			for (var i = 0; i < queue.length; ++i) {
-				if (queue[i].channel == message.channel.id) {
-					queue_message = queue_message + `${local_queue}) ${queue[i].songName} | Requested by: ${queue[i].requester}\n`;
-					local_queue++;
-				}
+					queue_message = `${queue_message}${(i+1)}) ${queue[i].songName} | Requested by: ${queue[i].requester}\n`;
 			}
 			message.channel.send(`\`\`\`${queue_message}\`\`\``);
-		}
+		} else {
+			message.channel.send("Queue is empty");
+		};
 	}
 
 	if (command === 'skip') {
@@ -227,16 +227,12 @@ client.on('message', async message => {
 		message.channel.send("The Player Queue was emptied!");
 	}
 
-	if (command === 'aliasgen') {
+	/*if (command === 'aliasgen') {
 		let i = 0;
 		if (args[0] === undefined) {
 			message.channel.send("Usage - !aliasgen [endline] [aliasname]\n[endline] is the line which you will enter to stop");
 		} else {
 			message.channel.send(`Send lines one by one, ${args[0]} to stop.`);
-			trigger = true;
-			trigger_user = message.author;
-			trigger_message = args[0];
-			alias_name = args[1];
 		}
 	}
 
@@ -265,11 +261,12 @@ client.on('message', async message => {
 		message.channel.send("And your alias is: ");
 		message.channel.send(`\`\`\`string\`\`\``);
 		
-		var trigger = false;
-		var trigger_user = null;
-		var trigger_message = null;
-		var alias_name = null;
-	}
+		trigger = false;
+		trigger_user = null;
+		trigger_message = null;
+		alias_name = null;
+		
+	}*/
 
 	async function url_handler(url, client, connection, queue) {
 		var info = await ytdl.getInfo(url);
