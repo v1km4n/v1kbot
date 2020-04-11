@@ -238,7 +238,7 @@ client.on('message', async message => {
 		}
 	}
 
-	if ((trigger == true) && (trigger_user == message.author)) {
+	if ((trigger == true) && (trigger_user == message.author) && (!message.content.startsWith(prefix))) {
 		let strings = [];
 		let i = 0;
 		console.log(trigger_user + ' ' + trigger_message);
@@ -247,8 +247,7 @@ client.on('message', async message => {
 			strings[i] = message.content;
 			++i;
 
-		}
-		if (message.content == trigger_message) {
+		} else {
 			console.log('trigger ' + message.content);
 			message.channel.send("Got it. Gonna compile now.");
 
