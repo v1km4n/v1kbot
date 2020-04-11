@@ -241,7 +241,7 @@ client.on('message', async message => {
 		}
 	}
 
-	async function play(client, connection[guildID], queue, guildID) {
+	async function play(client, connection, queue, guildID) {
 		client.channels.cache.get(queue[0].channel).send(`Now playing \`${queue[0].songName}\` | Requested by \`${queue[0].requester}\``);
 		dispatcher[guildID] = await connection[guildID].play(ytdl(queue[0].url, { filter: 'audioonly' }));
 		dispatcher[guildID].guildID = guildID;
