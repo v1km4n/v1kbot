@@ -7,8 +7,8 @@ const steam = new SteamAPI(process.env.STEAM_TOKEN);
 const ytdl = require('ytdl-core');
 const ytlist = require('youtube-playlist');
 
-var connection = null;
-var dispatcher = null; 
+var connection = [];
+var dispatcher = []; 
 var queue = [];
 
 client.login(process.env.BOT_TOKEN);
@@ -177,12 +177,12 @@ client.on('message', async message => {
 				player_queue = res.data.playlist;
 			});
 			for (var i = 0; i < player_queue.length; ++i) {
-				await url_handler(player_queue[i], client, connection, queue);
+				await url_handler(player_queue[i], client, connection[guildID], queue);
 			}
 		}
 
 		if (args[0].includes('watch')) {
-			await url_handler(args[0], client, connection, queue);
+			await url_handler(args[0], client, connection[guildID], queue);
 		}
 	}
 
@@ -234,20 +234,20 @@ client.on('message', async message => {
 		});
 
 		let user_calling = message.member;
-		if (!connection) connection = await user_calling.voice.channel.join(); 
-		if (!dispatcher) await play(client, connection, queue, guildID)
+		if (!connection[guildID]) connection[guildID] = await user_calling.voice.channel.join(); 
+		if (!dispatcher[guildID]) await play(client, connection[guildID], queue, guildID)
 		else {
 			message.channel.send(`Added \`${info.title}\` to the Queue | Requested by \`${message.author.tag}\``);
 		}
 	}
 
-	async function play(client, connection, queue, guildID) {
+	async function play(client, connection[guildID], queue, guildID) {
 		client.channels.cache.get(queue[0].channel).send(`Now playing \`${queue[0].songName}\` | Requested by \`${queue[0].requester}\``);
-		dispatcher = await connection.play(ytdl(queue[0].url, { filter: 'audioonly' }));
-		dispatcher.guildID = guildID;
+		dispatcher[guildID] = await connection[guildID].play(ytdl(queue[0].url, { filter: 'audioonly' }));
+		dispatcher[guildID].guildID = guildID;
 
-		dispatcher.once('finish', function() {
-			finish(client, connection, queue, guildID, 1);
+		dispatcher[guildID].once('finish', function() {
+			finish(client, connection[guildID], queue, guildID, 1);
 		})
 	}
 
@@ -257,12 +257,12 @@ client.on('message', async message => {
 		}
 
 		if (queue.length > 0) {
-			play(client, connection, queue, guildID);
+			play(client, connection[guildID], queue, guildID);
 		} else {
 			let voice_channel = client.guilds.cache.get(guildID).me.voice.channel;
 			if (voice_channel) voice_channel.leave();
-			connection = null;
-			dispatcher = null;
+			connection[guildID] = null;
+			dispatcher[guildID] = null;
 			message.channel.send('No More Tracks in Queue. Leaving');
 		}
 	}
