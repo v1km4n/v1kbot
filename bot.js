@@ -40,7 +40,7 @@ client.on('message', async message => {
 			.then(() => message.channel.send("KTO-TO SKAZAL BLINI?"));
 	}
 
-	if (!message.content.startsWith(prefix)) return;
+	//if (!message.content.startsWith(prefix)) return;
 
 	const withoutPrefix = message.content.slice(prefix.length);
 	const split = withoutPrefix.split(/ +/);
