@@ -184,26 +184,6 @@ client.on('message', async message => {
 		if (args[0].includes('watch')) {
 			await url_handler(args[0], client, connection, queue);
 		}
-		
-		async function url_handler(url, client, connection, queue) {
-			var info = await ytdl.getInfo(url);
-			console.log('got this ' + info.title);
-			var guildID = message.guild.id;
-
-			queue.push({
-				songName: info.title,
-				requester: message.author.tag,
-				url: url,
-				channel: message.channel.id
-			});
-
-			let user_calling = message.member;
-			if (!connection) connection = await user_calling.voice.channel.join(); 
-			if (!dispatcher) await play(client, connection, queue, guildID)
-			else {
-				message.channel.send(`Added \`${info.title}\` to the Queue | Requested by \`${message.author.tag}\``);
-			}
-		}
 	}
 
 	if (command === 'queue') {
@@ -231,6 +211,26 @@ client.on('message', async message => {
 		message.member.voice.channel.leave(); 
 	}
 
+	async function url_handler(url, client, connection, queue) {
+		var info = await ytdl.getInfo(url);
+		console.log('got this ' + info.title);
+		var guildID = message.guild.id;
+
+		queue.push({
+			songName: info.title,
+			requester: message.author.tag,
+			url: url,
+			channel: message.channel.id
+		});
+
+		let user_calling = message.member;
+		if (!connection) connection = await user_calling.voice.channel.join(); 
+		if (!dispatcher) play(client, connection, queue, guildID)
+		else {
+			message.channel.send(`Added \`${info.title}\` to the Queue | Requested by \`${message.author.tag}\``);
+		}
+	}
+
 	async function play(client, connection, queue, guildID) {
 		console.log(queue);
 		client.channels.cache.get(queue[0].channel).send(`Now playing \`${queue[0].songName}\` | Requested by \`${queue[0].requester}\``);
@@ -248,7 +248,7 @@ client.on('message', async message => {
 		}
 
 		if (queue.length > 0) {
-			await play(client, connection, queue, guildID);
+			play(client, connection, queue, guildID);
 		} else {
 			let voice_channel = client.guilds.cache.get(guildID).me.voice.channel;
 			if (voice_channel) voice_channel.leave();
