@@ -173,7 +173,6 @@ client.on('message', async message => {
 
 	if (command === 'play') {
 		if (args[0].includes('playlist')) {
-			//message.channel.send('Playlist support is not implemented yet (and probably won\'t be any time soon :<)\nAlso this will probably now hang the whole bot :)\nTag v1km4n#0001 if it really did and the bot needs to be reloaded');
 			await ytlist(args[0], 'url').then(res => {
 				player_queue = res.data.playlist;
 			});
@@ -233,6 +232,7 @@ client.on('message', async message => {
 	}
 
 	async function play(client, connection, queue, guildID) {
+		console.log(queue);
 		client.channels.cache.get(queue[0].channel).send(`Now playing \`${queue[0].songName}\` | Requested by \`${queue[0].requester}\``);
 		dispatcher = await connection.play(ytdl(queue[0].url, { filter: 'audioonly' }));
 		dispatcher.guildID = guildID;
