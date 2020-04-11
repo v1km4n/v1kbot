@@ -177,13 +177,13 @@ client.on('message', async message => {
 			await ytlist(args[0], 'url').then(res => {
 				player_queue = res.data.playlist;
 			});
-			//for (var i = 0; i < player_queue.length; ++i) {
-				url_handler(player_queue[0], client, connection, queue);
-			//}
+			for (var i = 0; i < player_queue.length; ++i) {
+				await url_handler(player_queue[i], client, connection, queue);
+			}
 		}
 
 		if (args[0].includes('watch')) {
-			url_handler(args[0], client, connection, queue);
+			await url_handler(args[0], client, connection, queue);
 		}
 		
 		async function url_handler(url, client, connection, queue) {
@@ -194,7 +194,7 @@ client.on('message', async message => {
 			queue.push({
 				songName: info.title,
 				requester: message.author.tag,
-				url: args[0],
+				url: url,
 				channel: message.channel.id
 			});
 
