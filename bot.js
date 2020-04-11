@@ -199,7 +199,7 @@ client.on('message', async message => {
 
 			let user_calling = message.member;
 			if (!connection) connection = await user_calling.voice.channel.join(); 
-			if (!dispatcher) play(client, connection, queue, guildID)
+			if (!dispatcher) await play(client, connection, queue, guildID)
 			else {
 				message.channel.send(`Added \`${info.title}\` to the Queue | Requested by \`${message.author.tag}\``);
 			}
@@ -248,7 +248,7 @@ client.on('message', async message => {
 		}
 
 		if (queue.length > 0) {
-			play(client, connection, queue, guildID);
+			await play(client, connection, queue, guildID);
 		} else {
 			let voice_channel = client.guilds.cache.get(guildID).me.voice.channel;
 			if (voice_channel) voice_channel.leave();
