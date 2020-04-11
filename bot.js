@@ -184,26 +184,6 @@ client.on('message', async message => {
 		if (args[0].includes('watch')) {
 			await url_handler(args[0], client, connection, queue);
 		}
-		
-		async function url_handler(url, client, connection, queue) {
-			var info = await ytdl.getInfo(url);
-			console.log('got this ' + info.title);
-			var guildID = message.guild.id;
-
-			queue.push({
-				songName: info.title,
-				requester: message.author.tag,
-				url: url,
-				channel: message.channel.id
-			});
-
-			let user_calling = message.member;
-			if (!connection) connection = await user_calling.voice.channel.join(); 
-			if (!dispatcher) await play(client, connection, queue, guildID)
-			else {
-				message.channel.send(`Added \`${info.title}\` to the Queue | Requested by \`${message.author.tag}\``);
-			}
-		}
 	}
 
 	if (command === 'queue') {
@@ -229,6 +209,26 @@ client.on('message', async message => {
 		if (message.member.voice.channel != message.guild.me.voice.channel) message.channel.send('The bot in in the another Voice Channel');
 		if (queue) queue = [];
 		message.member.voice.channel.leave(); 
+	}
+
+	async function url_handler(url, client, connection, queue) {
+		var info = await ytdl.getInfo(url);
+		console.log('got this ' + info.title);
+		var guildID = message.guild.id;
+
+		queue.push({
+			songName: info.title,
+			requester: message.author.tag,
+			url: url,
+			channel: message.channel.id
+		});
+
+		let user_calling = message.member;
+		if (!connection) connection = await user_calling.voice.channel.join(); 
+		if (!dispatcher) play(client, connection, queue, guildID)
+		else {
+			message.channel.send(`Added \`${info.title}\` to the Queue | Requested by \`${message.author.tag}\``);
+		}
 	}
 
 	async function play(client, connection, queue, guildID) {
