@@ -224,7 +224,7 @@ client.on('message', async message => {
 
 		let user_calling = message.member;
 		if (!connection) connection = await user_calling.voice.channel.join(); 
-		if (!dispatcher) play(client, connection, queue, guildID)
+		if (!dispatcher) await play(client, connection, queue, guildID)
 		else {
 			message.channel.send(`Added \`${info.title}\` to the Queue | Requested by \`${message.author.tag}\``);
 		}
