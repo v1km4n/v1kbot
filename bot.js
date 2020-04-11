@@ -194,7 +194,7 @@ client.on('message', async message => {
 			queue.push({
 				songName: info.title,
 				requester: message.author.tag,
-				url: args[0],
+				url: url,
 				channel: message.channel.id
 			});
 
