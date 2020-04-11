@@ -236,6 +236,7 @@ client.on('message', async message => {
 			trigger = true;
 			trigger_user = message.author;
 			trigger_message = args[0];
+			alias_name = args[1];
 			strings_amount = 0;
 			message.channel.send(`Send lines one by one, type \`${args[0]}\` to stop.`);
 		}
@@ -248,7 +249,6 @@ client.on('message', async message => {
 
 		} else {
 			console.log(strings_amount);
-			message.channel.send("Got it. Gonna compile now.");
 
 			let big_string = 'Full Text:\n';
 			for (let a = 0; a < strings.length; ++a) {
@@ -257,14 +257,13 @@ client.on('message', async message => {
 			message.channel.send(`\`\`\`${big_string}\`\`\``);
 
 			let string = "";
-			for (let a = 0; a < strings.length; a++) {
+			for (let a = 0; a < (strings.length-1); a++) {
 				string = `${string}alias ${alias_name}${a} "say ${strings[a]}; alias ${alias_name} ${alias_name}${a+1}"\n`;
 			}
-			string = `${string}alias ${alias_name}${(strings.length)} "say ${strings[strings.length]}; alias ${alias_name} ${alias_name}0"\n`;
+			string = `${string}alias ${alias_name}${(strings.length-1)} "say ${strings[(strings.length-1)]}; alias ${alias_name} ${alias_name}0"\n`;
 			string = `${string}alias ${alias_name} ${alias_name}0`;
 
-			message.channel.send("And your alias is: ");
-			message.channel.send(`\`\`\`${string}\`\`\``);
+			message.channel.send("And your alias is: \n\`\`\`${string}\`\`\`");
 
 			trigger = false;
 			trigger_message = null;
