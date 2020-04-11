@@ -200,7 +200,7 @@ client.on('message', async message => {
 		var shift_amount = args[0];
 		if (shift_amount === undefined) shift_amount = 1;
 		var guildID = message.guild.id;
-		finish(client, queue, guildID, shift_amount);
+		finish(client, connection, queue, guildID, shift_amount);
 	}
 
 	if (command === "leave") {
@@ -238,11 +238,11 @@ client.on('message', async message => {
 		dispatcher.guildID = guildID;
 
 		dispatcher.once('finish', function() {
-			finish(client, queue, guildID, 1);
+			finish(client, connection, queue, guildID, 1);
 		})
 	}
 
-	function finish(client, queue, guildID, shift_amount) {
+	function finish(client, connection, queue, guildID, shift_amount) {
 		for (var i = 0; i < shift_amount; ++i){
 			queue.shift();
 		}
