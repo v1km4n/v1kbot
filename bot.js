@@ -231,38 +231,46 @@ client.on('message', async message => {
 		if (args[0] === undefined) {
 			message.channel.send("Usage - !aliasgen [endline] [aliasname]\n[endline] is the line which you will enter to stop");
 		} else {
+			trigger = true;
+			trigger_user = message.author;
+			trigger_message = args[0];
+
 			alias_maker(args[0], args[1], message.author, message.channel);
 			message.channel.send(`Send lines one by one, ${args[0]} to stop.`);
 		}
 	}
 
-	function alias_maker(stop_phrase, alias_name, author, channel) {
+	if ((trigger == true) && (trigger_user == message.author)) {
 		let strings = [];
 		let i = 0;
-		client.on('message', async message => {	
-			if ((message.channel == channel) && (message.author == author) && (message.content != stop_phrase)) {
-				strings[i] = message.content;
-				i++;
-			} else if ((message.channel == channel) && (message.author == author) && (message.content == stop_phrase)) {
-				message.channel.send("Got it. Gonna compile now.");
+		if (message.content != trigger_message) {
+			strings[i] = message.content;
+			++i;
+		}
+		if (message.content == trigger_message) {
+			message.channel.send("Got it. Gonna compile now.");
+
+			let big_string = 'Full Text:\n';
+			for (let i = 0; i < strings.length; ++i) {
+				big_string = (`${big_string}${strings[i]}\n`);
 			}
-		});
+			message.channel.send(`\`\`\`${big_string}\`\`\``);
 
-		let big_string = 'Full Text:\n';
-		for (let i = 0; i < strings.length; ++i) {
-			big_string = (`${big_string}${strings[i]}\n`);
+			let string = "";
+			for (var a = 0; a < i-1; a++) {
+				string = `${string}alias ${alias_name}${a} "say ${strings[a]}; alias ${alias_name} ${alias_name}${a+1}"\n`;
+			}
+			string = `${string}alias ${alias_name}${a} "say ${strings[i-1]}; alias ${alias_name} ${alias_name}0"\n`;
+			string = `${string}alias ${alias_name} ${alias_name}0`;
+
+			message.channel.send("And your alias is: ");
+			message.channel.send(`\`\`\`string\`\`\``);
+
+			trigger = false;
+			trigger_message = null;
+			trigger_user = null;
+			alias_name = null;
 		}
-		message.channel.send(`\`\`\`${big_string}\`\`\``);
-
-		let string = "";
-		for (var a = 0; a < i-1; a++) {
-			string = `${string}alias ${alias_name}${a} "say ${strings[a]}; alias ${alias_name} ${alias_name}${a+1}"\n`;
-		}
-		string = `${string}alias ${alias_name}${a} "say ${strings[i-1]}; alias ${alias_name} ${alias_name}0"\n`;
-		string = `${string}alias ${alias_name} ${alias}${alias_names}0`;
-
-		message.channel.send("And your alias is: ");
-		message.channel.send(`\`\`\`string\`\`\``);
 	}
 
 	async function url_handler(url, client, connection, queue) {
