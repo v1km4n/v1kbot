@@ -234,16 +234,18 @@ client.on('message', async message => {
 			trigger = true;
 			trigger_user = message.author;
 			trigger_message = args[0];
-			message.channel.send(`Send lines one by one, ${args[0]} to stop.`);
+			message.channel.send(`Send lines one by one, type \`${args[0]}\` to stop.`);
 		}
 	}
 
 	if ((trigger == true) && (trigger_user == message.author)) {
 		let strings = [];
 		let i = 0;
+		console.log(trigger_user + ' ' + trigger_message);
 		if (message.content != trigger_message) {
 			strings[i] = message.content;
 			++i;
+
 		}
 		if (message.content == trigger_message) {
 			message.channel.send("Got it. Gonna compile now.");
