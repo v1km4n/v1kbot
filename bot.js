@@ -264,7 +264,7 @@ client.on('message', async message => {
 			string = `${string}alias ${alias_name} ${alias_name}0`;
 
 			message.channel.send("And your alias is: ");
-			message.channel.send(`\`\`\`string\`\`\``);
+			message.channel.send(`\`\`\`${string}\`\`\``);
 
 			trigger = false;
 			trigger_message = null;
