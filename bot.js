@@ -188,9 +188,13 @@ client.on('message', async message => {
 
 	if (command === 'queue') {
 		if (queue != [] ) {
+			var local_queue = 1;
 			let queue_message = `Queue:\n`;
 			for (var i = 0; i < queue.length; ++i) {
-				queue_message = queue_message + `${(i+1)}) ${queue[i].songName} | Requested by: ${queue[i].requester}\n`;
+				if (queue[i].channel == message.channel.id) {
+					queue_message = queue_message + `${local_queue}) ${queue[i].songName} | Requested by: ${queue[i].requester}\n`;
+					local_queue++;
+				}
 			}
 			message.channel.send(`\`\`\`${queue_message}\`\`\``);
 		}
@@ -200,15 +204,22 @@ client.on('message', async message => {
 		var shift_amount = args[0];
 		if (shift_amount === undefined) shift_amount = 1;
 		var guildID = message.guild.id;
+		message.channel.send(`Skipped \`${shift_amount}\` Tracks`);
 		finish(client, connection, queue, guildID, shift_amount);
 	}
 
-	if (command === "leave") {
+	if (command === 'leave') {
 		if (!message.member.voice.channel) message.channel.send('You are not in a Voice Channel');
 		if (!message.guild.me.voice.channel) message.channel.send('The bot in not in a Voice Channel');
 		if (message.member.voice.channel != message.guild.me.voice.channel) message.channel.send('The bot in in the another Voice Channel');
 		if (queue) queue = [];
-		message.member.voice.channel.leave(); 
+		message.member.voice.channel.leave();
+		message.react('👋');
+	}
+
+	if (command === 'clear') {
+		if (queue) queue = [];
+		message.channel.send("The Player Queue was emptied!");
 	}
 
 	async function url_handler(url, client, connection, queue) {
@@ -231,9 +242,7 @@ client.on('message', async message => {
 	}
 
 	async function play(client, connection, queue, guildID) {
-		console.log(queue);
 		client.channels.cache.get(queue[0].channel).send(`Now playing \`${queue[0].songName}\` | Requested by \`${queue[0].requester}\``);
-		console.log(connection + ' ' + connection.play);
 		dispatcher = await connection.play(ytdl(queue[0].url, { filter: 'audioonly' }));
 		dispatcher.guildID = guildID;
 
