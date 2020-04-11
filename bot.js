@@ -6,10 +6,16 @@ const notificationsRoleID = '511657769233809408';
 const steam = new SteamAPI(process.env.STEAM_TOKEN);
 const ytdl = require('ytdl-core');
 const ytlist = require('youtube-playlist');
+const readline = require('readline-sync');
+const fs = require('fs');
 
 var connection = null;
 var dispatcher = null; 
 var queue = [];
+var trigger = false;
+var trigger_user = null;
+var trigger_message = null;
+var alias_name = null;
 
 client.login(process.env.BOT_TOKEN);
 
@@ -220,6 +226,50 @@ client.on('message', async message => {
 	if (command === 'clear') {
 		if (queue) queue = [];
 		message.channel.send("The Player Queue was emptied!");
+	}
+
+	if (command === 'aliasgen') {
+		let i = 0;
+		if (args[0] === undefined) {
+			message.channel.send("Usage - !aliasgen [endline] [aliasname]\n[endline] is the line which you will enter to stop");
+		} else {
+			message.channel.send(`Send lines one by one, ${agrs[0]} to stop.`);
+			trigger = true;
+			trigger_user = message.author;
+			trigger_message = args[0];
+			alias_name = args[1];
+		}
+	}
+
+	if ((triggered == true) && (message.author == trigger_user)) {
+		let strings = [];
+		while (1) {
+			strings[i] = message.content;
+			if (strings[i] == trigger_message) {
+				strings.pop();
+				break;
+			}
+			i++;
+		}
+		let big_string = 'Full Text:\n';
+		for (let i = 0; i < strings.length; ++i) {
+			big_string = (`${big_string}${strings[i]}\n`);
+		}
+		message.channel.send(`\`\`\`${big_string}\`\`\``);
+		let string = "";
+		for (var a = 0; a < i-1; a++) {
+			string = `${string}alias ${alias_name}${a} "say ${strings[a]}; alias ${alias_name} ${alias_name}${a+1}"\n`;
+		}
+		string = `${string}alias ${alias_name}${a} "say ${strings[i-1]}; alias ${alias_name} ${alias_name}0"\n`;
+		string = `${string}alias ${alias_name} ${alias}${alias_names}0`;
+
+		message.channel.send("And your alias is: ");
+		message.channel.send(`\`\`\`string\`\`\``);
+		
+		var trigger = false;
+		var trigger_user = null;
+		var trigger_message = null;
+		var alias_name = null;
 	}
 
 	async function url_handler(url, client, connection, queue) {
