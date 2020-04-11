@@ -243,12 +243,11 @@ client.on('message', async message => {
 	if ((trigger == true) && (trigger_user == message.author) && (!message.content.startsWith(prefix))) {
 		console.log(trigger_user + ' ' + trigger_message);
 		if (message.content != trigger_message) {
-			console.log('not trigger ' + message.content);
 			strings[i] = message.content;
 			++i;
 
 		} else {
-			console.log('trigger ' + message.content);
+			console.log(i);
 			message.channel.send("Got it. Gonna compile now.");
 
 			let big_string = 'Full Text:\n';
@@ -258,10 +257,10 @@ client.on('message', async message => {
 			message.channel.send(`\`\`\`${big_string}\`\`\``);
 
 			let string = "";
-			for (var a = 0; a < i-1; a++) {
+			for (let a = 0; a < i; a++) {
 				string = `${string}alias ${alias_name}${a} "say ${strings[a]}; alias ${alias_name} ${alias_name}${a+1}"\n`;
 			}
-			string = `${string}alias ${alias_name}${a} "say ${strings[i-1]}; alias ${alias_name} ${alias_name}0"\n`;
+			string = `${string}alias ${alias_name}${(i)} "say ${strings[i]}; alias ${alias_name} ${alias_name}0"\n`;
 			string = `${string}alias ${alias_name} ${alias_name}0`;
 
 			message.channel.send("And your alias is: ");
