@@ -16,7 +16,7 @@ var trigger_user = null;
 var trigger_message = null;
 var alias_name = null;
 var strings = [];
-var i = 0;
+var strings_amount = 0;
 
 client.login(process.env.BOT_TOKEN);
 
@@ -236,18 +236,18 @@ client.on('message', async message => {
 			trigger = true;
 			trigger_user = message.author;
 			trigger_message = args[0];
+			strings_amount = 0;
 			message.channel.send(`Send lines one by one, type \`${args[0]}\` to stop.`);
 		}
 	}
 
 	if ((trigger == true) && (trigger_user == message.author) && (!message.content.startsWith(prefix))) {
-		console.log(trigger_user + ' ' + trigger_message);
 		if (message.content != trigger_message) {
-			strings[i] = message.content;
-			++i;
+			strings[strings_amount] = message.content;
+			strings_amount++;
 
 		} else {
-			console.log(i);
+			console.log(strings_amount);
 			message.channel.send("Got it. Gonna compile now.");
 
 			let big_string = 'Full Text:\n';
@@ -257,10 +257,10 @@ client.on('message', async message => {
 			message.channel.send(`\`\`\`${big_string}\`\`\``);
 
 			let string = "";
-			for (let a = 0; a < i; a++) {
+			for (let a = 0; a < strings.length; a++) {
 				string = `${string}alias ${alias_name}${a} "say ${strings[a]}; alias ${alias_name} ${alias_name}${a+1}"\n`;
 			}
-			string = `${string}alias ${alias_name}${(i)} "say ${strings[i]}; alias ${alias_name} ${alias_name}0"\n`;
+			string = `${string}alias ${alias_name}${(strings.length)} "say ${strings[strings.length]}; alias ${alias_name} ${alias_name}0"\n`;
 			string = `${string}alias ${alias_name} ${alias_name}0`;
 
 			message.channel.send("And your alias is: ");
@@ -271,7 +271,7 @@ client.on('message', async message => {
 			trigger_user = null;
 			alias_name = null;
 			strings = []
-			i = 0;
+			strings_amount = 0;
 		}
 	}
 
