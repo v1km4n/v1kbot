@@ -6,7 +6,6 @@ const notificationsRoleID = '511657769233809408';
 const steam = new SteamAPI(process.env.STEAM_TOKEN);
 const ytdl = require('ytdl-core');
 const ytlist = require('youtube-playlist');
-const readline = require('readline-sync');
 const fs = require('fs');
 
 var connection = null;
