@@ -17,6 +17,7 @@ var trigger_message = null;
 var alias_name = null;
 var strings = [];
 var strings_amount = 0;
+const stars = new Date(Date.UTC(2020, 11, 18, 0, 0, 0));
 
 client.login(process.env.BOT_TOKEN);
 
@@ -134,6 +135,12 @@ client.on('message', async message => {
 		var minutes = datecr.getMinutes();
 		var ddmmyyyy = `This channel was created on ${date}/${month}/${year} at ${hours}:${minutes}`;
 		message.channel.send(ddmmyyyy);
+	}
+
+	if (command === 'dmb') {
+		var currentDate = Date.now();
+		var difference = Date.parse(stars) - Date.parse(currentDate);
+		message.channel.send(`${difference} ms`);
 	}
 
 	if (command === 'match') {
