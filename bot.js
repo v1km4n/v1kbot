@@ -138,7 +138,7 @@ client.on('message', async message => {
 	}
 
 	if (command === 'dmbl') {
-		if (args[0] === 'stars') {
+		if (args[0].toLowerCase() === 'stars') {
 			ms_to_date(stars);
 		} else if (args[0] === undefined) {
 			message.channel.send('```Current list of mujiki:\nStars```')
