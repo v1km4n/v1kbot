@@ -160,7 +160,6 @@ client.on('message', async message => {
 		var hrs = ms % 24;
 		ms = (ms - hrs) / 24; // days
 		return `${ms} days, ${hrs} hrs, ${mins} mins, ${secs} secs`;
-
 	}
 
 	if (command === 'match') {
