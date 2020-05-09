@@ -140,7 +140,6 @@ client.on('message', async message => {
 	if (command === 'dmb') {
 		var currentDate = Date.now();
 		var difference = stars - currentDate;
-
 		message.channel.send(`${difference} ms`);
 	}
 
