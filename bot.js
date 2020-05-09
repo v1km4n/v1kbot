@@ -139,18 +139,16 @@ client.on('message', async message => {
 
 	if (command === 'dmbl') {
 		if (args[0] === 'stars') {
-			let difference = stars - Date.now();
+			ms_to_date(stars);
 		} else if (args[0] === undefined) {
-			message.channel.send('\`\`\`Current list of mujiki:\nStars\`\`\`')
+			message.channel.send('```Current list of mujiki:\nStars```')
 		} else {
 			message.channel.send('No such mujik');
-			break;
 		}
-		let answer = ms_to_date(difference);
-		message.channel.send(`${answer}`);
 	}
 
-	function ms_to_date (ms) {
+	function ms_to_date (givenDate) {
+		ms = givenDate - Date.now();
 		var mss = ms % 1000;
 		ms = (ms - mss) / 1000; //secs
 		var secs = ms % 60;
@@ -159,7 +157,7 @@ client.on('message', async message => {
 		ms = (ms - mins) / 60; //hrs
 		var hrs = ms % 24;
 		ms = (ms - hrs) / 24; // days
-		return `${ms} days, ${hrs} hrs, ${mins} mins, ${secs} secs`;
+		message.channel.send(`${ms} days, ${hrs} hrs, ${mins} mins, ${secs} secs`);
 	}
 
 	if (command === 'match') {
