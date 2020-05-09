@@ -138,10 +138,22 @@ client.on('message', async message => {
 	}
 
 	if (command === 'dmb') {
-		var currentDate = Date.now();
-		var difference = stars - currentDate;
+		let difference = stars - Date.now();
+		let answer = ms_to_date(difference);
+		message.channel.send(`${answer}`);
+	}
 
-		message.channel.send(`${difference} ms`);
+	function ms_to_date (ms) {
+		var mss = ms % 1000;
+		ms = (ms - mss) / 1000; //secs
+		var secs = ms % 60;
+		ms = (ms - secs) / 60; //mins
+		var mins = ms % 60;
+		ms = (ms - mins) / 60; //hrs
+		var hrs = ms % 24;
+		ms = (ms - hrs) / 24; // days
+		return `${ms} days, ${hrs} hrs, ${mins} mins, ${secs} secs`;
+
 	}
 
 	if (command === 'match') {
