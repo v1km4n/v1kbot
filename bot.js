@@ -137,8 +137,15 @@ client.on('message', async message => {
 		message.channel.send(ddmmyyyy);
 	}
 
-	if (command === 'dmb') {
-		let difference = stars - Date.now();
+	if (command === 'dmbl') {
+		if (args[0].toLowerCase() === 'stars') {
+			let difference = stars - Date.now();
+		} else if (args[0] === null) {
+			message.channel.send('\`\`\`Current list of mujiki:\nStars\`\`\`')
+		} else {
+			message.channel.send('No such mujik');
+			break;
+		}
 		let answer = ms_to_date(difference);
 		message.channel.send(`${answer}`);
 	}
