@@ -203,17 +203,21 @@ client.on('message', async message => {
 	}
 
 	if (command === 'play') {
-		if (args[0].includes('playlist')) {
-			await ytlist(args[0], 'url').then(res => {
-				player_queue = res.data.playlist;
-			});
-			for (var i = 0; i < player_queue.length; ++i) {
-				await url_handler(player_queue[i], client, connection, queue);
+		if (args[0] === undefined) {
+			message.channel.send('Please provide a URL');
+		} else {
+			if (args[0].includes('playlist')) {
+				await ytlist(args[0], 'url').then(res => {
+					player_queue = res.data.playlist;
+				});
+				for (var i = 0; i < player_queue.length; ++i) {
+					await url_handler(player_queue[i], client, connection, queue);
+				}
 			}
-		}
 
-		if (args[0].includes('watch')) {
-			await url_handler(args[0], client, connection, queue);
+			if (args[0].includes('watch')) {
+				await url_handler(args[0], client, connection, queue);
+			}
 		}
 
 		message.delete();
