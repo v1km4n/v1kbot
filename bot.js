@@ -339,7 +339,8 @@ client.on('message', async message => {
 			let voice_channel = client.guilds.cache.get(guildID).me.voice.channel;
 			if (voice_channel) voice_channel.leave();
 			connection = null;
-			dispatcher = null;
+			dispatcher = null
+			queue = [];
 			message.channel.send('No More Tracks in Queue. Leaving');
 		}
 	}
