@@ -1,5 +1,3 @@
 {
-	"prefix": "!",
-	"discordToken": process.env.BOT_TOKEN,
-	"steamToken": process.env.STEAM_TOKEN
+	"prefix": "!"
 }
