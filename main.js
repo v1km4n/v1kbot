@@ -5,8 +5,8 @@ const ytlist = require('youtube-playlist'); //playlist for ytmusic support
 const config = require('./config.json');
 
 const client = new Discord.Client();
-client.login(process.env.BOT_TOKEN);
-const steam = new SteamAPI(process.env.STEAM_TOKEN);
+client.login(config.discordToken);
+const steam = new SteamAPI(config.steamToken);
 
 const notificationsRoleID = '511657769233809408'; //'derzhite' role id on v1km4n server
 const serverID = '347755453528276992'; //v1km4n server id
