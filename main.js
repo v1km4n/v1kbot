@@ -31,7 +31,7 @@ client.user.setStatus('available')
 
 client.on('message', async message => {	
 
-	if (!message.content.startsWith(config.prefix) && (message.content.toLowerCase().includes("блины") || message.content.toLowerCase().includes("blini")) && message.author.bot == false) {
+	if (!message.content.startsWith(config.prefix) && (message.content.toLowerCase().includes("блины") || message.content.toLowerCase().includes("блинов") || message.content.toLowerCase().includes("блинам") || message.content.toLowerCase().includes("блинов") ||  message.content.toLowerCase().includes("blini")) && message.author.bot == false) {
 		const catWithPancakes = new Discord.MessageAttachment("https://i.imgur.com/L4QqeEF.jpg");
 		message.channel.send(catWithPancakes)
 			.then(() => message.channel.send("KTO-TO SKAZAL BLINI?"));
