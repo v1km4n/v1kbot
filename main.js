@@ -50,8 +50,8 @@ client.on('message', async message => {
 		message.author.send("`!play [youtube_url] - проигрывание музла с YT (можно формировать очередь)\n!queue - непосредственно очередь\n!skip [x] - пропустить x треков (просто !skip пропустит 1)\n!leave - выгнать бота из войса (или он выйдет сам, когда кончится очередь)`");
 	}
 	if ( (command === 'imgur') || (command === 'lightshot') ) {  //where args[0] is amount of netstalking shit to be recived 
-	const port = 8099; // port for Kworker's apiserver
-	var recived =0; // amount of messsages recived 	
+	const port = '8099'; // port for Kworker's apiserver
+	var recived ='0'; // amount of messsages recived 	
 	require('net').createServer(function (socket) {
 		//TODO 08.18.2 i have no clue how to check if args[0] is a integer pls fix it
     		socket.on('data', function (data) {  //forwarding messages from Kworker's api
@@ -62,7 +62,7 @@ client.on('message', async message => {
   	  });
 	}).listen(port);
 		var s = require('net').Socket();
-		s.connect(port, 'Kworker\'s api adress'); // TODO 08.18.20 add kworker\'s api adress here
+		s.connect(port, '45.128.206.232'); //kworker\'s API ip
 		s.write(command+` `+args[0]); //sending request to kworker\'s api
 		s.end(); // close this shit
 	}
