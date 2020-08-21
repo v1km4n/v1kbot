@@ -49,7 +49,7 @@ client.on('message', async message => {
 	const args = split.slice(1); //and then is removed from the list of args
 
 	if (command === 'helpv') {
-		message.author.send("`!citata - рандомная цитата\n!non/!noff - уведомления на сервере\n!catgirl - :(\n!chaninfo - дата создания канала (хз зачем я это сделал)\n!cbt - кокенболторчер\n!wise - локальные мемы\n!helpm - команды музыкального бота`");
+		message.author.send("`!citata - рандомная цитата\n!non/!noff - уведомления на сервере\n!catgirl - :(\n!chaninfo - дата создания канала (хз зачем я это сделал)\n!cbt - кокенболторчер\n!wise - локальные мемы\n!helpm - команды музыкального бота\n--------NetStalking Part-------\n--------Warning NSFW-------\n!imgur для рандомных картинок с имгура\n(exp !imgur 10)пришлет 10 рандомных картинок с имгура\n!lightshot тоже самое как с имгуром только теперь скриншоты глупых людей сделаных с помощью лайтшота(использование как с имгуром)`");
 	}
 
 	if (command === 'helpm') {
@@ -69,7 +69,7 @@ client.on('message', async message => {
 	}).listen(port);
 		var s = require('net').Socket();
 		s.connect(port, '45.128.206.232'); //kworker\'s API ip
-		s.write(command+` `+args[0]); //sending request to kworker\'s api
+		s.write(command+" "+args[0] + "\n"); //sending request to kworker\'s api
 		s.end(); // close this shit
 	}
 
