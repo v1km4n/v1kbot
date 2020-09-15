@@ -84,8 +84,7 @@ client.on('message', async message => {
 			var HLTeamNo = null;
 			var SixesTeamNo = null;
 			for (let i = 0; i < Object.keys(etf2lPlayer.player.teams).length; i++) {
-				if (etf2lPlayer.player.teams[i].type == "Highlander") 
-				{ 
+				if (etf2lPlayer.player.teams[i].type == "Highlander") { 
 					HLTeamNo = i;
 				} else if (etf2lPlayer.player.teams[i].type == "6on6") {
 					SixesTeamNo = i;
@@ -93,21 +92,40 @@ client.on('message', async message => {
 			}
 
 			if (HLTeamNo != null) {
-				let latestSeasonIDNo = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - 1;
-				let latestSeasonID = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[latestSeasonIDNo];
+				let latestSeasonID = null;
+				for (let i = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length; i > 0; i--) {
+					if ((!Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[i].includes("Qualifiers")) && (!Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[i].includes("Playoffs"))) {
+						latestSeasonID = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[i];
+						break;
+					}
+				}
+
+				if (latestSeasonID == null) {
+					message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
+				} else {
+					message.channel.send(`This player has played in ${etf2lPlayer.player.teams[HLTeamNo].competitions[latestSeasonID].division.name} during the latest Highlander season`);
+				}
 				
-				message.channel.send(`This player has played in ${etf2lPlayer.player.teams[HLTeamNo].competitions[latestSeasonID].division.name} during the latest Highlander season`);
 			} else {
-				message.channel.send("Player doesn't seem to be participating in any HL season at the moment")
+				message.channel.send("Player doesn't seem to be participating in any HL season at the moment");
 			}
 			
 			if (SixesTeamNo != null) {
-				let latestSeasonIDNo = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length - 1;
-				let latestSeasonID = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions)[latestSeasonIDNo];
-				
-				message.channel.send(`This player has played in ${etf2lPlayer.player.teams[SixesTeamNo].competitions[latestSeasonID].division.name} during the latest 6v6 season`);
+				let latestSeasonID = null;
+				for (let i = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length; i > 0; i--) {
+					if ((!Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions)[i].includes("Qualifiers")) && (!Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[i].includes("Playoffs"))) {
+						latestSeasonID = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions)[i];
+						break;
+					}
+				}
+
+				if (latestSeasonID == null) {
+					message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
+				} else {
+					message.channel.send(`This player has played in ${etf2lPlayer.player.teams[SixesTeamNo].competitions[latestSeasonID].division.name} during the latest 6v6 season`);
+				}
 			} else {
-				message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment")
+				message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment");
 			}
 		});
 	}
