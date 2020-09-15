@@ -110,8 +110,10 @@ client.on('message', async message => {
 					}
 				}
 
-				if (!latestSeasonID == null) {
-					if ((latestSeason.division.name == null) && (latestSeason.competition.toLowerCase.includes("open"))) { //for those HL seasons, where open division was basically a complete different season
+				if (latestSeasonID == null) {
+					message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
+				} else { //TODO: add check for the player match history rather than division of the current team
+					if ((latestSeason.division.name == null)) { //for those HL seasons, where open division was basically a complete different season
 						let colonIndex = latestSeason.competition.indexOf(':'); //we need this to find colon in string like "Highlander Season 18: Open" and the slice the ": Open" part off
 						let cleanSeasonName = latestSeason.competition.slice(0, -colonIndex); //"Highlander Season 18: Open" -> "Highlander Season 18"
 
@@ -119,8 +121,6 @@ client.on('message', async message => {
 					} else { //now for the usual seasons
 						message.channel.send(`This player has played in ***${latestSeason.division.name}*** with ***${latestSeason.name}*** during the ***${latestSeason.competition}***`);
 					}
-				} else { //TODO: add check for the player match history rather than division of the current team
-					message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
 				}
 				
 			}
@@ -154,8 +154,18 @@ client.on('message', async message => {
 					}
 				} else { 
 					message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
+				} else { //TODO: add check for the player match history rather than division of the current team
+					if ((latestSeason.division.name == null) && (latestSeason.competition.toLowerCase.includes("open"))) {
+						let colonIndex = latestSeason.competition.indexOf(':');
+						let cleanSeasonName = latestSeason.competition.slice(0, -colonIndex); 
+
+						message.channel.send(`This player has played in ***Open*** with ***${latestSeason.name}*** during the 6v6 ***${cleanSeasonName}***`);
+					} else { 
+						message.channel.send(`This player has played in ***${latestSeason.division.name}*** with ***${latestSeason.name}*** during the 6v6 ***${latestSeason.competition}***`);
+					}
 				}
-				
+			} else {
+				message.channel.send("Player doesn't seem to be participating in any HL season at the moment");
 			}
 			
 			if (SixesTeamNo != null) {
