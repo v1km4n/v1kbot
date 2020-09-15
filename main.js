@@ -93,6 +93,7 @@ client.on('message', async message => {
 
 			if (HLTeamNo != null) {
 				let latestSeasonID = null;
+				let currentCheckedCompetition = null;
 
 				//Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions) = IDs of competitive seasons ["356", "398" ...]
 				//Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length = amount of these IDs
@@ -102,11 +103,7 @@ client.on('message', async message => {
 				console.log(`${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length} = amount of IDs`);
 
 				for (let i = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length; i > 0; i--) {
-
-					etf2lPlayer.player.teams[HLTeamNo].competitions[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - 1]
-
-					let currentCheckedCompetition = etf2lPlayer.player.teams[HLTeamNo].competitions[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i];
-
+					currentCheckedCompetition = etf2lPlayer.player.teams[HLTeamNo].competitions[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i];
 
 					console.log(`Currently checking ${i} | ${etf2lPlayer.player.teams[HLTeamNo].competitions[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i]}`)
 
