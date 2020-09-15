@@ -131,7 +131,7 @@ client.on('message', async message => {
 				let latestSeasonID = null;
 				let checkedSeason = null;
 
-				let team = etf2lPlayer.player.teams[HLTeamNo];
+				let team = etf2lPlayer.player.teams[SixesTeamNo];
 				let listofSixesTeamSeasons = etf2lPlayer.player.teams[SixesTeamNo].competitions;
 				let amountofSixesTeamSeasons = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length;
 				let latestSeason = null;
