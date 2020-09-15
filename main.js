@@ -93,21 +93,14 @@ client.on('message', async message => {
 
 			if (HLTeamNo != null) {
 				let latestSeasonID = null;
-					
-				latestSeasonNo = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - 1;
-				latestSeasonIDD = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[latestSeasonNo];
-				lastestPrikol = etf2lPlayer.player.teams[HLTeamNo].competitions[latestSeasonIDD].competition;
-				console.log(latestSeasonNo);
-				console.log(latestSeasonIDD);
-				console.log(lastestPrikol);
-				console.log(etf2lPlayer.player.teams[HLTeamNo].competitions[latestSeasonIDD]);
 
 				for (let i = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length; i > 0; i--) {
-					console.log(`etf2lPlayer.player.teams[HLTeamNo].competitions[i].competition: ${etf2lPlayer.player.teams[HLTeamNo].competitions[i]}`);
-					if ((!etf2lPlayer.player.teams[HLTeamNo].competitions[i].competition.includes("Qualifiers")) && 
-						(!etf2lPlayer.player.teams[HLTeamNo].competitions[i].competition.includes("Playoffs"))) {
+					let currentCheckedCompetition = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i];
 
-						latestSeasonID = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[i];
+					if ((!etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition].competition.includes("Qualifiers")) && 
+						(!etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition].competition.includes("Playoffs"))) {
+
+						latestSeasonID = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[currentCheckedCompetition];
 						break;
 					}
 				}
@@ -124,12 +117,14 @@ client.on('message', async message => {
 			
 			if (SixesTeamNo != null) {
 				let latestSeasonID = null;
-        
+				
 				for (let i = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length; i > 0; i--) {
-					if ((!etf2lPlayer.player.teams[SixesTeamNo].competitions[i].competition.includes("Qualifiers")) && 
-						(!etf2lPlayer.player.teams[SixesTeamNo].competitions[i].competition.includes("Playoffs"))) {
+					let currentCheckedCompetition = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length - i];
 
-						latestSeasonID = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions)[i];
+					if ((!etf2lPlayer.player.teams[SixesTeamNo].competitions[currentCheckedCompetition].competition.includes("Qualifiers")) && 
+						(!etf2lPlayer.player.teams[SixesTeamNo].competitions[currentCheckedCompetition].competition.includes("Playoffs"))) {
+
+						latestSeasonID = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions)[currentCheckedCompetition];
 						break;
 					}
 				}
