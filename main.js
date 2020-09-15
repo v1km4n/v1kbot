@@ -143,7 +143,16 @@ client.on('message', async message => {
 					}
 				}
 
-				if (latestSeasonID == null) {
+				if (!latestSeasonID == null) {
+					if ((latestSeason.division.name == null) && (latestSeason.competition.toLowerCase.includes("open"))) {
+						let colonIndex = latestSeason.competition.indexOf(':');
+						let cleanSeasonName = latestSeason.competition.slice(0, -colonIndex); 
+
+						message.channel.send(`This player has played in ***Open*** with ***${latestSeason.name}*** during the 6v6 ***${cleanSeasonName}***`);
+					} else { 
+						message.channel.send(`This player has played in ***${latestSeason.division.name}*** with ***${latestSeason.name}*** during the 6v6 ***${latestSeason.competition}***`);
+					}
+				} else { 
 					message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
 				} else { //TODO: add check for the player match history rather than division of the current team
 					if ((latestSeason.division.name == null) && (latestSeason.competition.toLowerCase.includes("open"))) {
