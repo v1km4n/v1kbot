@@ -96,6 +96,7 @@ client.on('message', async message => {
 					
 				for (let i = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length; i > 0; i--) {
 					if ((!Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[i].competition.includes("Qualifiers")) && (!Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[i].competition.includes("Playoffs"))) {
+
 						latestSeasonID = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[i];
 						break;
 					}
