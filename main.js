@@ -116,7 +116,7 @@ client.on('message', async message => {
 				if (latestSeasonID == null) {
 					message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
 				} else {
-					message.channel.send(`This player has played in ${etf2lPlayer.player.teams[HLTeamNo].competitions[latestSeasonID].division.name} with ${etf2lPlayer.player.teams[HLTeamNo].name} during the latest Highlander season`);
+					message.channel.send(`This player has played in ${etf2lPlayer.player.teams[HLTeamNo].competitions[latestSeasonID].division.name} with ${etf2lPlayer.player.teams[HLTeamNo].name} during the latest ${etf2lPlayer.player.teams[HLTeamNo].competitions[latestSeasonID].competition}`);
 				}
 				
 			} else {
@@ -141,7 +141,7 @@ client.on('message', async message => {
 				if (latestSeasonID == null) {
 					message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
 				} else {
-					message.channel.send(`This player has played in ${etf2lPlayer.player.teams[SixesTeamNo].competitions[latestSeasonID].division.name} with ${etf2lPlayer.player.teams[SixesTeamNo].name} during the latest 6v6 season`);
+					message.channel.send(`This player has played in ${etf2lPlayer.player.teams[SixesTeamNo].competitions[latestSeasonID].division.name} with ${etf2lPlayer.player.teams[SixesTeamNo].name} during the latest ${etf2lPlayer.player.teams[SixesTeamNo].competitions[latestSeasonID].competition}`);
 				}
 			} else {
 				message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment");
