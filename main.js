@@ -94,8 +94,21 @@ client.on('message', async message => {
 			if (HLTeamNo != null) {
 				let latestSeasonID = null;
 
-				for (let i = 0; i < Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length; i++) {
-					let currentCheckedCompetition = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i];
+				//Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions) = IDs of competitive seasons ["356", "398" ...]
+				//Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length = amount of these IDs
+				//etf2lPlayer.player.teams[HLTeamNo].competitions[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - 1] = ID of the latest season
+
+				console.log(`${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)} = array of IDs`);
+				console.log(`${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length} = amount of IDs`);
+
+				for (let i = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length; i > 0; i--) {
+
+					etf2lPlayer.player.teams[HLTeamNo].competitions[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - 1]
+
+					let currentCheckedCompetition = etf2lPlayer.player.teams[HLTeamNo].competitions[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i];
+
+
+					console.log(`Currently checking ${i} | ${etf2lPlayer.player.teams[HLTeamNo].competitions[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i]}`)
 
 
 					console.log(`Currently checking ${i} | ${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i]}`)
@@ -103,9 +116,9 @@ client.on('message', async message => {
 					if ((!etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition].competition.includes("Qualifiers")) && 
 						(!etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition].competition.includes("Playoffs"))) {
 
-						console.log(`This one (${etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition].competition}) didn't have Quals or Poffs, so this one should work`);
+						console.log(`This one (${etf2lPlayer.player.teams[HLTeamNo].competitions[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i]}) didn't have Quals or Poffs, so this one should work`);
 
-						latestSeasonID = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[currentCheckedCompetition];
+						latestSeasonID = etf2lPlayer.player.teams[HLTeamNo].competitions[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i];
 						break;
 					}
 				}
