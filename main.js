@@ -102,20 +102,16 @@ client.on('message', async message => {
 				console.log(`${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)} = array of IDs`);
 				console.log(`${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length} = amount of IDs`);
 
-				for (let i = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length; i > 0; i--) {
-					currentCheckedCompetition = etf2lPlayer.player.teams[HLTeamNo].competitions[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i];
-
-					console.log(`Currently checking ${i} | ${etf2lPlayer.player.teams[HLTeamNo].competitions[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i]}`)
-
-
+				for (let i = 0; i < Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length; i--) {
+					currentCheckedCompetition = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i];
 					console.log(`Currently checking ${i} | ${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i]}`)
 
 					if ((!etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition].competition.includes("Qualifiers")) && 
 						(!etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition].competition.includes("Playoffs"))) {
 
-						console.log(`This one (${etf2lPlayer.player.teams[HLTeamNo].competitions[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i]}) didn't have Quals or Poffs, so this one should work`);
+						console.log(`This one (${etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition]}) didn't have Quals or Poffs, so this one should work`);
 
-						latestSeasonID = etf2lPlayer.player.teams[HLTeamNo].competitions[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i];
+						latestSeasonID = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i];
 						break;
 					}
 				}
