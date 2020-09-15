@@ -104,7 +104,7 @@ client.on('message', async message => {
 
 				for (let i = 0; i < Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length; i--) {
 					currentCheckedCompetition = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i];
-					console.log(`Currently checking ${i} | ${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i]}`)
+					console.log(`Currently checking ${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i} | ${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i - 1]}`)
 
 					if ((!etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition].competition.includes("Qualifiers")) && 
 						(!etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition].competition.includes("Playoffs"))) {
