@@ -116,7 +116,7 @@ client.on('message', async message => {
 			
 			if (SixesTeamNo != null) {
 				let latestSeasonID = null;
-
+        
 				for (let i = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length; i > 0; i--) {
 					if ((!etf2lPlayer.player.teams[SixesTeamNo].competitions[i].competition.includes("Qualifiers")) && 
 						(!etf2lPlayer.player.teams[SixesTeamNo].competitions[i].competition.includes("Playoffs"))) {
