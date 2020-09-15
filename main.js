@@ -99,18 +99,15 @@ client.on('message', async message => {
 				//Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length = amount of these IDs
 				//etf2lPlayer.player.teams[HLTeamNo].competitions[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - 1] = ID of the latest season
 
-				console.log(`${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)} = array of IDs`);
-				console.log(`${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length} = amount of IDs`);
+				//console.log(`${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)} = array of IDs`);
+				//console.log(`${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length} = amount of IDs`);
 
 				for (let i = 0; i < Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length; i++) {
 					currentCheckedCompetition = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i - 1];
-					console.log(`Currently checking ${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i} | ${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i - 1]}`)
-
+					//console.log(`Currently checking ${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i} | ${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i - 1]}`)
 					if ((!etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition].competition.includes("Qualifiers")) && 
 						(!etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition].competition.includes("Playoffs"))) {
-
-						console.log(`This one (${etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition]}) didn't have Quals or Poffs, so this one should work`);
-
+						//console.log(`This one (${etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition]}) didn't have Quals or Poffs, so this one should work`);
 						latestSeasonID = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i - 1];
 						break;
 					}
@@ -119,7 +116,7 @@ client.on('message', async message => {
 				if (latestSeasonID == null) {
 					message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
 				} else {
-					message.channel.send(`This player has played in ${etf2lPlayer.player.teams[HLTeamNo].competitions[latestSeasonID].division.name} during the latest Highlander season`);
+					message.channel.send(`This player has played in ${etf2lPlayer.player.teams[HLTeamNo].competitions[latestSeasonID].division.name} with ${etf2lPlayer.player.teams[HLTeamNo].name} during the latest Highlander season`);
 				}
 				
 			} else {
@@ -128,14 +125,15 @@ client.on('message', async message => {
 			
 			if (SixesTeamNo != null) {
 				let latestSeasonID = null;
+				let currentCheckedCompetition = null;
 				
-				for (let i = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length; i > 0; i--) {
-					let currentCheckedCompetition = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length - i];
-
+				for (let i = 0; i < Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length; i++) {
+					currentCheckedCompetition = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length - i - 1];
+					//console.log(`Currently checking ${Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length - i} | ${Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length - i - 1]}`)
 					if ((!etf2lPlayer.player.teams[SixesTeamNo].competitions[currentCheckedCompetition].competition.includes("Qualifiers")) && 
 						(!etf2lPlayer.player.teams[SixesTeamNo].competitions[currentCheckedCompetition].competition.includes("Playoffs"))) {
-
-						latestSeasonID = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions)[currentCheckedCompetition];
+						//console.log(`This one (${etf2lPlayer.player.teams[SixesTeamNo].competitions[currentCheckedCompetition]}) didn't have Quals or Poffs, so this one should work`);
+						latestSeasonID = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length - i - 1];
 						break;
 					}
 				}
@@ -143,7 +141,7 @@ client.on('message', async message => {
 				if (latestSeasonID == null) {
 					message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
 				} else {
-					message.channel.send(`This player has played in ${etf2lPlayer.player.teams[SixesTeamNo].competitions[latestSeasonID].division.name} during the latest 6v6 season`);
+					message.channel.send(`This player has played in ${etf2lPlayer.player.teams[SixesTeamNo].competitions[latestSeasonID].division.name} with ${etf2lPlayer.player.teams[SixesTeamNo].name} during the latest 6v6 season`);
 				}
 			} else {
 				message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment");
