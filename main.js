@@ -96,8 +96,10 @@ client.on('message', async message => {
 					
 				latestSeasonNo = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - 1;
 				latestSeasonIDD = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[latestSeasonNo];
+				lastestPrikol = etf2lPlayer.player.teams[HLTeamNo].competitions[latestSeasonIDD].competition;
 				console.log(latestSeasonNo);
 				console.log(latestSeasonIDD);
+				console.log(latestSeasonPrikol);
 
 				for (let i = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length; i > 0; i--) {
 					console.log(`etf2lPlayer.player.teams[HLTeamNo].competitions[i].competition: ${etf2lPlayer.player.teams[HLTeamNo].competitions[i]}`);
