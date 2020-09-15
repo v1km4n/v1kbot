@@ -3,6 +3,7 @@ const SteamAPI = require('steamapi'); //steam api for etf2l search
 const ytdl = require('ytdl-core'); //ytmusic support
 const ytlist = require('youtube-playlist'); //playlist for ytmusic support
 const config = require('./config.json');
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 const client = new Discord.Client();
 client.login(process.env.BOT_TOKEN);
@@ -57,25 +58,58 @@ client.on('message', async message => {
 	}
 	if ( (command === 'imgur') || (command === 'lightshot') ) {  //where args[0] is amount of netstalking shit to be recived 
 	const port = '8099'; // port for Kworker's apiserver
-	var recived ='0'; // amount of messsages recived 	
+	var received = '0'; // amount of messsages recived 	
 		var s = require('net').Socket();
 		s.connect(port, '45.128.206.232'); //kworker\'s API ip
-		s.write(command+" "+args[0] + "\n"); //sending request to kworker\'s api
+		s.write(command + " " + args[0] + "\n"); //sending request to kworker\'s api
 		s.on('data', function (data) {  //receiving  messages from Kworker's api
         	message.channel.send(data.toString());
-		recived++;	
-		if(recived>=args[0])s.destroy();	
+		received++;	
+		if (received >= args[0]) s.destroy();	
 	
   	  });
 	}
 
 	
 	if (command === 'etf2l') {
-		for (let counter = 0; counter < args.length; counter++){	
-			steam.resolve(args[counter]).then(id => {
-				message.channel.send('http://etf2l.org/search/' + id);
-			});
-		}
+		var request = new XMLHttpRequest();
+
+		steam.resolve(args[0]).then(id => {
+			let etf2lPlayerURL = new URL("https://api.etf2l.org/player/") + id + (".json");
+			xhr.open('GET', etf2lPlayerURL, false);
+			request.send();
+
+			var etf2lPlayer = JSON.parse(request.responseText);
+
+			var HLTeamNo = null;
+			var SixesTeamNo = null;
+			for (let i = 0; i < Object.keys(etf2lPlayer.player.teams).length; i++) {
+				if (etf2lPlayer.player.teams[i].type == "Highlander") 
+				{ 
+					HLTeamNo = i;
+				} else if (etf2lPlayer.player.teams[i].type == "6on6") {
+					SixesTeamNo = i;
+				} 
+			}
+
+			if (HLTeamNo != null) {
+				let latestSeasonIDNo = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - 1;
+				let latestSeasonID = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[latestSeasonIDNo];
+				
+				message.channel.send(`This player has played in ${etf2lPlayer.player.teams[HLTeamNo].competitions[latestSeasonID].division.name} during the latest Highlander season`);
+			} else {
+				message.channel.send("Player doesn't seem to be participating in any HL season at the moment")
+			}
+			
+			if (SixesTeamNo != null) {
+				let latestSeasonIDNo = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length - 1;
+				let latestSeasonID = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions)[latestSeasonIDNo];
+				
+				message.channel.send(`This player has played in ${etf2lPlayer.player.teams[SixesTeamNo].competitions[latestSeasonID].division.name} during the latest 6v6 season`);
+			} else {
+				message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment")
+			}
+		});
 	}
 
 	if (command === 'non') {
