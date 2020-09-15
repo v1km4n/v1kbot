@@ -95,6 +95,7 @@ client.on('message', async message => {
 				let latestSeasonID = null;
 					
 				for (let i = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length; i > 0; i--) {
+					console.log(`etf2lPlayer.player.teams[HLTeamNo].competitions[i].competition: ${etf2lPlayer.player.teams[HLTeamNo].competitions[i].competition}`);
 					if ((!etf2lPlayer.player.teams[HLTeamNo].competitions[i].competition.includes("Qualifiers")) && 
 						(!etf2lPlayer.player.teams[HLTeamNo].competitions[i].competition.includes("Playoffs"))) {
 
@@ -115,7 +116,7 @@ client.on('message', async message => {
 			
 			if (SixesTeamNo != null) {
 				let latestSeasonID = null;
-				
+
 				for (let i = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length; i > 0; i--) {
 					if ((!etf2lPlayer.player.teams[SixesTeamNo].competitions[i].competition.includes("Qualifiers")) && 
 						(!etf2lPlayer.player.teams[SixesTeamNo].competitions[i].competition.includes("Playoffs"))) {
