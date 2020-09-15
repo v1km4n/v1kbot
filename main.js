@@ -97,8 +97,13 @@ client.on('message', async message => {
 				for (let i = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length; i > 0; i--) {
 					let currentCheckedCompetition = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i];
 
+
+					console.log(`Currently checking ${i} | ${Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - i]}`)
+
 					if ((!etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition].competition.includes("Qualifiers")) && 
 						(!etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition].competition.includes("Playoffs"))) {
+
+						console.log(`This one (${etf2lPlayer.player.teams[HLTeamNo].competitions[currentCheckedCompetition].competition}) didn't have Quals or Poffs, so this one should work`);
 
 						latestSeasonID = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[currentCheckedCompetition];
 						break;
