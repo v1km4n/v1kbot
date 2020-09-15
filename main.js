@@ -76,7 +76,7 @@ client.on('message', async message => {
 
 		steam.resolve(args[0]).then(id => {
 			let etf2lPlayerURL = new URL("https://api.etf2l.org/player/") + id + (".json");
-			xhr.open('GET', etf2lPlayerURL, false);
+			request.open('GET', etf2lPlayerURL, false);
 			request.send();
 
 			var etf2lPlayer = JSON.parse(request.responseText);
