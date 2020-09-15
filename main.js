@@ -95,7 +95,7 @@ client.on('message', async message => {
 				let latestSeasonID = null;
 					
 				for (let i = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length; i > 0; i--) {
-					console.log(`etf2lPlayer.player.teams[HLTeamNo].competitions[i].competition: ${etf2lPlayer.player.teams[HLTeamNo].competitions[i].competition}`);
+					console.log(`etf2lPlayer.player.teams[HLTeamNo].competitions[i].competition: ${etf2lPlayer.player.teams[HLTeamNo].competitions[i]}`);
 					if ((!etf2lPlayer.player.teams[HLTeamNo].competitions[i].competition.includes("Qualifiers")) && 
 						(!etf2lPlayer.player.teams[HLTeamNo].competitions[i].competition.includes("Playoffs"))) {
 
