@@ -125,6 +125,8 @@ client.on('message', async message => {
 					}
 				}
 				
+			} else {
+				message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment");
 			}
 
 			if (SixesTeamNo != null) {
@@ -160,7 +162,7 @@ client.on('message', async message => {
 					}
 				}
 			} else {
-				message.channel.send("Player doesn't seem to be participating in any HL season at the moment");
+				message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment");
 			}
 		});
 	}
