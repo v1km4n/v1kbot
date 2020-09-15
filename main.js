@@ -94,6 +94,11 @@ client.on('message', async message => {
 			if (HLTeamNo != null) {
 				let latestSeasonID = null;
 					
+				latestSeasonNo = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length - 1;
+				latestSeasonIDD = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions)[latestSeasonNo];
+				console.log(latestSeasonNo);
+				console.log(latestSeasonIDD);
+
 				for (let i = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length; i > 0; i--) {
 					console.log(`etf2lPlayer.player.teams[HLTeamNo].competitions[i].competition: ${etf2lPlayer.player.teams[HLTeamNo].competitions[i]}`);
 					if ((!etf2lPlayer.player.teams[HLTeamNo].competitions[i].competition.includes("Qualifiers")) && 
