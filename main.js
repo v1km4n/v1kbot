@@ -152,9 +152,9 @@ client.on('message', async message => {
 					if ((latestSeason.division.name == null) && (latestSeason.competition.toLowerCase.includes("open"))) {
 						let colonIndex = latestSeason.competition.indexOf(':');
 						let cleanSeasonName = latestSeason.competition.slice(0, colonIndex); 
-						message.channel.send(`This player has played in **Open*** with **${team.name}*** during the 6v6 **${cleanSeasonName}**`);
+						message.channel.send(`This player has played in **Open** with **${team.name}** during the **6v6 ${cleanSeasonName}**`);
 					} else { 
-						message.channel.send(`This player has played in **${latestSeason.division.name}** with **${team.name}** during the 6v6 **${latestSeason.competition}**`);
+						message.channel.send(`This player has played in **${latestSeason.division.name}** with **${team.name}** during the **6v6 ${latestSeason.competition}**`);
 					}
 				}
 			} else {
