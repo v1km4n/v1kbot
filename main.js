@@ -116,12 +116,10 @@ client.on('message', async message => {
 				} else { //TODO: add check for the player match history rather than division of the current team
 					if ((latestSeason.division.name == null)) { //for those HL seasons, where open division was basically a complete different season
 						let colonIndex = latestSeason.competition.indexOf(':'); //we need this to find colon in string like "Highlander Season 18: Open" and the slice the ": Open" part off
-						console.log(`${latestSeason.competition} | ${colonIndex}`);
 						let cleanSeasonName = latestSeason.competition.slice(0, colonIndex); //"Highlander Season 18: Open" -> "Highlander Season 18"
-						console.log(`${cleanSeasonName}`);
-						message.channel.send(`This player has played in ***Open*** with ***${team.name}*** during the ***${cleanSeasonName}***`);
+						message.channel.send(`This player has played in **Open** with **${team.name}** during the **${cleanSeasonName}**`);
 					} else { //now for the usual seasons
-						message.channel.send(`This player has played in ***${latestSeason.division.name}*** with ***${team.name}*** during the ***${latestSeason.competition}***`);
+						message.channel.send(`This player has played in **${latestSeason.division.name}** with **${team.name}** during the **${latestSeason.competition}**`);
 					}
 				}
 				
@@ -153,12 +151,10 @@ client.on('message', async message => {
 				} else { //TODO: add check for the player match history rather than division of the current team
 					if ((latestSeason.division.name == null) && (latestSeason.competition.toLowerCase.includes("open"))) {
 						let colonIndex = latestSeason.competition.indexOf(':');
-						console.log(`${latestSeason.competition} | ${colonIndex}`);
 						let cleanSeasonName = latestSeason.competition.slice(0, colonIndex); 
-						console.log(`${cleanSeasonName}`);
-						message.channel.send(`This player has played in ***Open*** with ***${team.name}*** during the 6v6 ***${cleanSeasonName}***`);
+						message.channel.send(`This player has played in **Open*** with **${team.name}*** during the 6v6 **${cleanSeasonName}**`);
 					} else { 
-						message.channel.send(`This player has played in ***${latestSeason.division.name}*** with ***${team.name}*** during the 6v6 ***${latestSeason.competition}***`);
+						message.channel.send(`This player has played in **${latestSeason.division.name}** with **${team.name}** during the 6v6 **${latestSeason.competition}**`);
 					}
 				}
 			} else {
