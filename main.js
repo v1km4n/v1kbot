@@ -175,7 +175,6 @@ client.on('message', async message => {
 
 				if (latestSeasonID == null) {
 					message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
-				} else if (etf2lPlayer.player.teams[SixesTeamNo].competitions[latestSeasonID].competition.includes("")){
 					message.channel.send(`This player has played in ${etf2lPlayer.player.teams[SixesTeamNo].competitions[latestSeasonID].division.name} with ${etf2lPlayer.player.teams[SixesTeamNo].name} during the latest ${etf2lPlayer.player.teams[SixesTeamNo].competitions[latestSeasonID].competition}`);
 				}
 			} else {
