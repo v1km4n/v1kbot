@@ -73,13 +73,47 @@ client.on('message', async message => {
 	
 	if (command === 'etf2l') {
 		var request = new XMLHttpRequest();
+		var UGCLink;
+		var RGLLink;
+		var ETF2LLink;
 
-		steam.resolve(args[0]).then(id => {
-			let etf2lPlayerURL = new URL("https://api.etf2l.org/player/") + id + (".json");
+		steam.resolve(args[0]).then(steamID => {
+
+			// UGC
+
+			UGCLink = "https://www.ugcleague.com/players_page.cfm?player_id=" + steamID;
+
+			// RGL
+
+			RGLLink = "https://rgl.gg/Public/PlayerProfile.aspx?p=" + steamID;
+
+			//ETF2L
+
+			let etf2lPlayerURL = new URL("https://api.etf2l.org/player/") + steamID + (".json");
 			request.open('GET', etf2lPlayerURL, false);
 			request.send();
 
 			var etf2lPlayer = JSON.parse(request.responseText);
+
+			let ETF2LID = etf2lPlayer.player.id;
+			ETF2LLink = "https://etf2l.org/forum/user/" + ETF2LID;
+			let ETF2LProfilePicture = etf2lPlayer.player.steam.avatar;
+
+			var embedWithLeaguesLinks = new Discord.MessageEmbed()
+				.setColor('#0099ff')
+				.setTitle('League Links')
+				.setThumbnail(ETF2LProfilePicture)
+				addFields(
+					//{ name: '\u200B', value: '\u200B' },
+					{ name: '**ETF2L**', value: ETF2LLink, inline: true },
+					{ name: '**UGC**', value: UGCLink, inline: true },
+					{ name: '**RGL**', value: RGLLink, inline: true },
+				)
+			message.channel.send(embedWithLeaguesLinks);
+			
+			//message.channel.send(`[**ETF2L**]: ${ETF2LLink}\n
+			//					  [**UGC**]: ${UGCLink}\n
+			//					  [**RGL**]: ${RGLLink}`)
 
 			var HLTeamNo = null;
 			var SixesTeamNo = null;
@@ -160,6 +194,8 @@ client.on('message', async message => {
 			} else {
 				message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment");
 			}
+
+			
 		});
 	}
 
