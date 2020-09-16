@@ -107,12 +107,25 @@ client.on('message', async message => {
 			var HLTeamNo = null;
 			var SixesTeamNo = null;
 
-			for (let i = 0; i < Object.keys(etf2lPlayer.player.teams).length; i++) {
-				if (etf2lPlayer.player.teams[i].type == "Highlander") { 
-					HLTeamNo = i;
-				} else if (etf2lPlayer.player.teams[i].type == "6on6") {
-					SixesTeamNo = i;
-				} 
+			var HLTeamLink = null;
+			var HLTeamDiv = null;
+			var HLTeamName = null;
+			var HLTeamCompetititonName = null;
+
+			var SixesTeamLink = null;
+			var SixesTeamDiv = null;
+			var SixesTeamName = null;
+			var SixesTeamCompetititonName = null;
+
+
+			if (etf2lPlayer.player.teams != null) {
+				for (let i = 0; i < Object.keys(etf2lPlayer.player.teams).length; i++) {
+					if (etf2lPlayer.player.teams[i].type == "Highlander") { 
+						HLTeamNo = i;
+					} else if (etf2lPlayer.player.teams[i].type == "6on6") {
+						SixesTeamNo = i;
+					} 
+				}
 			}
 
 			var HLTeamLink;
@@ -213,6 +226,17 @@ client.on('message', async message => {
 				SixesTeamLink = null;
 				//message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment");
 			}
+			
+			var ETF2LEmbed = new Discord.MessageEmbed()
+				.setColor('#0099ff')
+				.setTitle(`ETF2L info for ${ETF2LNickName}`)
+				.setThumbnail(ETF2LProfilePicture)
+				.addFields(
+					{ name: '**6v6 Team**', value: SixesEmbedDescription},
+					{ name: '\u200B', value: '\u200B' },
+					{ name: '**HL Team**', value: HLEmbedDescription},
+				)
+			message.channel.send(ETF2LEmbed);
 
 
 			/*		var embedWithLeaguesLinks = new Discord.MessageEmbed()
@@ -263,12 +287,13 @@ client.on('message', async message => {
 			}
 			
 			var ETF2LEmbed = new Discord.MessageEmbed()
+
 				.setColor('#0099ff')
 				.setTitle(`ETF2L info for ${ETF2LNickName}`)
+				.setDescription(ETF2LLink)
 				.setThumbnail(ETF2LProfilePicture)
 				.addFields(
 					{ name: '**6v6 Team**', value: SixesEmbedDescription},
-					{ name: '\u200B', value: '\u200B' },
 					{ name: '**HL Team**', value: HLEmbedDescription},
 				)
 			message.channel.send(ETF2LEmbed);
