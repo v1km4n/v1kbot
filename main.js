@@ -88,16 +88,6 @@ client.on('message', async message => {
 		let NickName = null;
 		let ProfilePicture = null;
 		
-		var embedWithLeaguesLinks = new Discord.MessageEmbed()
-				.setColor('#0099ff')
-				.setTitle(`League Links for **${NickName}**`)
-				.setThumbnail(ProfilePicture)
-				.addFields(
-					{ name: '**ETF2L**', value: ETF2LLink},
-					{ name: '**UGC**', value: UGCLink},
-					{ name: '**RGL**', value: RGLLink},
-				)
-
 		steam.resolve(args[0]).then(steamID => {			
 			// UGC
 			UGCLink = "https://www.ugcleague.com/players_page.cfm?player_id=" + steamID;
@@ -119,6 +109,15 @@ client.on('message', async message => {
 				NickName = etf2lPlayer.player.name;
 				ProfilePicture = etf2lPlayer.player.steam.avatar;
 				ETF2LLink = "https://etf2l.org/forum/user/" + ETF2LID;
+				var embedWithLeaguesLinks = new Discord.MessageEmbed()
+				.setColor('#0099ff')
+				.setTitle(`League Links for **${NickName}**`)
+				.setThumbnail(ProfilePicture)
+				.addFields(
+					{ name: '**ETF2L**', value: ETF2LLink},
+					{ name: '**UGC**', value: UGCLink},
+					{ name: '**RGL**', value: RGLLink},
+				)
 				message.channel.send(embedWithLeaguesLinks);
 			} else { //if not, take the nickname and the profile picture from the steam profile
 				console.log("got not 200");
@@ -128,6 +127,15 @@ client.on('message', async message => {
 					ProfilePicture = summary.avatar.large;
 					console.log(`got steam pfp link: ${ProfilePicture}`);
 					ETF2LLink = "none";
+					var embedWithLeaguesLinks = new Discord.MessageEmbed()
+					.setColor('#0099ff')
+					.setTitle(`League Links for **${NickName}**`)
+					.setThumbnail(ProfilePicture)
+					.addFields(
+					{ name: '**ETF2L**', value: ETF2LLink},
+					{ name: '**UGC**', value: UGCLink},
+					{ name: '**RGL**', value: RGLLink},
+				)
 					message.channel.send(embedWithLeaguesLinks);
 				});
 				console.log(`got steam pfp link: ${ProfilePicture}`);		
