@@ -102,8 +102,10 @@ client.on('message', async message => {
 			request.open('GET', etf2lPlayerURL, false);
 			request.send();
 
-			if (request.status != 200) {
-				let etf2lPlayer = JSON.parse(request.responseText);
+			let etf2lPlayer = JSON.parse(request.responseText);
+
+			if (etf2lPlayer.status.code == 200) {
+				
 				let ETF2LID = etf2lPlayer.player.id;
 				ETF2LNickName = etf2lPlayer.player.name;
 				ETF2LProfilePicture = etf2lPlayer.player.steam.avatar;
@@ -138,12 +140,9 @@ client.on('message', async message => {
 			request.open('GET', etf2lPlayerURL, false);
 			request.send();
 
-			if (request.status != 200) {
+			var etf2lPlayer = JSON.parse(request.responseText);
 
-				var etf2lPlayer = JSON.parse(request.responseText);
-
-
-
+			if (etf2lPlayer.status.code == 200) {
 				let ETF2LID = etf2lPlayer.player.id;
 				let ETF2LNickName = etf2lPlayer.player.name;
 				ETF2LLink = "https://etf2l.org/forum/user/" + ETF2LID;
