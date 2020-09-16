@@ -94,9 +94,9 @@ client.on('message', async message => {
 
 			//ETF2L
 
-			let NickName;
-			let ProfilePicture;
-			let ETF2LLink;
+			let NickName = null;
+			let ProfilePicture = null;
+			let ETF2LLink = null;
 
 			let etf2lPlayerURL = new URL("https://api.etf2l.org/player/") + steamID + (".json");
 			request.open('GET', etf2lPlayerURL, false);
@@ -117,6 +117,7 @@ client.on('message', async message => {
 					ProfilePicture = summary.avatar.large;
 					console.log(`got steam pfp link: ${ProfilePicture}`);
 				});
+				console.log(`got steam pfp link: ${ProfilePicture}`);
 				ETF2LLink = "none";
 			}
 
