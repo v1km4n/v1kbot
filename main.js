@@ -70,23 +70,40 @@ client.on('message', async message => {
   	  });
 	}
 
-	
-	if (command === 'etf2l') {
+	if (command === 'leagues') {
 		var request = new XMLHttpRequest();
 		var UGCLink;
 		var RGLLink;
-		var ETF2LLink;
 
-		steam.resolve(args[0]).then(steamID => {
-
+		steam.resolve(args[0]).then(steamID => {			
 			// UGC
-
 			UGCLink = "https://www.ugcleague.com/players_page.cfm?player_id=" + steamID;
 
 			// RGL
-
 			RGLLink = "https://rgl.gg/Public/PlayerProfile.aspx?p=" + steamID;
 
+			//ETF2L
+			let etf2lPlayerURL = new URL("https://api.etf2l.org/player/") + steamID + (".json");
+
+			var embedWithLeaguesLinks = new Discord.MessageEmbed()
+				.setColor('#0099ff')
+				.setTitle(`League Links for **${ETF2LNickName}**`)
+				.setThumbnail(ETF2LProfilePicture)
+				.addFields(
+					{ name: '**ETF2L**', value: etf2lPlayerURL},
+					{ name: '**UGC**', value: UGCLink},
+					{ name: '**RGL**', value: RGLLink},
+				)
+			message.channel.send(embedWithLeaguesLinks);
+
+		});
+	}
+	
+	if (command === 'etf2l') {
+		var request = new XMLHttpRequest();
+		var ETF2LLink;
+
+		steam.resolve(args[0]).then(steamID => {
 			//ETF2L
 
 			let etf2lPlayerURL = new URL("https://api.etf2l.org/player/") + steamID + (".json");
@@ -99,10 +116,6 @@ client.on('message', async message => {
 			let ETF2LNickName = etf2lPlayer.player.name;
 			ETF2LLink = "https://etf2l.org/forum/user/" + ETF2LID;
 			let ETF2LProfilePicture = etf2lPlayer.player.steam.avatar;
-			
-			//message.channel.send(`[**ETF2L**]: ${ETF2LLink}\n
-			//					  [**UGC**]: ${UGCLink}\n
-			//					  [**RGL**]: ${RGLLink}`)
 
 			var HLTeamNo = null;
 			var SixesTeamNo = null;
@@ -209,18 +222,6 @@ client.on('message', async message => {
 				SixesTeamLink = null;
 			}
 
-
-			/*		var embedWithLeaguesLinks = new Discord.MessageEmbed()
-				.setColor('#0099ff')
-				.setTitle(`League Links for **${ETF2LNickName}**`)
-				.setThumbnail(ETF2LProfilePicture)
-				.addFields(
-					//{ name: '\u200B', value: '\u200B' },
-					{ name: '**ETF2L**', value: ETF2LLink, inline: true },
-					{ name: '**UGC**', value: UGCLink, inline: true },
-					{ name: '**RGL**', value: RGLLink, inline: true },
-				)
-			message.channel.send(embedWithLeaguesLinks);*/ // OLD EMBED
 			// EMBED PREVIEW
 			// ETF2L Info for the ${ETF2LNickName}
 			// 
