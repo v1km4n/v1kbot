@@ -107,23 +107,26 @@ client.on('message', async message => {
 			var HLTeamNo = null;
 			var SixesTeamNo = null;
 
-			for (let i = 0; i < Object.keys(etf2lPlayer.player.teams).length; i++) {
-				if (etf2lPlayer.player.teams[i].type == "Highlander") { 
-					HLTeamNo = i;
-				} else if (etf2lPlayer.player.teams[i].type == "6on6") {
-					SixesTeamNo = i;
-				} 
+			var HLTeamLink = null;
+			var HLTeamDiv = null;
+			var HLTeamName = null;
+			var HLTeamCompetititonName = null;
+
+			var SixesTeamLink = null;
+			var SixesTeamDiv = null;
+			var SixesTeamName = null;
+			var SixesTeamCompetititonName = null;
+
+
+			if (etf2lPlayer.player.teams != null) {
+				for (let i = 0; i < Object.keys(etf2lPlayer.player.teams).length; i++) {
+					if (etf2lPlayer.player.teams[i].type == "Highlander") { 
+						HLTeamNo = i;
+					} else if (etf2lPlayer.player.teams[i].type == "6on6") {
+						SixesTeamNo = i;
+					} 
+				}
 			}
-
-			var HLTeamLink;
-			var HLTeamDiv;
-			var HLTeamName;
-			var HLTeamCompetititonName;
-
-			var SixesTeamLink;
-			var SixesTeamDiv;
-			var SixesTeamName;
-			var SixesTeamCompetititonName;
 
 			if (HLTeamNo != null) {
 				let latestSeasonID = null;
@@ -263,12 +266,13 @@ client.on('message', async message => {
 			}
 			
 			var ETF2LEmbed = new Discord.MessageEmbed()
+
 				.setColor('#0099ff')
 				.setTitle(`ETF2L info for ${ETF2LNickName}`)
+				.setDescription(ETF2LLink)
 				.setThumbnail(ETF2LProfilePicture)
 				.addFields(
 					{ name: '**6v6 Team**', value: SixesEmbedDescription},
-					{ name: '\u200B', value: '\u200B' },
 					{ name: '**HL Team**', value: HLEmbedDescription},
 				)
 			message.channel.send(ETF2LEmbed);
