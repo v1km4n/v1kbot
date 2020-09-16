@@ -110,9 +110,12 @@ client.on('message', async message => {
 				ProfilePicture = etf2lPlayer.player.steam.avatar;
 				ETF2LLink = "https://etf2l.org/forum/user/" + ETF2LID;
 			} else { //if not, take the nickname and the profile picture from the steam profile
+				console.log("got not 200");
 				steam.getUserSummary(steamID).then(summary => {
 					NickName = summary.nickname;
+					console.log(`got steam nickname: ${NickName}`);
 					ProfilePicture = summary.avatar.large;
+					console.log(`got steam pfp link: ${ProfilePicture}`);
 				});
 				ETF2LLink = "none";
 			}
