@@ -153,23 +153,19 @@ client.on('message', async message => {
 				if (latestSeasonID == null) {
 					HLTeamCompetititonName = null;
 					HLTeamDiv = null;
-					//message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
 				} else { //TODO: add check for the player match history rather than division of the current team
 					if ((latestSeason.division.name == null)) { //for those HL seasons, where open division was basically a complete different season
 						let colonIndex = latestSeason.competition.indexOf(':'); //we need this to find colon in string like "Highlander Season 18: Open" and the slice the ": Open" part off
 						HLTeamCompetititonName = latestSeason.competition.slice(0, colonIndex); //"Highlander Season 18: Open" -> "Highlander Season 18"
 						HLTeamDiv = "Open";
-						//message.channel.send(`This player has played in **Open** with **${team.name}** during the **${cleanSeasonName}**`);
 					} else { //now for the usual seasons
 						HLTeamDiv = latestSeason.division.name;
 						HLTeamCompetititonName = latestSeason.competition;
-						//message.channel.send(`This player has played in **${latestSeason.division.name}** with **${team.name}** during the **${latestSeason.competition}**`);
 					}
 				}
 				
 			} else {
 				HLTeamLink = null;
-				//message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment");
 			}
 
 			if (SixesTeamNo != null) {
@@ -198,23 +194,19 @@ client.on('message', async message => {
 				if (latestSeasonID == null) {
 					SixesTeamCompetititonName = null;
 					SixesTeamDiv = null;
-					//message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
 				} else { //TODO: add check for the player match history rather than division of the current team
 					if ((latestSeason.division.name == null)) { //for those HL seasons, where open division was basically a complete different season
 						let colonIndex = latestSeason.competition.indexOf(':'); //we need this to find colon in string like "Highlander Season 18: Open" and the slice the ": Open" part off
 						SixesTeamCompetititonName = latestSeason.competition.slice(0, colonIndex); //"Highlander Season 18: Open" -> "Highlander Season 18"
 						SixesTeamDiv = "Open";
-						//message.channel.send(`This player has played in **Open** with **${team.name}** during the **${cleanSeasonName}**`);
 					} else { //now for the usual seasons
 						SixesTeamDiv = latestSeason.division.name;
 						SixesTeamCompetititonName = latestSeason.competition;
-						//message.channel.send(`This player has played in **${latestSeason.division.name}** with **${team.name}** during the **${latestSeason.competition}**`);
 					}
 				}
 				
 			} else {
 				SixesTeamLink = null;
-				//message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment");
 			}
 			
 			var ETF2LEmbed = new Discord.MessageEmbed()
