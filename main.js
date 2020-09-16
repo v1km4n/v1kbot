@@ -103,7 +103,7 @@ client.on('message', async message => {
 				.setColor('#0099ff')
 				.setTitle('League Links')
 				.setThumbnail(ETF2LProfilePicture)
-				addFields(
+				.addFields(
 					//{ name: '\u200B', value: '\u200B' },
 					{ name: '**ETF2L**', value: ETF2LLink, inline: true },
 					{ name: '**UGC**', value: UGCLink, inline: true },
