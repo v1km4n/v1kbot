@@ -87,7 +87,7 @@ client.on('message', async message => {
 
 		let NickName = null;
 		let ProfilePicture = null;
-		
+
 		steam.resolve(args[0]).then(steamID => {			
 			// UGC
 			UGCLink = "https://www.ugcleague.com/players_page.cfm?player_id=" + steamID;
@@ -121,11 +121,9 @@ client.on('message', async message => {
 				message.channel.send(embedWithLeaguesLinks);
 			} else { //if not, take the nickname and the profile picture from the steam profile
 				console.log("got not 200");
-				steam.getUserSummary(steamID).then(summary => {
+				steam.getUserSummary(steamID).then(summary => { //I HATE RESOLVES SO MUCH THANKS TO THEM I HAVE TO BUILD THE SAME EMBED TWICE 
 					NickName = summary.nickname;
-					console.log(`got steam nickname: ${NickName}`);
 					ProfilePicture = summary.avatar.large;
-					console.log(`got steam pfp link: ${ProfilePicture}`);
 					ETF2LLink = "none";
 					var embedWithLeaguesLinks = new Discord.MessageEmbed()
 					.setColor('#0099ff')
@@ -135,10 +133,9 @@ client.on('message', async message => {
 					{ name: '**ETF2L**', value: ETF2LLink},
 					{ name: '**UGC**', value: UGCLink},
 					{ name: '**RGL**', value: RGLLink},
-				)
+					)
 					message.channel.send(embedWithLeaguesLinks);
-				});
-				console.log(`got steam pfp link: ${ProfilePicture}`);		
+				});	
 			}
 		});
 	}
