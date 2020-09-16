@@ -208,17 +208,6 @@ client.on('message', async message => {
 			} else {
 				SixesTeamLink = null;
 			}
-			
-			var ETF2LEmbed = new Discord.MessageEmbed()
-				.setColor('#0099ff')
-				.setTitle(`ETF2L info for ${ETF2LNickName}`)
-				.setThumbnail(ETF2LProfilePicture)
-				.addFields(
-					{ name: '**6v6 Team**', value: SixesEmbedDescription},
-					{ name: '\u200B', value: '\u200B' },
-					{ name: '**HL Team**', value: HLEmbedDescription},
-				)
-			message.channel.send(ETF2LEmbed);
 
 
 			/*		var embedWithLeaguesLinks = new Discord.MessageEmbed()
