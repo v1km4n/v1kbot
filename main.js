@@ -84,6 +84,9 @@ client.on('message', async message => {
 		var UGCLink;
 		var RGLLink;
 		var ETF2LLink;
+
+		let NickName = null;
+		let ProfilePicture = null;
 		
 		var embedWithLeaguesLinks = new Discord.MessageEmbed()
 				.setColor('#0099ff')
@@ -104,9 +107,6 @@ client.on('message', async message => {
 
 			//ETF2L
 
-			let NickName = null;
-			let ProfilePicture = null;
-			let ETF2LLink = null;
 
 			let etf2lPlayerURL = new URL("https://api.etf2l.org/player/") + steamID + (".json");
 			request.open('GET', etf2lPlayerURL, false);
