@@ -128,6 +128,16 @@ client.on('message', async message => {
 				}
 			}
 
+			var HLTeamLink;
+			var HLTeamDiv;
+			var HLTeamName;
+			var HLTeamCompetititonName;
+
+			var SixesTeamLink;
+			var SixesTeamDiv;
+			var SixesTeamName;
+			var SixesTeamCompetititonName;
+
 			if (HLTeamNo != null) {
 				let latestSeasonID = null;
 				let checkedSeason = null;
@@ -216,6 +226,17 @@ client.on('message', async message => {
 				SixesTeamLink = null;
 				//message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment");
 			}
+			
+			var ETF2LEmbed = new Discord.MessageEmbed()
+				.setColor('#0099ff')
+				.setTitle(`ETF2L info for ${ETF2LNickName}`)
+				.setThumbnail(ETF2LProfilePicture)
+				.addFields(
+					{ name: '**6v6 Team**', value: SixesEmbedDescription},
+					{ name: '\u200B', value: '\u200B' },
+					{ name: '**HL Team**', value: HLEmbedDescription},
+				)
+			message.channel.send(ETF2LEmbed);
 
 
 			/*		var embedWithLeaguesLinks = new Discord.MessageEmbed()
