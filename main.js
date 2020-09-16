@@ -84,13 +84,21 @@ client.on('message', async message => {
 
 			//ETF2L
 			let etf2lPlayerURL = new URL("https://api.etf2l.org/player/") + steamID + (".json");
+			request.open('GET', etf2lPlayerURL, false);
+			request.send();
+
+			var etf2lPlayer = JSON.parse(request.responseText);
+			let ETF2LID = etf2lPlayer.player.id;
+			let ETF2LNickName = etf2lPlayer.player.name;
+			let ETF2LProfilePicture = etf2lPlayer.player.steam.avatar;
+			ETF2LLink = "https://etf2l.org/forum/user/" + ETF2LID;
 
 			var embedWithLeaguesLinks = new Discord.MessageEmbed()
 				.setColor('#0099ff')
 				.setTitle(`League Links for **${ETF2LNickName}**`)
 				.setThumbnail(ETF2LProfilePicture)
 				.addFields(
-					{ name: '**ETF2L**', value: etf2lPlayerURL},
+					{ name: '**ETF2L**', value: ETF2LLink},
 					{ name: '**UGC**', value: UGCLink},
 					{ name: '**RGL**', value: RGLLink},
 				)
