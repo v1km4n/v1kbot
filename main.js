@@ -50,8 +50,7 @@ client.on('message', async message => {
 	const args = split.slice(1); //and then is removed from the list of args
 
 	if (command === 'helpv') {
-		message.author.send(`!citata - рандомная цитата\n
-							!non/!noff - уведомления на сервере\n
+		message.author.send(`			!non/!noff - уведомления на сервере\n
 							!catgirl - :(\n
 							!chaninfo - дата создания канала (хз зачем я это сделал)\n
 							!cbt - кокенболторчер\n
