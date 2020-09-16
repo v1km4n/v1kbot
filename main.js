@@ -94,8 +94,8 @@ client.on('message', async message => {
 
 			//ETF2L
 
-			let ETF2LNickName;
-			let ETF2LProfilePicture;
+			let NickName;
+			let ProfilePicture;
 			let ETF2LLink;
 
 			let etf2lPlayerURL = new URL("https://api.etf2l.org/player/") + steamID + (".json");
@@ -104,20 +104,23 @@ client.on('message', async message => {
 
 			let etf2lPlayer = JSON.parse(request.responseText);
 
-			if (etf2lPlayer.status.code == 200) {
-				
+			if (etf2lPlayer.status.code == 200) { //if given steamid has an ETF2L profile, parse data from there
 				let ETF2LID = etf2lPlayer.player.id;
-				ETF2LNickName = etf2lPlayer.player.name;
-				ETF2LProfilePicture = etf2lPlayer.player.steam.avatar;
+				NickName = etf2lPlayer.player.name;
+				ProfilePicture = etf2lPlayer.player.steam.avatar;
 				ETF2LLink = "https://etf2l.org/forum/user/" + ETF2LID;
-			} else {
+			} else { //if not, take the nickname and the profile picture from the steam profile
+				steam.getUserSummary(steamID).then(summary => {
+					NickName = summary.nickname;
+					ProfilePicture = summary.avatar.large;
+				});
 				ETF2LLink = "none";
 			}
 
 			var embedWithLeaguesLinks = new Discord.MessageEmbed()
 				.setColor('#0099ff')
-				.setTitle(`League Links for **${ETF2LNickName}**`)
-				.setThumbnail(ETF2LProfilePicture)
+				.setTitle(`League Links for **${NickName}**`)
+				.setThumbnail(ProfilePicture)
 				.addFields(
 					{ name: '**ETF2L**', value: ETF2LLink},
 					{ name: '**UGC**', value: UGCLink},
