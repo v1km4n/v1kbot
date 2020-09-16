@@ -99,18 +99,6 @@ client.on('message', async message => {
 			let ETF2LNickName = etf2lPlayer.player.name;
 			ETF2LLink = "https://etf2l.org/forum/user/" + ETF2LID;
 			let ETF2LProfilePicture = etf2lPlayer.player.steam.avatar;
-
-			var embedWithLeaguesLinks = new Discord.MessageEmbed()
-				.setColor('#0099ff')
-				.setTitle(`League Links for **${ETF2LNickName}**`)
-				.setThumbnail(ETF2LProfilePicture)
-				.addFields(
-					//{ name: '\u200B', value: '\u200B' },
-					{ name: '**ETF2L**', value: ETF2LLink, inline: true },
-					{ name: '**UGC**', value: UGCLink, inline: true },
-					{ name: '**RGL**', value: RGLLink, inline: true },
-				)
-			message.channel.send(embedWithLeaguesLinks);
 			
 			//message.channel.send(`[**ETF2L**]: ${ETF2LLink}\n
 			//					  [**UGC**]: ${UGCLink}\n
@@ -127,6 +115,16 @@ client.on('message', async message => {
 				} 
 			}
 
+			var HLTeamLink;
+			var HLTeamDiv;
+			var HLTeamName;
+			var HLTeamCompetititonName;
+
+			var SixesTeamLink;
+			var SixesTeamDiv;
+			var SixesTeamName;
+			var SixesTeamCompetititonName;
+
 			if (HLTeamNo != null) {
 				let latestSeasonID = null;
 				let checkedSeason = null;
@@ -135,6 +133,9 @@ client.on('message', async message => {
 				let listofHLTeamSeasons = etf2lPlayer.player.teams[HLTeamNo].competitions;
 				let amountofHLTeamSeasons = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length;
 				let latestSeason = null; //meaning the JSON part of the season we are about to get info about
+
+				HLTeamLink = "https://etf2l.org/teams/" + team.id;
+				HLTeamName = team.name;
 
 				for (let i = 0; i < amountofHLTeamSeasons; i++) {
 					checkedSeason = Object.keys(listofHLTeamSeasons)[amountofHLTeamSeasons - i - 1];
@@ -147,29 +148,39 @@ client.on('message', async message => {
 				}
 
 				if (latestSeasonID == null) {
-					message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
+					HLTeamCompetititonName = null;
+					HLTeamDiv = null;
+					//message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
 				} else { //TODO: add check for the player match history rather than division of the current team
 					if ((latestSeason.division.name == null)) { //for those HL seasons, where open division was basically a complete different season
 						let colonIndex = latestSeason.competition.indexOf(':'); //we need this to find colon in string like "Highlander Season 18: Open" and the slice the ": Open" part off
-						let cleanSeasonName = latestSeason.competition.slice(0, colonIndex); //"Highlander Season 18: Open" -> "Highlander Season 18"
-						message.channel.send(`This player has played in **Open** with **${team.name}** during the **${cleanSeasonName}**`);
+						HLTeamCompetititonName = latestSeason.competition.slice(0, colonIndex); //"Highlander Season 18: Open" -> "Highlander Season 18"
+						HLTeamDiv = "Open";
+						//message.channel.send(`This player has played in **Open** with **${team.name}** during the **${cleanSeasonName}**`);
 					} else { //now for the usual seasons
-						message.channel.send(`This player has played in **${latestSeason.division.name}** with **${team.name}** during the **${latestSeason.competition}**`);
+						HLTeamDiv = latestSeason.division.name;
+						HLTeamCompetititonName = latestSeason.competition;
+						//message.channel.send(`This player has played in **${latestSeason.division.name}** with **${team.name}** during the **${latestSeason.competition}**`);
 					}
 				}
 				
 			} else {
-				message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment");
+				HLTeamLink = null;
+				//message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment");
 			}
 
 			if (SixesTeamNo != null) {
 				let latestSeasonID = null;
 				let checkedSeason = null;
 
+
 				let team = etf2lPlayer.player.teams[SixesTeamNo];
 				let listofSixesTeamSeasons = etf2lPlayer.player.teams[SixesTeamNo].competitions;
 				let amountofSixesTeamSeasons = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length;
 				let latestSeason = null;
+
+				SixesTeamLink = "https://etf2l.org/teams/" + team.id;
+				SixesTeamName = team.name;
 
 				for (let i = 0; i < amountofSixesTeamSeasons; i++) {
 					checkedSeason = Object.keys(listofSixesTeamSeasons)[amountofSixesTeamSeasons - i - 1];
@@ -182,19 +193,85 @@ client.on('message', async message => {
 				}
 
 				if (latestSeasonID == null) {
-					message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
+					SixesTeamCompetititonName = null;
+					SixesTeamDiv = null;
+					//message.channel.send("Team that the player is in has not yet participated in any competitions. Please check latest player's matches manually. This will be fixed in the future releases");
 				} else { //TODO: add check for the player match history rather than division of the current team
-					if ((latestSeason.division.name == null) && (latestSeason.competition.toLowerCase.includes("open"))) {
-						let colonIndex = latestSeason.competition.indexOf(':');
-						let cleanSeasonName = latestSeason.competition.slice(0, colonIndex); 
-						message.channel.send(`This player has played in **Open** with **${team.name}** during the **6v6 ${cleanSeasonName}**`);
-					} else { 
-						message.channel.send(`This player has played in **${latestSeason.division.name}** with **${team.name}** during the **6v6 ${latestSeason.competition}**`);
+					if ((latestSeason.division.name == null)) { //for those HL seasons, where open division was basically a complete different season
+						let colonIndex = latestSeason.competition.indexOf(':'); //we need this to find colon in string like "Highlander Season 18: Open" and the slice the ": Open" part off
+						SixesTeamCompetititonName = latestSeason.competition.slice(0, colonIndex); //"Highlander Season 18: Open" -> "Highlander Season 18"
+						SixesTeamDiv = "Open";
+						//message.channel.send(`This player has played in **Open** with **${team.name}** during the **${cleanSeasonName}**`);
+					} else { //now for the usual seasons
+						SixesTeamDiv = latestSeason.division.name;
+						SixesTeamCompetititonName = latestSeason.competition;
+						//message.channel.send(`This player has played in **${latestSeason.division.name}** with **${team.name}** during the **${latestSeason.competition}**`);
 					}
 				}
+				
 			} else {
-				message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment");
+				SixesTeamLink = null;
+				//message.channel.send("Player doesn't seem to be participating in any 6v6 season at the moment");
 			}
+
+
+			/*		var embedWithLeaguesLinks = new Discord.MessageEmbed()
+				.setColor('#0099ff')
+				.setTitle(`League Links for **${ETF2LNickName}**`)
+				.setThumbnail(ETF2LProfilePicture)
+				.addFields(
+					//{ name: '\u200B', value: '\u200B' },
+					{ name: '**ETF2L**', value: ETF2LLink, inline: true },
+					{ name: '**UGC**', value: UGCLink, inline: true },
+					{ name: '**RGL**', value: RGLLink, inline: true },
+				)
+			message.channel.send(embedWithLeaguesLinks);*/ // OLD EMBED
+			// EMBED PREVIEW
+			// ETF2L Info for the ${ETF2LNickName}
+			// 
+			// Profile Link
+			// ${ETF2LLink}
+			//
+			// 6v6 Team		
+			// ${SixesTeamName} | ${SixesTeamLink}											
+			// ${SixesTeamCompetititonName} | ${SixesTeamDiv}
+			// 
+			// HL Team
+			// ${HLTeamName} | ${HLTeamLink}
+			// ${HLTeamCompetititonName} | ${HLTeamDiv}
+
+			let SixesEmbedDescription;
+			if (SixesTeamLink == null) {
+				SixesEmbedDescription = "None";
+			} else if (SixesTeamDiv == null) {
+				SixesEmbedDescription = `${SixesTeamName} | ${SixesTeamLink}`
+			} else if (SixesTeamDiv != null) {
+				SixesEmbedDescription = `${SixesTeamName} | ${SixesTeamLink}\n${SixesTeamCompetititonName} | ${SixesTeamDiv}`;
+			} else {
+				SixesEmbedDescription = `Unknown error has occured *shrug*`;
+			}
+
+			let HLEmbedDescription;
+			if (HLTeamLink == null) {
+				HLEmbedDescription = "None";
+			} else if (HLTeamDiv == null) {
+				HLEmbedDescription = `${HLTeamName} | ${HLTeamLink}`
+			} else if (HLTeamDiv != null) {
+				HLEmbedDescription = `${HLTeamName} | ${HLTeamLink}\n${HLTeamCompetititonName} | ${HLTeamDiv}`;
+			} else {
+				HLEmbedDescription = `Unknown error has occured *shrug*`;
+			}
+			
+			var ETF2LEmbed = new Discord.MessageEmbed()
+				.setColor('#0099ff')
+				.setTitle(`ETF2L info for ${ETF2LNickName}`)
+				.setThumbnail(ETF2LProfilePicture)
+				.addFields(
+					{ name: '**6v6 Team**', value: SixesEmbedDescription},
+					{ name: '\u200B', value: '\u200B' },
+					{ name: '**HL Team**', value: HLEmbedDescription},
+				)
+			message.channel.send(ETF2LEmbed);
 
 			
 		});
