@@ -74,6 +74,7 @@ client.on('message', async message => {
 		var request = new XMLHttpRequest();
 		var UGCLink;
 		var RGLLink;
+    var ETF2LLink;
 
 		steam.resolve(args[0]).then(steamID => {			
 			// UGC
