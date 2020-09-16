@@ -3,7 +3,7 @@ const SteamAPI = require('steamapi'); //steam api for etf2l search
 const ytdl = require('ytdl-core'); //ytmusic support
 const ytlist = require('youtube-playlist'); //playlist for ytmusic support
 const config = require('./config.json');
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest; //http requests for etf2l api
 
 const client = new Discord.Client();
 client.login(process.env.BOT_TOKEN);
@@ -50,11 +50,21 @@ client.on('message', async message => {
 	const args = split.slice(1); //and then is removed from the list of args
 
 	if (command === 'helpv') {
-		message.author.send("`!citata - рандомная цитата\n!non/!noff - уведомления на сервере\n!catgirl - :(\n!chaninfo - дата создания канала (хз зачем я это сделал)\n!cbt - кокенболторчер\n!wise - локальные мемы\n!helpm - команды музыкального бота\n--------NetStalking Part-------\n--------Warning NSFW-------\n!imgur для рандомных картинок с имгура\n(exp !imgur 10)пришлет 10 рандомных картинок с имгура\n!lightshot тоже самое как с имгуром только теперь скриншоты глупых людей сделаных с помощью лайтшота(использование как с имгуром)`");
+		message.author.send(`!citata - рандомная цитата\n
+							!non/!noff - уведомления на сервере\n
+							!catgirl - :(\n
+							!chaninfo - дата создания канала (хз зачем я это сделал)\n
+							!cbt - кокенболторчер\n
+							!wise - локальные мемы\n
+							!helpm - команды музыкального бота\n--------NetStalking Part-------\n--------Warning NSFW-------\n
+							!imgur для рандомных картинок с имгура\n(exp !imgur 10)пришлет 10 рандомных картинок с имгура\n
+							!lightshot тоже самое как с имгуром только теперь скриншоты глупых людей сделаных с помощью лайтшота(использование как с имгуром)\n
+							!etf2l + ссылка на стим - инфа по последнему сезону етф2л
+							!leagues + ссылка на стим - ссылка на ETF2L, UGC, RGL для данного стим профиля`);
 	}
 
 	if (command === 'helpm') {
-		message.author.send("`!play [youtube_url] - проигрывание музла с YT (можно формировать очередь)\n!queue - непосредственно очередь\n!skip [x] - пропустить x треков (просто !skip пропустит 1)\n!leave - выгнать бота из войса (или он выйдет сам, когда кончится очередь)`");
+		message.author.send(`!play [youtube_url] - проигрывание музла с YT (можно формировать очередь)\n!queue - непосредственно очередь\n!skip [x] - пропустить x треков (просто !skip пропустит 1)\n!leave - выгнать бота из войса (или он выйдет сам, когда кончится очередь)`);
 	}
 	if ( (command === 'imgur') || (command === 'lightshot') ) {  //where args[0] is amount of netstalking shit to be recived 
 	const port = '8099'; // port for Kworker's apiserver
@@ -74,7 +84,7 @@ client.on('message', async message => {
 		var request = new XMLHttpRequest();
 		var UGCLink;
 		var RGLLink;
-    var ETF2LLink;
+    	var ETF2LLink;
 
 		steam.resolve(args[0]).then(steamID => {			
 			// UGC
