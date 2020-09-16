@@ -96,12 +96,13 @@ client.on('message', async message => {
 			var etf2lPlayer = JSON.parse(request.responseText);
 
 			let ETF2LID = etf2lPlayer.player.id;
+			let ETF2LNickName = etf2lPlayer.player.name;
 			ETF2LLink = "https://etf2l.org/forum/user/" + ETF2LID;
 			let ETF2LProfilePicture = etf2lPlayer.player.steam.avatar;
 
 			var embedWithLeaguesLinks = new Discord.MessageEmbed()
 				.setColor('#0099ff')
-				.setTitle('League Links')
+				.setTitle(`League Links for **${ETF2LNickName}**`)
 				.setThumbnail(ETF2LProfilePicture)
 				.addFields(
 					//{ name: '\u200B', value: '\u200B' },
