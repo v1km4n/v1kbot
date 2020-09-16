@@ -128,16 +128,6 @@ client.on('message', async message => {
 				}
 			}
 
-			var HLTeamLink;
-			var HLTeamDiv;
-			var HLTeamName;
-			var HLTeamCompetititonName;
-
-			var SixesTeamLink;
-			var SixesTeamDiv;
-			var SixesTeamName;
-			var SixesTeamCompetititonName;
-
 			if (HLTeamNo != null) {
 				let latestSeasonID = null;
 				let checkedSeason = null;
