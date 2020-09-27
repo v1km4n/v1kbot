@@ -481,7 +481,7 @@ client.on('message', async message => {
 		let guildID = message.guild.id;
 
 		queue.push({
-			songName: info.title,
+			songName: info.videoDetails.title,
 			requester: message.author.tag,
 			url: url,
 			channel: message.channel.id
@@ -490,7 +490,7 @@ client.on('message', async message => {
 		if (!connection) connection = await message.member.voice.channel.join(); //connection becomes null again as soon as the bot joins the channel, so every time we play smth we have to make a new one
 		if (!dispatcher) await play(client, connection, queue, guildID) //play if no other song is playing rn
 		else {
-			message.channel.send(`Added \`${info.title}\` to the Queue | Requested by \`${message.author.tag}\``); //otherwise add to the queue
+			message.channel.send(`Added \`${info.videoDetails.title}\` to the Queue | Requested by \`${message.author.tag}\``); //otherwise add to the queue
 		}
 	}
 
