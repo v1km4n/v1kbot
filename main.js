@@ -3,11 +3,12 @@ const SteamAPI = require('steamapi'); //steam api for etf2l search
 const ytdl = require('ytdl-core'); //ytmusic support
 const ytlist = require('youtube-playlist'); //playlist for ytmusic support
 const config = require('./config.json');
+const tokens = require('./tokens.json');
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest; //http requests for etf2l api
 
 const client = new Discord.Client();
-client.login(process.env.BOT_TOKEN);
-const steam = new SteamAPI(process.env.STEAM_TOKEN);
+client.login(tokens.discord);
+const steam = new SteamAPI(tokens.steam);
 
 const notificationsRoleID = '511657769233809408'; //'derzhite' role id on v1km4n server
 const serverID = '347755453528276992'; //v1km4n server id
