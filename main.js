@@ -1,14 +1,20 @@
-const Discord = require("discord.js"); //main discord js api
-const SteamAPI = require('steamapi'); //steam api for etf2l search
-const ytdl = require('ytdl-core'); //ytmusic support
-const ytlist = require('youtube-playlist'); //playlist for ytmusic support
+const Discord = require("discord.js");
+
 const config = require('./config.json');
 const tokens = require('./tokens.json');
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest; //http requests for etf2l api
 
 const client = new Discord.Client();
+client.commands = new Discord.Collection();
+
+const fs = require('fs');
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+	const command = require(`./commands/${file}`);
+	client.commands.set(command.name, command);
+}
+
 client.login(tokens.discord);
-const steam = new SteamAPI(tokens.steam);
 
 const notificationsRoleID = '511657769233809408'; //'derzhite' role id on v1km4n server
 const serverID = '347755453528276992'; //v1km4n server id
@@ -16,9 +22,6 @@ const serverID = '347755453528276992'; //v1km4n server id
 var connection = null;
 var dispatcher = null; 
 var queue = [];
-
-const stars = new Date(Date.UTC(2020, 11, 18, 0, 0, 0));
-
 
 client.once('ready', () => {
 client.user.setStatus('available')
@@ -28,499 +31,33 @@ client.user.setStatus('available')
             type: "STREAMING",
             url: "https://www.twitch.tv/v1km4n"
         }
-    });
+	});
 });
 
 client.on('message', async message => {	
 
-	if (!message.content.startsWith(config.prefix) && (message.content.toLowerCase().includes("блины")   ||
-							   message.content.toLowerCase().includes("блинов")  ||
-							   message.content.toLowerCase().includes("блинам")  ||
-							   message.content.toLowerCase().includes("блинами") ||
-							   message.content.toLowerCase().includes("блинах")  ||
-							   message.content.toLowerCase().includes("blini"))&&
-	                                                   message.author.bot == false) {
+	if (message.author.bot) return;
+
+	if (message.content.toLowerCase().includes("блины") || message.content.toLowerCase().includes("блинов") ||
+		message.content.toLowerCase().includes("блинам") || message.content.toLowerCase().includes("блинами") ||
+		message.content.toLowerCase().includes("блинах") || message.content.toLowerCase().includes("blini")) {
 		const catWithPancakes = new Discord.MessageAttachment("https://i.imgur.com/L4QqeEF.jpg");
 		message.channel.send(catWithPancakes)
 			.then(() => message.channel.send("KTO-TO SKAZAL BLINI?"));
-	} //KTO-TO SKAZAL BLINI? reaction
+	} 
 
 	const withoutPrefix = message.content.slice(config.prefix.length); //"!blahblahblah" -> "blahblahblah"
 	const split = withoutPrefix.split(/ +/); //"blah blah blah" -> ['blah', 'blah', 'blah']
 	const command = split[0].toLowerCase(); //first 'blah' gets to be the command
-	const args = split.slice(1); //and then is removed from the list of args
+	const args = split.slice(1); //and then gets removed from the list of args
 
-	if (command === 'helpv') {
-		message.author.send(`!non/!noff - уведомления на сервере
-!catgirl - :(
-!chaninfo - дата создания канала (хз зачем я это сделал)
-!cbt - кокенболторчер
-!wise - локальные мемы
-!helpm - команды музыкального бота
-!imgur + количество - рандомные картинки с имгура (!NSFW!)
-!lightshot + количество -  рандомные картинки с лайтшота
-!etf2l + ссылка на стим - инфа по последнему сезону етф2л для данного стим профиля
-!leagues + ссылка на стим - ссылки на ETF2L, UGC, RGL для данного стим профиля`);
-	}
+	if (!client.commands.has(command)) return;
 
-	if (command === 'helpm') {
-		message.author.send(`!play [youtube_url] - проигрывание музла с YT (можно формировать очередь)\n!queue - непосредственно очередь\n!skip [x] - пропустить x треков (просто !skip пропустит 1)\n!leave - выгнать бота из войса (или он выйдет сам, когда кончится очередь)`);
-	}
-	if ( (command === 'imgur') || (command === 'lightshot') ) {  //where args[0] is amount of netstalking shit to be recived 
-	const port = '8099'; // port for Kworker's apiserver
-	var received = '0'; // amount of messsages recived 	
-		var s = require('net').Socket();
-		s.connect(port, '45.128.206.232'); //kworker\'s API ip
-		s.write(command + " " + args[0] + "\n"); //sending request to kworker\'s api
-		s.on('data', function (data) {  //receiving  messages from Kworker's api
-        	message.channel.send(data.toString());
-		received++;	
-		if (received >= args[0]) s.destroy();	
-	
-  	  });
-	}
-
-	if (command === 'leagues') {
-		var request = new XMLHttpRequest();
-		var UGCLink;
-		var RGLLink;
-		var ETF2LLink;
-
-		let NickName = null;
-		let ProfilePicture = null;
-
-		steam.resolve(args[0]).then(steamID => {			
-			// UGC
-			UGCLink = "https://www.ugcleague.com/players_page.cfm?player_id=" + steamID;
-
-			// RGL
-			RGLLink = "https://rgl.gg/Public/PlayerProfile.aspx?p=" + steamID;
-
-			//ETF2L
-
-
-			let etf2lPlayerURL = new URL("https://api.etf2l.org/player/") + steamID + (".json");
-			request.open('GET', etf2lPlayerURL, false);
-			request.send();
-
-			let etf2lPlayer = JSON.parse(request.responseText);
-
-			if (etf2lPlayer.status.code == 200) { //if given steamid has an ETF2L profile, parse data from there
-				let ETF2LID = etf2lPlayer.player.id;
-				NickName = etf2lPlayer.player.name;
-				ProfilePicture = etf2lPlayer.player.steam.avatar;
-				ETF2LLink = "https://etf2l.org/forum/user/" + ETF2LID;
-				var embedWithLeaguesLinks = new Discord.MessageEmbed()
-				.setColor('#0099ff')
-				.setTitle(`League Links for **${NickName}**`)
-				.setThumbnail(ProfilePicture)
-				.addFields(
-					{ name: '**ETF2L**', value: ETF2LLink},
-					{ name: '**UGC**', value: UGCLink},
-					{ name: '**RGL**', value: RGLLink},
-				)
-				message.channel.send(embedWithLeaguesLinks);
-			} else { //if not, take the nickname and the profile picture from the steam profile
-				console.log("got not 200");
-				steam.getUserSummary(steamID).then(summary => { //I HATE RESOLVES SO MUCH THANKS TO THEM I HAVE TO BUILD THE SAME EMBED TWICE 
-					NickName = summary.nickname;
-					ProfilePicture = summary.avatar.large;
-					ETF2LLink = "none";
-					var embedWithLeaguesLinks = new Discord.MessageEmbed()
-					.setColor('#0099ff')
-					.setTitle(`League Links for **${NickName}**`)
-					.setThumbnail(ProfilePicture)
-					.addFields(
-					{ name: '**ETF2L**', value: ETF2LLink},
-					{ name: '**UGC**', value: UGCLink},
-					{ name: '**RGL**', value: RGLLink},
-					)
-					message.channel.send(embedWithLeaguesLinks);
-				});	
-			}
-		});
-	}
-	
-	if (command === 'etf2l') {
-		var request = new XMLHttpRequest();
-		var ETF2LLink;
-
-		steam.resolve(args[0]).then(steamID => {
-			//ETF2L
-
-
-			let etf2lPlayerURL = new URL("https://api.etf2l.org/player/") + steamID + (".json");
-			request.open('GET', etf2lPlayerURL, false);
-			request.send();
-
-			var etf2lPlayer = JSON.parse(request.responseText);
-
-			if (etf2lPlayer.status.code == 200) {
-				let ETF2LID = etf2lPlayer.player.id;
-				let ETF2LNickName = etf2lPlayer.player.name;
-				ETF2LLink = "https://etf2l.org/forum/user/" + ETF2LID;
-				let ETF2LProfilePicture = etf2lPlayer.player.steam.avatar;
-
-				var HLTeamNo = null;
-				var SixesTeamNo = null;
-
-				var HLTeamLink = null;
-				var HLTeamDiv = null;
-				var HLTeamName = null;
-				var HLTeamCompetititonName = null;
-
-				var SixesTeamLink = null;
-				var SixesTeamDiv = null;
-				var SixesTeamName = null;
-				var SixesTeamCompetititonName = null;
-
-
-				if (etf2lPlayer.player.teams != null) {
-					for (let i = 0; i < Object.keys(etf2lPlayer.player.teams).length; i++) {
-						if (etf2lPlayer.player.teams[i].type == "Highlander") { 
-							HLTeamNo = i;
-						} else if (etf2lPlayer.player.teams[i].type == "6on6") {
-							SixesTeamNo = i;
-						} 
-					}
-				}
-
-				if (HLTeamNo != null) {
-					let latestSeasonID = null;
-					let checkedSeason = null;
-
-					let team = etf2lPlayer.player.teams[HLTeamNo];
-					let listofHLTeamSeasons = etf2lPlayer.player.teams[HLTeamNo].competitions;
-					let amountofHLTeamSeasons = Object.keys(etf2lPlayer.player.teams[HLTeamNo].competitions).length;
-					let latestSeason = null; //meaning the JSON part of the season we are about to get info about
-
-					HLTeamLink = "https://etf2l.org/teams/" + team.id;
-					HLTeamName = team.name;
-
-					for (let i = 0; i < amountofHLTeamSeasons; i++) {
-						checkedSeason = Object.keys(listofHLTeamSeasons)[amountofHLTeamSeasons - i - 1];
-						if ((!listofHLTeamSeasons[checkedSeason].competition.includes("Qualifiers")) && 
-							(!listofHLTeamSeasons[checkedSeason].competition.includes("Playoffs"))) {
-							latestSeasonID = checkedSeason;
-							latestSeason = etf2lPlayer.player.teams[HLTeamNo].competitions[latestSeasonID];
-							break; //found the latest HL season that is not qualifiers of playoffs, since those don't have the division argument
-						}
-					}
-
-					if (latestSeasonID == null) {
-						HLTeamCompetititonName = null;
-						HLTeamDiv = null;
-					} else { //TODO: add check for the player match history rather than division of the current team
-						if ((latestSeason.division.name == null)) { //for those HL seasons, where open division was basically a complete different season
-							let colonIndex = latestSeason.competition.indexOf(':'); //we need this to find colon in string like "Highlander Season 18: Open" and the slice the ": Open" part off
-							HLTeamCompetititonName = latestSeason.competition.slice(0, colonIndex); //"Highlander Season 18: Open" -> "Highlander Season 18"
-							HLTeamDiv = "Open";
-						} else { //now for the usual seasons
-							HLTeamDiv = latestSeason.division.name;
-							HLTeamCompetititonName = latestSeason.competition;
-						}
-					}
-					
-				} else {
-					HLTeamLink = null;
-				}
-
-				if (SixesTeamNo != null) {
-					let latestSeasonID = null;
-					let checkedSeason = null;
-
-
-					let team = etf2lPlayer.player.teams[SixesTeamNo];
-					let listofSixesTeamSeasons = etf2lPlayer.player.teams[SixesTeamNo].competitions;
-					let amountofSixesTeamSeasons = Object.keys(etf2lPlayer.player.teams[SixesTeamNo].competitions).length;
-					let latestSeason = null;
-
-					SixesTeamLink = "https://etf2l.org/teams/" + team.id;
-					SixesTeamName = team.name;
-
-					for (let i = 0; i < amountofSixesTeamSeasons; i++) {
-						checkedSeason = Object.keys(listofSixesTeamSeasons)[amountofSixesTeamSeasons - i - 1];
-						if ((!listofSixesTeamSeasons[checkedSeason].competition.includes("Qualifiers")) && 
-							(!listofSixesTeamSeasons[checkedSeason].competition.includes("Playoffs"))) {
-							latestSeasonID = checkedSeason;
-							latestSeason = etf2lPlayer.player.teams[SixesTeamNo].competitions[latestSeasonID];
-							break;
-						}
-					}
-
-					if (latestSeasonID == null) {
-						SixesTeamCompetititonName = null;
-						SixesTeamDiv = null;
-					} else { //TODO: add check for the player match history rather than division of the current team
-						if ((latestSeason.division.name == null)) { //for those HL seasons, where open division was basically a complete different season
-							let colonIndex = latestSeason.competition.indexOf(':'); //we need this to find colon in string like "Highlander Season 18: Open" and the slice the ": Open" part off
-							SixesTeamCompetititonName = latestSeason.competition.slice(0, colonIndex); //"Highlander Season 18: Open" -> "Highlander Season 18"
-							SixesTeamDiv = "Open";
-						} else { //now for the usual seasons
-							SixesTeamDiv = latestSeason.division.name;
-							SixesTeamCompetititonName = latestSeason.competition;
-						}
-					}
-					
-				} else {
-					SixesTeamLink = null;
-				}
-
-				// EMBED PREVIEW
-				// ETF2L Info for the ${ETF2LNickName}
-				// 
-				// Profile Link
-				// ${ETF2LLink}
-				//
-				// 6v6 Team		
-				// ${SixesTeamName} | ${SixesTeamLink}											
-				// ${SixesTeamCompetititonName} | ${SixesTeamDiv}
-				// 
-				// HL Team
-				// ${HLTeamName} | ${HLTeamLink}
-				// ${HLTeamCompetititonName} | ${HLTeamDiv}
-
-				let SixesEmbedDescription;
-				if (SixesTeamLink == null) {
-					SixesEmbedDescription = "None";
-				} else if (SixesTeamDiv == null) {
-					SixesEmbedDescription = `${SixesTeamName} | ${SixesTeamLink}`
-				} else if (SixesTeamDiv != null) {
-					SixesEmbedDescription = `${SixesTeamName} | ${SixesTeamLink}\n${SixesTeamCompetititonName} | ${SixesTeamDiv}`;
-				} else {
-					SixesEmbedDescription = `Unknown error has occured *shrug*`;
-				}
-
-				let HLEmbedDescription;
-				if (HLTeamLink == null) {
-					HLEmbedDescription = "None";
-				} else if (HLTeamDiv == null) {
-					HLEmbedDescription = `${HLTeamName} | ${HLTeamLink}`
-				} else if (HLTeamDiv != null) {
-					HLEmbedDescription = `${HLTeamName} | ${HLTeamLink}\n${HLTeamCompetititonName} | ${HLTeamDiv}`;
-				} else {
-					HLEmbedDescription = `Unknown error has occured *shrug*`;
-				}
-				
-				var ETF2LEmbed = new Discord.MessageEmbed()
-
-					.setColor('#0099ff')
-					.setTitle(`ETF2L info for ${ETF2LNickName}`)
-					.setDescription(ETF2LLink)
-					.setThumbnail(ETF2LProfilePicture)
-					.addFields(
-						{ name: '**6v6 Team**', value: SixesEmbedDescription},
-						{ name: '**HL Team**', value: HLEmbedDescription},
-					)
-				message.channel.send(ETF2LEmbed);
-			} else {
-				message.channel.send("No such player on ETF2L");
-			}
-			
-		});
-	}
-
-	if (command === 'non') {
-		if (message.server.id == serverID) { //if on the right server
-			if (!message.member.roles.cache.some(role => role.id === notificationsRoleID)) {//if doesn't have the role yet
-				message.member.roles.add(notificationsRoleID);
-				message.reply("теперь ты занесён в список поддерживаемых в курсе. Чтобы отписаться напиши команду !noff");
-			} else {
-				message.reply("у тебя уже есть роль");
-			}
-		} else {
-			message.reply('эта команда работает только на https://discord.gg/7xptNH4');
-		}
-	}
-
-	if (command === 'noff') {
-		if (message.server.id == serverID) { //if on the right server
-			if (!message.member.roles.cache.some(role => role.id === notificationsRoleID)) {//if has the role already
-				message.member.roles.remove(notificationsRoleID);
-				message.reply("ты удалён из списка поддерживаемых в курсе. Чтобы подписаться обратно напиши команду !non");
-			} else {
-				message.reply("у тебя и нет никакой роли");
-			}
-		} else {
-			message.reply('эта команда работает только на https://discord.gg/7xptNH4');
-		}
-	}
-
-	if (command === 'catgirl') { //ah good ol' weaboo days
-		answer = ["кошко-девочек ещё не изобрели ;_;",
-		"в этом мире всё ещё нет смысла жить - кошко-девочек не существует",
-		"кошко-девочек пока нет, придётся перепроходить некопару",
-		"кошко-девочек нет, но вы держитесь",
-		"кошко-девочек ещё не изобрели, но пытаться заставить реальную девушку отыгрывать кошко-девочку незаконно",
-		"нет, всё ещё не изобрели. На, не грусти: https://bit.ly/2BMGpNn",
-		"не-а, нету кошко-девочек. Да и вообще, как ты себе это представляешь?",
-		"у тебя не найдётся сотки на верёвку и мыло? Кошко-девочек ещё не изобрели",
-		"некопара поселила в тебя ложную надежду, которая никогда не оправдается. Живи с этим.",
-		];
-		message.reply(answer[Math.floor(Math.random() * answer.length)]);
-	}
-
-	if (command === 'wise') {
-		const attachment = new Discord.MessageAttachment('https://i.imgur.com/pLRMvCr.jpg');
-		message.channel.send(attachment);
-	}
-	
-	if (command === 'damn') {
-		const attachment = new Discord.MessageAttachment('https://cdn.discordapp.com/attachments/347767925241020426/677908852233994250/0_Ji8-YET7M.png');
-		message.channel.send(attachment);
-	}
-
-	if (command === 'w2g') {
-		if (message.author.id == '181485162486431745') { // if v1km4n
-			message.channel.send('https://www.watch2gether.com/rooms/pizzaroom-j1ayx7w6iq1sjgu0');
-		} else {
-			message.channel.send('You are not allowed to use that command'); //if not
-		}
-    }
-
-	if (command === 'channel') {
-		creationDate = message.channel.createdAt;
-		let date = creationDate.getDate();
-		let month = creationDate.getMonth()+1;
-		let year = creationDate.getYear()+1900;
-		let hours = creationDate.getHours();
-		let minutes = creationDate.getMinutes();
-		message.channel.send(`This channel was created on ${date}/${month}/${year} at ${hours}:${minutes}`);
-	}
-
-	if (command === 'dmbl') {
-		if (args[0].toLowerCase() === 'stars') {
-			ms_to_date(stars);
-		} else if (args[0] === undefined) {
-			message.channel.send('```Current list of mujiki:\nStars```')
-		} else {
-			message.channel.send('No such mujik');
-		}
-	}
-
-	function ms_to_date (givenDate) {
-		ms = givenDate - Date.now();
-		var mss = ms % 1000;
-		ms = (ms - mss) / 1000; //secs
-		var secs = ms % 60;
-		ms = (ms - secs) / 60; //mins
-		var mins = ms % 60;
-		ms = (ms - mins) / 60; //hrs
-		var hrs = ms % 24;
-		ms = (ms - hrs) / 24; // days
-		message.channel.send(`${ms} days, ${hrs} hrs, ${mins} mins, ${secs} secs`);
-	}
-
-	if (command === 'cbt') {
-		cbtPics = ["https://cdn.discordapp.com/attachments/613703369009135632/636620272451190794/P5txqHSTr1A.jpg",
-					 "https://cdn.discordapp.com/attachments/613703369009135632/636618259759628288/oSdOPRKypSc.jpg",]
-		const audio = new Discord.MessageAttachment('https://upload.wikimedia.org/wikipedia/commons/4/41/CocknBallTorture.ogg');
-		const pic = new Discord.MessageAttachment(cbtPics[Math.floor(Math.random() * cbtPics.length)]);
-		message.channel.send(pic)
-				.then(() => message.channel.send("Cock and ball torture (CBT) is a sexual activity involving application of pain or constriction to the male genitals. This may involve directly painful activities, such as wax play, genital spanking, squeezing, ball-busting, genital flogging, urethral play, tickle torture, erotic electrostimulation or even kicking."))
-				.then(() => message.channel.send(audio));
-	}
-
-	if (command === 'play') {
-		if (args[0] === undefined) {
-			message.channel.send('Please provide a URL');
-		} else {
-			if (args[0].includes('playlist')) { //if playlist
-				await ytlist(args[0], 'url').then(res => {
-					player_queue = res.data.playlist; //list of videos within given playlist
-				});
-				for (let i = 0; i < player_queue.length; ++i) {
-					await url_handler(player_queue[i], client, connection, queue); //handle all the urls from given playlist
-				}
-			}
-
-			if (args[0].includes('watch')) { //if video
-				await url_handler(args[0], client, connection, queue);
-			}
-		}
-
-		message.delete(); //deletes the initial message (because of a huge yt video preview)
-	}
-
-	if (command === 'queue') {
-		if (queue != [] ) { //if not empty
-			let queueMessage = `Queue:\n`;
-			for (let i = 0; i < queue.length; ++i) {
-				queueMessage = `${queueMessage}${(i+1)}) ${queue[i].songName} | Requested by: ${queue[i].requester}\n`;
-			}
-			message.channel.send(`\`\`\`${queueMessage}\`\`\``);
-		} else {
-			message.channel.send("Queue is empty");
-		};
-	}
-
-	if (command === 'skip') {
-		let shiftAmount = args[0]; //how much tracks would we want to skip
-		if (shiftAmount === undefined) shiftAmount = 1; //1 if not given any number
-		let guildID = message.guild.id;
-		message.channel.send(`Skipped \`${shiftAmount}\` Tracks`);
-		finish(client, connection, queue, guildID, shiftAmount);
-	}
-
-	if (command === 'leave') {
-		if (!message.member.voice.channel) message.channel.send('You are not in a Voice Channel');
-		if (!message.guild.me.voice.channel) message.channel.send('The bot in not in a Voice Channel');
-		if (message.member.voice.channel != message.guild.me.voice.channel) message.channel.send('The bot in in the another Voice Channel');
-		if (queue) queue = []; //cleans the queue
-		message.member.voice.channel.leave();
-		message.react('👋');
-	}
-
-	if (command === 'clear') {
-		if (queue) queue = [];
-		message.channel.send("The Player Queue was emptied!");
-	}
-
-	async function url_handler(url, client, connection, queue) {
-		let info = await ytdl.getInfo(url);
-		let guildID = message.guild.id;
-
-		queue.push({
-			songName: info.videoDetails.title,
-			requester: message.author.tag,
-			url: url,
-			channel: message.channel.id
-		});
-
-		if (!connection) connection = await message.member.voice.channel.join(); //connection becomes null again as soon as the bot joins the channel, so every time we play smth we have to make a new one
-		if (!dispatcher) await play(client, connection, queue, guildID) //play if no other song is playing rn
-		else {
-			message.channel.send(`Added \`${info.videoDetails.title}\` to the Queue | Requested by \`${message.author.tag}\``); //otherwise add to the queue
-		}
-	}
-
-	async function play(client, connection, queue, guildID) {
-		client.channels.cache.get(queue[0].channel).send(`Now playing \`${queue[0].songName}\` | Requested by \`${queue[0].requester}\``);
-		if (!connection) connection = await message.member.voice.channel.join(); 
-		dispatcher = await connection.play(ytdl(queue[0].url, { filter: 'audioonly', type: 'opus' })); //audioonly hopefully will lag less
-		dispatcher.guildID = guildID;
-
-		dispatcher.once('finish', function() {
-			finish(client, connection, queue, guildID, 1);
-		})
-	}
-
-	async function finish(client, connection, queue, guildID, shiftAmount) {
-		for (let i = 0; i < shiftAmount; ++i){
-			queue.shift();
-		}
-
-		if (queue.length > 0) {
-			play(client, connection, queue, guildID);
-		} else {
-			console.log('queue is empty, exiting');
-			let voice_channel = client.guilds.cache.get(guildID).me.voice.channel;
-			if (voice_channel) voice_channel.leave();
-			connection = null;
-			dispatcher = null;
-			queue = [];
-			message.channel.send('No More Tracks in Queue. Leaving');
-		}
+	try {
+		client.commands.get(command).execute(message, args, client, Discord);
+	} catch (error) {
+		console.error(error);
+		message.reply('there was an error trying to execute that command!');
 	}
 });
 
